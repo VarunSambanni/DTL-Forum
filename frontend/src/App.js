@@ -28,8 +28,8 @@ function App() {
               <Home></Home>
             </Route>
           </Switch>
-          <Footer />
         </div>
+        <Footer />
       </Router>
     </div >
   );
