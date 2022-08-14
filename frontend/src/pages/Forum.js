@@ -5,6 +5,7 @@ import Post from '../components/Post';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 const Forum = () => {
@@ -75,6 +76,7 @@ const Forum = () => {
             <Grid container>
                 <Grid item md={5.2} xs={12}>
                     <NavbarForum />
+                    <button style={{ margin: '0.4em', width: '3em' }} className={`button`} onClick={() => setForumUpdate(!forumUpdate)} ><RefreshIcon sx={{ margin: '-0.35em' }} /></button>
                 </Grid>
                 <Grid item md={6.8} xs={12}>
                     <div className='headingWrapper'>
