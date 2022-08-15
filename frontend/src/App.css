@@ -10,6 +10,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   background-color: rgb(241, 238, 238);
 }
 
@@ -21,10 +22,10 @@ body {
 .loginContainer {
   display: flex;
   margin: 0 auto;
-  border: 1px solid black;
   justify-content: center;
   background-color: rgb(244, 252, 255);
   width: 20em;
+  box-shadow: rgb(59, 59, 59) 0.1em 0.05em 0.4em;
 }
 
 .backgroundContainer{
@@ -34,7 +35,6 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  transition: all 1s;
 }
 
 
@@ -386,7 +386,7 @@ p {
 }
 
 .footer{
-  height: 7em;
+  height: 5.5em;
   background-color: #7187ff;
   color: white;
   margin: 0;
