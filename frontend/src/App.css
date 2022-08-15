@@ -14,9 +14,8 @@ body {
 }
 
 .contentWrapper {
-  padding: 0.1em;
+  padding: 0em;
   min-height: 80vh;
-  border-bottom: 1px solid black;
 }
 
 .loginContainer {
@@ -24,13 +23,20 @@ body {
   margin: 0 auto;
   border: 1px solid black;
   justify-content: center;
-  background-color: rgb(253, 249, 249);
+  background-color: rgb(244, 252, 255);
+  width: 20em;
 }
 
 .backgroundContainer{
   min-height: 80vh;
   position: relative;
+  background: url('../public/bg.jpg');
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 1s;
 }
+
 
 .linearProgressContainer {
   display: flex;
@@ -41,7 +47,16 @@ body {
   padding: 0em 0;
   background-color: white;
 }
-
+.linearProgressLoginContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 0.5em;
+    max-height: 0.5em;
+    width: 100%;
+    height: 10em;
+    padding: 0em 0;
+}
 .loginForm {
   display: flex;
   flex-direction: column; 
@@ -63,7 +78,7 @@ body {
   background-color: rgb(241, 241, 255);
   list-style: none;
   margin-top: 0em;
-  margin-bottom: 0.1em;
+  margin-bottom: 0em;
   box-shadow: grey 0.1em 0.05em 0.4em;
 }
 .navbarLink {
@@ -371,7 +386,7 @@ p {
 }
 
 .footer{
-  height: 5em;
+  height: 7em;
   background-color: #7187ff;
   color: white;
   margin: 0;

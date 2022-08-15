@@ -47,24 +47,26 @@ const Signup = () => {
     }
 
     return <>
-        <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
-        <div className='linearProgressContainer'>
-            {isLoading && <LinearProgress></LinearProgress>}
-        </div>
-        <div className='loginContainer'>
-            <div className='loginForm'>
-                <h4 className='centerText'>Sign Up</h4>
-                <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
-                <TextField size='small' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
-                <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
-                <Select size='small' sx={{ margin: '0.5em' }} value={year} onChange={(e) => setYear(e.target.value)} >
-                    <MenuItem value={'1st Year'}>1st Year</MenuItem>
-                    <MenuItem value={'2nd Year'}>2nd Year</MenuItem>
-                    <MenuItem value={'3rd Year'}>3rd Year</MenuItem>
-                    <MenuItem value={'4th Year'}>4th Year</MenuItem>
-                </Select>
-                <div className='buttonWrapper'>
-                    <button className='button'><p className='centerText buttonText' onClick={signup}>SIGN UP</p></button>
+        <div className="backgroundContainer">
+            <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
+            <div className='loginContainer'>
+                <div className='loginForm'>
+                    <div className='linearProgressLoginContainer'>
+                        {isLoading && <LinearProgress></LinearProgress>}
+                    </div>
+                    <h4 className='centerText'>Sign Up</h4>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
+                    <Select size='small' sx={{ margin: '0.5em' }} value={year} onChange={(e) => setYear(e.target.value)} >
+                        <MenuItem value={'1st Year'}>1st Year</MenuItem>
+                        <MenuItem value={'2nd Year'}>2nd Year</MenuItem>
+                        <MenuItem value={'3rd Year'}>3rd Year</MenuItem>
+                        <MenuItem value={'4th Year'}>4th Year</MenuItem>
+                    </Select>
+                    <div className='buttonWrapper'>
+                        <button className='button'><p className='centerText buttonText' onClick={signup}>SIGN UP</p></button>
+                    </div>
                 </div>
             </div>
         </div>
