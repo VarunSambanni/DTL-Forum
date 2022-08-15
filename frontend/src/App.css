@@ -24,6 +24,12 @@ body {
   margin: 0 auto;
   border: 1px solid black;
   justify-content: center;
+  background-color: rgb(253, 249, 249);
+}
+
+.backgroundContainer{
+  min-height: 80vh;
+  position: relative;
 }
 
 .linearProgressContainer {
@@ -33,11 +39,12 @@ body {
   min-height: 0.5em;
   max-height: 0.5em;
   padding: 0em 0;
+  background-color: white;
 }
 
 .loginForm {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
 }
 
 .buttonWrapper {
@@ -356,4 +363,17 @@ p {
   cursor: pointer;
   border-radius: 0.2em;
   margin: 1em;
+}
+
+.footerText{
+  margin: 0em;
+  padding: 0em;
+}
+
+.footer{
+  height: 5em;
+  background-color: #7187ff;
+  color: white;
+  margin: 0;
+  padding: 0;
 }

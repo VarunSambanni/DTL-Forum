@@ -59,20 +59,22 @@ const Login = () => {
 
     return (
         <>
-            <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
-            <div className='linearProgressContainer'>
-                {isLoading && <LinearProgress></LinearProgress>}
-            </div>
-            <div className='loginContainer'>
-                <div className='loginForm'>
-                    <h4 className='centerText'>Login</h4>
-                    <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
-                    <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
-                    <div className='buttonWrapper'>
-                        <button className='button'><p className='centerText buttonText' onClick={login}>LOGIN</p></button>
-                    </div>
+            <div className="backgroundContainer">
+                <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
+                <div className='linearProgressContainer'>
+                    {isLoading && <LinearProgress></LinearProgress>}
                 </div>
-            </div >
+                <div className='loginContainer'>
+                    <div className='loginForm'>
+                        <h4 className='centerText'>Login</h4>
+                        <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
+                        <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <div className='buttonWrapper'>
+                            <button className='button'><p className='centerText buttonText' onClick={login}>LOGIN</p></button>
+                        </div>
+                    </div>
+                </div >
+            </div>
         </>
     )
 }

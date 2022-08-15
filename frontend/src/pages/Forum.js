@@ -37,7 +37,6 @@ const Forum = () => {
     */
 
     useEffect(() => {
-        console.log("Forum update");
         setIsLoading(true);
         fetch('http://localhost:5000/forum', {
             method: "GET",
