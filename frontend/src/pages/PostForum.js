@@ -86,10 +86,10 @@ const PostForum = () => {
                     </div>
                 </Grid>
             </Grid>
-            <div className='postsWrapper' style={{ backgroundColor: 'rgb(227, 227, 250)' }} >
+            <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
                 <TextField multiline minRows={8} maxRows={8} variant='outlined' size='small' sx={{ margin: '0.5em' }} inputProps={{ style: { fontSize: '0.96rem' } }} label='Body' value={body} onChange={(e) => { setBody(e.target.value) }}></TextField>
-                <Select size='small' sx={{ margin: '0.5em', }} value={category} onChange={(e) => setCategory(e.target.value)} >
+                <Select size='small' sx={{ margin: '0.5em', minWidth: "15em", alignSelf: 'center' }} value={category} onChange={(e) => setCategory(e.target.value)} >
                     <MenuItem value={'1st Cat'}>Academics</MenuItem>
                     <MenuItem value={'2nd Cat'}>Placements/Internships</MenuItem>
                     <MenuItem value={'3rd Cat'}>Miscellaneous</MenuItem>
