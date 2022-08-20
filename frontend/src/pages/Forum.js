@@ -6,6 +6,8 @@ import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Logout from '../utils/Logout'
 
 
 const Forum = () => {
@@ -76,6 +78,7 @@ const Forum = () => {
                 <Grid item md={5.2} xs={12}>
                     <NavbarForum />
                     <button style={{ margin: '0.4em', width: '3em' }} className={`button`} onClick={() => setForumUpdate(!forumUpdate)} ><RefreshIcon sx={{ margin: '-0.35em' }} /></button>
+                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
                 </Grid>
                 <Grid item md={6.8} xs={12}>
                     <div className='headingWrapper'>
