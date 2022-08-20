@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Logout from '../utils/Logout'
 
 const styles = {
     resize: {
@@ -79,6 +81,7 @@ const PostForum = () => {
             <Grid container>
                 <Grid item md={5} xs={12}>
                     <NavbarForum />
+                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
                 </Grid>
                 <Grid item md={7} xs={12}>
                     <div className='headingWrapper'>

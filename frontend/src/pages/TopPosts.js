@@ -5,6 +5,8 @@ import Post from '../components/Post';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css';
 import LinearProgress from '@mui/material/LinearProgress';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Logout from '../utils/Logout'
 
 const TOP_QUESTIONS_LIMIT = 2;
 
@@ -107,6 +109,7 @@ const TopPosts = () => {
             <Grid container>
                 <Grid item md={5.2} xs={12}>
                     <NavbarForum />
+                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
                 </Grid>
                 <Grid item md={6.8} xs={12}>
                     <div className='headingWrapper'>
