@@ -13,7 +13,38 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [year, setYear] = useState("1st Year");
+    const [code, setCode] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [codeSent, setCodeSent] = useState(false);
+
+    const sendCode = () => {
+        setIsLoading(true);
+        fetch('http://localhost:5000/sendCode', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, email: email, year: year })
+        })
+            .then(res => res.json())
+            .then(data => {
+                setIsLoading(false);
+                if (data.success === false) {
+                    toast.error(data.msg, { autoClose: 4000 });
+                }
+                else {
+                    toast.success(data.msg, { autoClose: 4000 });
+                    setCodeSent(true);
+                }
+            })
+            .catch(err => {
+                setIsLoading(false);
+                console.log("Error connecting to server");
+                toast.error("Error connecting to server", { autoClose: 4000 });
+            })
+    }
+
     const signup = () => {
         setIsLoading(true);
         fetch('http://localhost:5000/signup', {
@@ -22,7 +53,7 @@ const Signup = () => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: username, password: password, email: email, year: year })
+            body: JSON.stringify({ username: username, password: password, email: email, year: year, code: code })
         })
             .then(res => res.json())
             .then(data => {
@@ -35,8 +66,10 @@ const Signup = () => {
                     setPassword('');
                     setEmail('');
                     setYear('1st Year');
+                    setCode('');
+                    setCodeSent(false);
                     toast.success(data.msg, { autoClose: 4000 });
-                    localStorage.setItem("token", data.token,);
+                    localStorage.setItem("token", data.token); // check this 
                 }
             })
             .catch(err => {
@@ -64,8 +97,13 @@ const Signup = () => {
                         <MenuItem value={'3rd Year'}>3rd Year</MenuItem>
                         <MenuItem value={'4th Year'}>4th Year</MenuItem>
                     </Select>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={code} label='Code' onChange={(e) => setCode(e.target.value)}></TextField>
                     <div className='buttonWrapper'>
-                        <button className='button'><p className='centerText buttonText' onClick={signup}>SIGN UP</p></button>
+                        {codeSent === false ?
+                            <button className='button'><p className='centerText buttonText' onClick={sendCode}>SEND CODE</p></button> :
+                            <button className='button'><p className='centerText buttonText' onClick={signup}>SIGN UP</p></button>
+                        }
+
                     </div>
                 </div>
             </div>

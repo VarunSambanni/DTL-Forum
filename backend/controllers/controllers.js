@@ -1,10 +1,23 @@
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
 const User = require('../models/user');
 const Forum1 = require('../models/forum1');
 const Forum2 = require('../models/forum2');
 const Forum3 = require('../models/forum3');
+const unverifiedUsers = require('../models/unverifiedUsers');
 
 const { v4: uuidv4 } = require('uuid');
+
+const transport = nodemailer.createTransport(
+    {
+        service: 'gmail',
+        auth: {
+            user: process.env.TRANSPORTER_EMAIL,
+            pass: process.env.TRANSPORTER_EMAIL_PASSWORD
+        }
+    }
+);
 
 const verifyCreds = async (userId, username, email, year) => {
     console.log("Verifying userCreds");
@@ -75,7 +88,8 @@ exports.postSignUp = (req, res, next) => {
     const password = req.body.password;
     const email = req.body.email;
     const year = req.body.year;
-    if (username === "" || password === "" || email === "" || year === "" || (email.includes("@rvce.edu.in") === false)) {
+    const code = req.body.code;
+    if (username === "" || password === "" || email === "" || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
     User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
@@ -87,22 +101,51 @@ exports.postSignUp = (req, res, next) => {
             else    // Create user 
             {
                 console.log("Attempting to create a new user");
-                const user = new User({
-                    userId: uuidv4(),
-                    username: username,
-                    password: password,
-                    email: email,
-                    year: year,
-                    revealIdentity: false
-                });
-                user.save()
-                    .then(result => {   // User created
-                        console.log("User created ", username);
-                        return res.json({ success: true, msg: "User created", user: { username: username, email: email, year: year } });
+
+                unverifiedUsers.findOne({ $and: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Finding such a user in unverifiedUsers 
+                    .then(unverifiedUserData => {
+                        if (unverifiedUserData.code !== code) {
+                            return res.json({ success: false, msg: "Invalid code" });
+                        }
+                        if (((new Date()).getTime() / 1000) - parseInt(unverifiedUserData.time) >= 300) // Check for code expiry 
+                        {
+                            unverifiedUsers.findOneAndDelete({ username: username })
+                                .then(result => {
+
+                                })
+                                .catch(err => {
+                                    console.log("Deleted ", username, " from unverifiedUsers");
+                                })
+                            return res.json({ success: false, msg: "Code expired, restart sign up process" });
+                        }
+                        const user = new User({ // If code valid, create user
+                            userId: uuidv4(),
+                            username: username,
+                            password: password,
+                            email: email,
+                            year: year,
+                            revealIdentity: false
+                        });
+                        user.save()
+                            .then(result => {   // User created
+                                console.log("User created ", username);
+                                unverifiedUsers.findOneAndDelete({ username: username })
+                                    .then(result => {
+
+                                    })
+                                    .catch(err => {
+                                        console.log("Deleted ", username, "from unverifiedUsers");
+                                    })
+                                return res.json({ success: true, msg: "User created", user: { username: username, email: email, year: year } });
+                            })
+                            .catch(err => {
+                                console.log("Error while creating user ", err);
+                                return res.json({ success: false, msg: "Error while creating user" });
+                            })
                     })
                     .catch(err => {
-                        console.log("Error while creating user ", err);
-                        return res.json({ success: false, msg: "Error while creating user" });
+                        console.log("Error finding user");
+                        return res.json({ success: false, msg: "Error finding user" });
                     })
             }
         })
@@ -438,3 +481,64 @@ exports.postUpvote = (req, res, next) => {
 exports.postCheckAuth = (req, res, next) => {
     return res.json({ success: true, msg: "Successfully Authenticated" });
 }
+
+exports.postSendCode = (req, res, next) => {
+
+    const username = req.body.username;
+    const email = req.body.email;
+    const year = req.body.year;
+
+    const code = uuidv4();
+
+    User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
+        .then(userData => {
+            if (userData) { // If user already exists 
+                console.log("User already exists ");
+                return res.json({ success: false, msg: "User already exists" });
+            }
+        })
+        .catch(err => {
+            console.log("Error checking if user already exits ", err);
+            return res.json({ success: false, msg: "Error checking if user already exits" });
+        })
+
+    var mailOptions = {
+        from: process.env.TRANSPORTER_EMAIL,
+        to: email,
+        subject: 'Code for your signup',
+        text: `Your code: ${code}, expires in 5 minutes`,
+        html: `<h4> Your code: ${code}, expires in 5 minutes </h4>`
+    }
+
+    // Check if it already exits unverifiedUsers, so that signup 'findOneAndDelete' functionality works
+
+    unverifiedUsers.findOneAndDelete({ username: username })
+        .then(result => {
+            const unverifiedUser = new unverifiedUsers({
+                username: username,
+                email: email,
+                year: year,
+                code: code,
+                time: (new Date()).getTime() / 1000
+            });
+            unverifiedUser.save()
+                .then(result => {
+                    transport.sendMail(mailOptions, (err, info) => {
+                        if (err) {
+                            console.log("Eror sending mail");
+                            return res.json({ success: false, msg: "Error sending mail" });
+                        }
+                        return res.json({ success: true, msg: "Code sent to your email" });
+                    })
+                })
+                .catch(err => {
+                    console.log("Error sending code ", err);
+                    return res.json({ success: false, msg: "Error sending code" });
+                })
+        })
+        .catch(err => {
+            console.log("Error finding and deleting in unverifiedUsers ", err);
+            return res.json({ success: false, msg: "Error sending code" });
+        })
+}
+

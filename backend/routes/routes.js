@@ -20,6 +20,8 @@ const verifyJWT = (req, res, next) => {
     }
 }
 
+router.post('/sendCode', controllers.postSendCode);
+
 router.post('/upvote', verifyJWT, controllers.postUpvote);
 
 router.post('/yourPosts', verifyJWT, controllers.getYourPosts);

@@ -366,9 +366,9 @@ p {
 
 .button {
   height: 3em;
-  width: 6em;
+  width: fit-content;
   margin: 1em;
-  padding: 0em;
+  padding: 0.2em;
   background-color: rgb(108, 108, 248);
   color: white;
   transition: all 0.2s;
