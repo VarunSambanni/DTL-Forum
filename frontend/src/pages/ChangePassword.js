@@ -11,6 +11,21 @@ const ChangePassword = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const reqPasswordChange = () => {
+
+        if (reqId === "") {
+            toast.error('Enter Request ID', { autoClose: 4000 });
+            return;
+        }
+
+        if (password.length < 10) {
+            toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error('Passwords must match', { autoClose: 4000 });
+            return;
+        }
         setIsLoading(true);
         fetch('http://localhost:5000/changePassword', {
             method: "POST",

@@ -558,7 +558,7 @@ exports.postForgotPassword = (req, res, next) => {
     const email = req.body.email;
     const code = uuidv4();
 
-    if (email === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (/\S+@\S+\.\S+/.test(email) === false) {  // Put this back later(email.includes("@rvce.edu.in") === false)
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
 
@@ -621,8 +621,8 @@ exports.postChangePassword = (req, res, next) => {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
 
-    if (password !== confirmPassword) {
-        return res.json({ success: false, msg: "Passwords don't match" });
+    if (password !== confirmPassword || requestId === "" || password.length < 10) {
+        return res.json({ success: false, msg: "Enter valid inputs" });
     }
 
     passwordRequests.findOne({ requestId: requestId })

@@ -9,6 +9,12 @@ const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const sendMail = () => {
+
+        if (/\S+@\S+\.\S+/.test(email) === false) {
+            toast.error('Enter valid email', { autoClose: false });
+            return;
+        }
+
         setIsLoading(true);
         fetch('http://localhost:5000/forgotPassword', {
             method: "POST",
