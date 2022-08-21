@@ -4,32 +4,27 @@ import { ToastContainer, toast } from 'react-toastify';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
-const Login = () => {
-    const [username, setUsername] = useState("");
+const ChangePassword = () => {
+    const [reqId, setReqId] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const login = () => {
+    const reqPasswordChange = () => {
         setIsLoading(true);
-        fetch('http://localhost:5000/login', {
+        fetch('http://localhost:5000/changePassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: username, password: password })
+            body: JSON.stringify({ reqId: reqId, password: password, confirmPassword: confirmPassword })
         })
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 if (data.success === true) {
                     toast.success(data.msg, { autoClose: 4000 });
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("username", data.user.username);
-                    localStorage.setItem("email", data.user.email);
-                    localStorage.setItem("year", data.user.year);
-                    localStorage.setItem("userId", data.user.userId);
-                    window.location.replace('http://localhost:3000/mainLoggedIn/forum'); // Perform apt redirection
                 }
                 else {
                     toast.error(data.msg, { autoClose: 4000 });
@@ -65,15 +60,13 @@ const Login = () => {
                         <div className='linearProgressLoginContainer'>
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
-                        <h4 className='centerText'>Login</h4>
-                        <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
-                        <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <h4 className='centerText'>Change Password</h4>
+                        <TextField size='small' sx={{ margin: '0.5em' }} value={reqId} label='Request ID' onChange={(e) => setReqId(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={confirmPassword} label='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
-                            <button className='button'><p className='centerText buttonText' onClick={login}>LOGIN</p></button>
+                            <button className='button'><p className='centerText buttonText' onClick={reqPasswordChange}>Change Password</p></button>
                         </div>
-                        <p className="centerText homePageContent">
-                            <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
-                        </p>
                     </div>
                 </div >
             </div>
@@ -82,4 +75,4 @@ const Login = () => {
 }
 
 
-export default Login;
+export default ChangePassword;

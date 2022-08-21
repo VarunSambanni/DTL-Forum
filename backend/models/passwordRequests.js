@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema
 
-const unverifiedUsersSchema = new Schema({
+const passwordRequestsSchema = new Schema({
     username: {
         type: String,
         required: true
@@ -11,11 +11,7 @@ const unverifiedUsersSchema = new Schema({
         type: String,
         required: true
     },
-    year: {
-        type: String,
-        required: true
-    },
-    code: {
+    requestId: {
         type: String,
         required: true
     },
@@ -25,4 +21,4 @@ const unverifiedUsersSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('unverifiedUsers', unverifiedUsersSchema); 
+module.exports = mongoose.model('passwordRequests', passwordRequestsSchema); 

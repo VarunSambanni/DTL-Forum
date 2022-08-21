@@ -20,6 +20,10 @@ const verifyJWT = (req, res, next) => {
     }
 }
 
+router.post('/changePassword', controllers.postChangePassword);
+
+router.post('/forgotPassword', controllers.postForgotPassword);
+
 router.post('/sendCode', controllers.postSendCode);
 
 router.post('/upvote', verifyJWT, controllers.postUpvote);

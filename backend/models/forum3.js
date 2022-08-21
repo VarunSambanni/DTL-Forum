@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+const forum3Schema = new Schema({
     title: {
         type: String,
         required: true
@@ -57,4 +57,4 @@ const userSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('forum3', userSchema); 
+module.exports = mongoose.model('forum3', forum3Schema); 

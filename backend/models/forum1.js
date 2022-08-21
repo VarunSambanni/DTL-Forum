@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+const forum1Schema = new Schema({
     postId: {   //Extra id for update function to work 
         type: String,
         required: true,
@@ -57,4 +57,4 @@ const userSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('forum1', userSchema); 
+module.exports = mongoose.model('forum1', forum1Schema); 

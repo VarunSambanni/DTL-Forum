@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
 import MainLoggedIn from './pages/MainLoggedIn';
 import Footer from './components/Footer'
+import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   return (
@@ -15,6 +17,12 @@ function App() {
         <Navbar></Navbar>
         <div className='contentWrapper'>
           <Switch>
+            <Route path='/changePassword'>
+              <ChangePassword></ChangePassword>
+            </Route>
+            <Route path='/forgotPassword'>
+              <ForgotPassword></ForgotPassword>
+            </Route>
             <Route path='/mainLoggedIn'>
               <MainLoggedIn></MainLoggedIn>
             </Route>

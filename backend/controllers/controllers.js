@@ -6,6 +6,7 @@ const Forum1 = require('../models/forum1');
 const Forum2 = require('../models/forum2');
 const Forum3 = require('../models/forum3');
 const unverifiedUsers = require('../models/unverifiedUsers');
+const passwordRequests = require('../models/passwordRequests');
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -490,17 +491,9 @@ exports.postSendCode = (req, res, next) => {
 
     const code = uuidv4();
 
-    User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
-        .then(userData => {
-            if (userData) { // If user already exists 
-                console.log("User already exists ");
-                return res.json({ success: false, msg: "User already exists" });
-            }
-        })
-        .catch(err => {
-            console.log("Error checking if user already exits ", err);
-            return res.json({ success: false, msg: "Error checking if user already exits" });
-        })
+    if (username === "" || email === "" || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+        return res.json({ success: false, msg: "Enter valid inputs" });
+    }
 
     var mailOptions = {
         from: process.env.TRANSPORTER_EMAIL,
@@ -510,35 +503,160 @@ exports.postSendCode = (req, res, next) => {
         html: `<h4> Your code: ${code}, expires in 5 minutes </h4>`
     }
 
-    // Check if it already exits unverifiedUsers, so that signup 'findOneAndDelete' functionality works
-
-    unverifiedUsers.findOneAndDelete({ username: username })
-        .then(result => {
-            const unverifiedUser = new unverifiedUsers({
-                username: username,
-                email: email,
-                year: year,
-                code: code,
-                time: (new Date()).getTime() / 1000
-            });
-            unverifiedUser.save()
+    User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
+        .then(userData => {
+            if (userData) { // If user already exists 
+                console.log("User already exists ");
+                return res.json({ success: false, msg: "User already exists" });
+            }
+            // Check if it already exits unverifiedUsers, so that signup 'findOneAndDelete' functionality works
+            unverifiedUsers.findOneAndDelete({ username: username })
                 .then(result => {
-                    transport.sendMail(mailOptions, (err, info) => {
-                        if (err) {
-                            console.log("Eror sending mail");
-                            return res.json({ success: false, msg: "Error sending mail" });
-                        }
-                        return res.json({ success: true, msg: "Code sent to your email" });
-                    })
+                    const unverifiedUser = new unverifiedUsers({
+                        username: username,
+                        email: email,
+                        year: year,
+                        code: code,
+                        time: (new Date()).getTime() / 1000
+                    });
+                    unverifiedUser.save()
+                        .then(result => {
+                            transport.sendMail(mailOptions, (err, info) => {
+                                if (err) {
+                                    console.log("Error sending mail");
+                                    return res.json({ success: false, msg: "Error sending mail" });
+                                }
+                                return res.json({ success: true, msg: "Code sent to your email" });
+                            })
+                        })
+                        .catch(err => {
+                            console.log("Error sending code ", err);
+                            return res.json({ success: false, msg: "Error sending code" });
+                        })
                 })
                 .catch(err => {
-                    console.log("Error sending code ", err);
+                    console.log("Error finding and deleting in unverifiedUsers ", err);
                     return res.json({ success: false, msg: "Error sending code" });
                 })
+
         })
         .catch(err => {
-            console.log("Error finding and deleting in unverifiedUsers ", err);
-            return res.json({ success: false, msg: "Error sending code" });
+            console.log("Error checking if user already exits ", err);
+            return res.json({ success: false, msg: "Error checking if user already exits" });
         })
 }
 
+
+exports.postForgotPassword = (req, res, next) => {
+    const email = req.body.email;
+    const code = uuidv4();
+
+    if (email === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+        return res.json({ success: false, msg: "Enter valid inputs" });
+    }
+
+    User.findOne({ email: email })
+        .then((userData) => {    // Can just use split string for username here
+            if (!userData) {
+                return res.json({ success: false, msg: "Unregistered user" });
+            }
+            const username = userData.username;
+            console.log("Username ", username);
+            passwordRequests.findOneAndDelete({ email: email })// Check if it already exits passwordRequests, so that changePassword 'findOneAndDelete' functionality works 
+                .then(result => {
+                    const passwordRequest = new passwordRequests({
+                        username: username,
+                        email: email,
+                        requestId: code,
+                        time: (new Date()).getTime() / 1000
+                    })
+
+                    passwordRequest.save()
+                        .then(result => {
+                            var mailOptions = {
+                                from: process.env.TRANSPORTER_EMAIL,
+                                to: email,
+                                subject: 'Password reset instructions',
+                                text: `Your Request ID: ${code}, expires in 5 minutes \n Visit http://localhost:3000/changePassword to proceed`, // Change link later
+                                html: ` <h3>Hey ${username},</h3>
+                                        <h4> Your password reset Request ID: ${code}, expires in 5 minutes </h4> 
+                                        <p><a href='http://localhost:3000/changePassword'>Click here to proceed </a></p>
+                                      `
+                            }
+                            transport.sendMail(mailOptions, (err, info) => {
+                                if (err) {
+                                    console.log("Error sending mail ", err);
+                                    return res.json({ success: false, msg: "Error sending mail" });
+                                }
+                                return res.json({ success: true, msg: "Instructions sent to your mail" });
+                            })
+                        })
+                        .catch(err => {
+                            console.log("Error sending mail", err);
+                            return res.json({ success: false, msg: "Error sending mail" });
+                        })
+                })
+                .catch(err => {
+                    console.log("Error finding in passwordRequests and deleting ", err);
+                    return res.json({ success: false, msg: "Error requesting password change" });
+                })
+
+        })
+        .catch(err => {
+            console.log("Error finding user email ", err);
+            return res.json({ success: false, msg: "Error finding user email" });
+        })
+}
+
+
+exports.postChangePassword = (req, res, next) => {
+    const requestId = req.body.reqId;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+
+    if (password !== confirmPassword) {
+        return res.json({ success: false, msg: "Passwords don't match" });
+    }
+
+    passwordRequests.findOne({ requestId: requestId })
+        .then(passwordRequestData => {
+            if (!passwordRequestData) {
+                return res.json({ success: false, msg: "Invalid request ID" });
+            }
+
+            if ((new Date()).getTime() / 1000 - parseInt(passwordRequestData.time) >= 300) {    // Request ID expired
+                passwordRequests.findOneAndDelete({ requestId: requestId })
+                    .then(result => {
+
+                    })
+                    .catch(err => {
+                        console.log("Error deleting request ID since it has expired ", err);
+                    })
+                return res.json({ success: false, msg: "Request ID has expired" });
+            }
+
+            User.findOne({ email: passwordRequestData.email })
+                .then(userData => {
+                    userData.password = password;
+                    return userData.save();
+                })
+                .then(result => {
+                    passwordRequests.findOneAndDelete({ requestId: requestId })
+                        .then(result => {
+
+                        })
+                        .catch(err => {
+                            console.log("Error deleting request ID since password has been changed ", err);
+                        })
+                    return res.json({ success: true, msg: "Password has been reset" });
+                })
+                .catch(err => {
+                    console.log("Error changing password ", err);
+                    return res.json({ success: true, msg: "Error changing password" });
+                })
+        })
+        .catch(err => {
+            console.log("Error changing password ", err);
+            return res.json({ success: false, msg: "Error changing password" });
+        })
+}
