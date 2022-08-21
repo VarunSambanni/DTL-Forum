@@ -209,7 +209,7 @@ body {
   display: flex;
   justify-content: left;
   text-decoration: none;
-  background-color: rgb(231, 231, 253);
+  background-color: rgb(74, 74, 222);
   list-style: none;
   margin-top: 0em;
   margin-bottom: 0em;
@@ -253,7 +253,7 @@ body {
   margin: 0.4em auto;
   display: flex;
   flex-direction: column;
-  max-height: 80vh;
+  min-height: 80vh;
   border: 1px solid black;
   background-color: rgb(244, 244, 255);
   overflow-y: auto;
@@ -423,7 +423,7 @@ p {
 }
 
 .link2 {
-  color: rgb(108, 108, 248);
+  color: rgb(237, 237, 254);
   margin: 0;
   padding: 0;
   font-size: 1.2rem;

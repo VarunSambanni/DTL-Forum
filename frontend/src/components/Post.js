@@ -15,13 +15,12 @@ const findUserId = (upvotes, userId) => {
 }
 
 const Post = ({ title, body, username, email, answers, id, year, postId, category, yourPostsFlag, upvotes, time, forumUpdate, setForumUpdate }) => {
-    console.log(year);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [answerBody, setAnswerBody] = useState('');
     const [postUpdate, setPostUpdate] = useState(false);
 
     const postUpvote = () => {
-        console.log("Post upvote ");
         fetch('http://localhost:5000/upvote', {
             method: "POST",
             headers: {
@@ -84,7 +83,6 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     {answers.length > 0 &&
                         <div className="answersWrapper">
                             {answers.map((answer, index) => {
-                                console.log("answer => ", answer);
                                 return <div key={index} className="answerWrapper">
                                     <p style={{ margin: '0em', padding: '0em' }}>
                                         <pre style={{ padding: '0em', margin: '0.2em' }}>
