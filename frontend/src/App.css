@@ -24,7 +24,8 @@ body {
   margin: 0 auto;
   justify-content: center;
   background-color: rgb(244, 252, 255);
-  width: 20em;
+  width: fit-content;
+  padding: 0 2em;
   box-shadow: rgb(59, 59, 59) 0.1em 0.05em 0.4em;
 }
 

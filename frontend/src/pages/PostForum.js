@@ -21,28 +21,19 @@ const PostForum = () => {
     const [category, setCategory] = useState('1st Cat');
     const [checked, setChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    console.log(checked);
-    console.log(body.length);
-    /*
-    console.log("rendering post forum");
-    useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
-            method: "POST",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success === false) {
-                    toast.error('Login required', { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
-                }
-            })
-    }, []);
-    */
 
     const postForumHandler = () => {
+
+        if (title.length < 5) {
+            toast.error('Title must container 5 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (body.length < 10) {
+            toast.error('Body must container 10 characters at least', { autoClose: 4000 });
+            return;
+        }
+
         setIsLoading(true);
         fetch('http://localhost:5000/postForum', {
             method: "POST",
@@ -51,14 +42,13 @@ const PostForum = () => {
                 'Content-Type': 'application/json',
                 'x-access-token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ title: title, body: body, category: category, username: localStorage.getItem('username'), email: localStorage.getItem('email'), year: localStorage.getItem('year'), userId: localStorage.getItem('userId'), anonymous: checked }) // CHANGE THIS 
+            body: JSON.stringify({ title: title, body: body, category: category, username: localStorage.getItem('username'), email: localStorage.getItem('email'), year: localStorage.getItem('year'), userId: localStorage.getItem('userId'), anonymous: checked })
         })
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    //window.location.replace('http://localhost:3000/login'); // Check this
                 }
                 else {
                     toast.success(data.msg, { autoClose: 4000 });

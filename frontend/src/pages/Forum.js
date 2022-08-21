@@ -20,24 +20,6 @@ const Forum = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [forumUpdate, setForumUpdate] = useState(false);
 
-    /*
-    useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
-            method: "POST",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success === false) {
-                    toast.error('Login required', { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
-                }
-            })
-    }, []);
-    */
-
     useEffect(() => {
         setIsLoading(true);
         fetch('http://localhost:5000/forum', {
@@ -59,7 +41,6 @@ const Forum = () => {
                 setPosts1(data.posts[0]);
                 setPosts2(data.posts[1]);
                 setPosts3(data.posts[2]);
-                console.log("forum data ", data.posts);
             })
             .catch(err => {
                 setIsLoading(false);

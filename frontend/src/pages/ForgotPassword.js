@@ -35,20 +35,6 @@ const ForgotPassword = () => {
             })
     }
 
-    const checkAuth = () => {
-        fetch('http://localhost:5000/isUserAuth', {
-            method: "GET",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log("isAuthuser ", data);
-            })
-    }
-
-
     return (
         <>
             <div className="backgroundContainer">

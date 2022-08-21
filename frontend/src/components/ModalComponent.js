@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Grid from "@mui/material/Grid";
 import { Button, TextField } from "@mui/material";
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +9,11 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
     const [isLoading, setIsLoading] = useState(false);
 
     const postHandler = () => {
+        if (answerBody === "") {
+            toast.error('Answer body cannot be empty', { autoClose: 4000 });
+            return;
+        }
+
         setIsLoading(true);
         fetch('http://localhost:5000/answer', {
             method: "POST",
@@ -18,14 +22,13 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
                 'Content-Type': 'application/json',
                 'x-access-token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId'), year: localStorage.getItem('year'), category: category, id: id, postId: postId, answer: answerBody }) // CHANGE THIS 
+            body: JSON.stringify({ username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId'), year: localStorage.getItem('year'), category: category, id: id, postId: postId, answer: answerBody })
         })
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    //window.location.replace('http://localhost:3000/login'); // Check redirecting login 
                 }
                 else {
                     toast.success(data.msg, { autoClose: 4000 });

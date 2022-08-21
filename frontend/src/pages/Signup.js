@@ -18,6 +18,22 @@ const Signup = () => {
     const [codeSent, setCodeSent] = useState(false);
 
     const sendCode = () => {
+
+        if (username.length < 5) {
+            toast.error('Username must contain 5 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (password.length < 10) {
+            toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (/\S+@\S+\.\S+/.test(email) === false) {
+            toast.error('Enter valid email', { autoClose: false });
+            return;
+        }
+
         setIsLoading(true);
         fetch('http://localhost:5000/sendCode', {
             method: "POST",
@@ -40,12 +56,31 @@ const Signup = () => {
             })
             .catch(err => {
                 setIsLoading(false);
-                console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }
 
     const signup = () => {
+        if (username.length < 5) {
+            toast.error('Username must contain 5 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (password.length < 10) {
+            toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (/\S+@\S+\.\S+/.test(email) === false) {
+            toast.error('Enter valid email', { autoClose: false });
+            return;
+        }
+
+        if (code === '') {
+            toast.error('Enter the code ', { autoClose: false });
+            return;
+        }
+
         setIsLoading(true);
         fetch('http://localhost:5000/signup', {
             method: "POST",
@@ -69,12 +104,10 @@ const Signup = () => {
                     setCode('');
                     setCodeSent(false);
                     toast.success(data.msg, { autoClose: 4000 });
-                    localStorage.setItem("token", data.token); // check this 
                 }
             })
             .catch(err => {
                 setIsLoading(false);
-                console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }
@@ -88,10 +121,10 @@ const Signup = () => {
                         {isLoading && <LinearProgress></LinearProgress>}
                     </div>
                     <h4 className='centerText'>Sign Up</h4>
-                    <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
-                    <TextField size='small' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
-                    <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
-                    <Select size='small' sx={{ margin: '0.5em' }} value={year} onChange={(e) => setYear(e.target.value)} >
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={!codeSent ? (e) => setUsername(e.target.value) : null}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={!codeSent ? (e) => setPassword(e.target.value) : null}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={!codeSent ? (e) => setEmail(e.target.value) : null}></TextField>
+                    <Select size='small' sx={{ margin: '0.5em' }} value={year} onChange={!codeSent ? (e) => setYear(e.target.value) : null} >
                         <MenuItem value={'1st Year'}>1st Year</MenuItem>
                         <MenuItem value={'2nd Year'}>2nd Year</MenuItem>
                         <MenuItem value={'3rd Year'}>3rd Year</MenuItem>

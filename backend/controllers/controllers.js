@@ -90,7 +90,7 @@ exports.postSignUp = (req, res, next) => {
     const email = req.body.email;
     const year = req.body.year;
     const code = req.body.code;
-    if (username === "" || password === "" || email === "" || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (username.length < 5 || password.length < 10 || /\S+@\S+\.\S+/.test(email) === false || code === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
     User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
@@ -200,6 +200,10 @@ exports.postForum = (req, res, next) => {
     const anonymous = req.body.anonymous;
     let post;
 
+    if (title.length < 5 || body.length < 10) {
+        return res.json({ success: false, msg: "Enter valid inputs" });
+    }
+
     if (category === '1st Cat') { // Change these categories Later
         post = new Forum1({ postId: uuidv4(), userId: userId, title: title, body: body, username: (anonymous ? "Anonymous" : username), email: (anonymous ? "Email" : email), year: year, category: category, answers: [], upvotes: [], time: getTime() }); // reveal Identity
     }
@@ -239,6 +243,9 @@ exports.postAnswer = (req, res, next) => {
     const category = req.body.category;
     console.log("post req for posting answer req body => ", req.body);
 
+    if (answer === "") {
+        return res.json({ success: false, msg: "Enter valid inputs" });
+    }
 
     if (category === '1st Cat') {
         verifyCreds(userId, username, email, year).
@@ -491,7 +498,7 @@ exports.postSendCode = (req, res, next) => {
 
     const code = uuidv4();
 
-    if (username === "" || email === "" || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (username.length < 5 || /\S+@\S+\.\S+/.test(email) === false || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
 
@@ -652,7 +659,7 @@ exports.postChangePassword = (req, res, next) => {
                 })
                 .catch(err => {
                     console.log("Error changing password ", err);
-                    return res.json({ success: true, msg: "Error changing password" });
+                    return res.json({ success: false, msg: "Error changing password" });
                 })
         })
         .catch(err => {

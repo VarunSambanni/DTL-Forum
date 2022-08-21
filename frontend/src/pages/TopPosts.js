@@ -18,23 +18,7 @@ const TopPosts = () => {
     const [posts2, setPosts2] = useState([]);
     const [posts3, setPosts3] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    /*
-    useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
-            method: "POST",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success === false) {
-                    toast.error('Login required', { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
-                }
-            })
-    }, []);
-    */
+
     useEffect(() => {
         setIsLoading(true);
         fetch('http://localhost:5000/forum', {

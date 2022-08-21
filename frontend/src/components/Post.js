@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Button, TextField } from "@mui/material";
-import Modal from 'react-modal';
 import ModalComponent from "./ModalComponent";
 import { ToastContainer, toast } from 'react-toastify';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import { useEffect } from "react";
 import Linkify from 'react-linkify'
 
 const findUserId = (upvotes, userId) => {
@@ -22,7 +19,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [answerBody, setAnswerBody] = useState('');
     const [postUpdate, setPostUpdate] = useState(false);
-    let temp = "";
+
     const postUpvote = () => {
         console.log("Post upvote ");
         fetch('http://localhost:5000/upvote', {
@@ -38,7 +35,6 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
             .then(data => {
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    //window.location.replace('http://localhost:3000/login'); // Check this
                 }
                 else {
                     if (data.msg === "Post upvoted") {
@@ -50,39 +46,6 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
             })
     }
 
-    /*
-    const ModalComponent = () => {
-        return <Modal isOpen={isModalOpen} contentLabel='Reply post'>
-            <div className='modalCloseButtonWrapper'>
-                <Button variant="outlined" onClick={() => setIsModalOpen(false)}>Close</Button>
-            </div>
-            <div className='bodyWrapper'>
-                <pre>{body}</pre>
-            </div>
-            <div className="modalAnswerWrapper">
-                <TextField multiline minRows={5} maxRows={5} variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Body' value={answerBody} onChange={(e) => setAnswerBody(e.target.value)}></TextField>
-            </div>
-            <div className="modalPostButtonWrapper">
-                <Button variant='outlined'>Post</Button>
-            </div>
-        </Modal >
-
-        <Linkify>
-                {body.split("").map((char) => {
-                    if (char !== '\n') {
-                        temp += char;
-                    }
-                    else {
-                        let line = temp;
-                        console.log("line", line);
-                        temp = "";
-                        return <pre>{line}<br></br></pre>
-                    }
-                })}
-                <pre>{temp}</pre>
-        </Linkify>
-    }
-    */
     return <>
         <Grid container>
             <Grid item xs={12}>

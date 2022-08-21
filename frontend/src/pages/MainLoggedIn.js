@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import NavbarForum from '../components/NavbarForum';
 import Forum from './Forum';
 import PostForum from './PostForum';
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,7 +22,6 @@ function MainLoggedIn() {
                     toast.error('Login required', { autoClose: 4000 });
                     window.location.replace('http://localhost:3000/login');
                 }
-                //window.location.replace('http://localhost:3000/forum');
             })
             .catch(err => {
                 console.log("Error connecting to server");

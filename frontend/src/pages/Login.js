@@ -37,24 +37,9 @@ const Login = () => {
             })
             .catch(err => {
                 setIsLoading(false);
-                console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }
-
-    const checkAuth = () => {
-        fetch('http://localhost:5000/isUserAuth', {
-            method: "GET",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log("isAuthuser ", data);
-            })
-    }
-
 
     return (
         <>

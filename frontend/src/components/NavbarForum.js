@@ -6,7 +6,6 @@ import ForumIcon from '@mui/icons-material/Forum';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import yourPosts from '../pages/YourPosts'
 
 const NavbarForum = () => { // Navbar forum is just a button now
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -23,14 +22,6 @@ const NavbarForum = () => { // Navbar forum is just a button now
                 </ul>
             </div>
         </Drawer>
-    </>
-    return <>
-        <div className="navbarWrapper">
-            <ul className="navbarList">
-                <li className="navbarLink"><Link to='/mainLoggedIn/forum'>Forum</Link></li>
-                <li className="navbarLink"><Link to='/mainLoggedIn/postForum'>Post</Link></li>
-            </ul>
-        </div>
     </>
 }
 

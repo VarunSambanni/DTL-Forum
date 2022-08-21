@@ -22,17 +22,15 @@ const YourPosts = () => {
                 'Content-Type': 'application/json',
                 'x-access-token': localStorage.getItem('token')
             },
-            body: JSON.stringify({ username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId'), year: localStorage.getItem('year') }) // CHANGE THIS 
+            body: JSON.stringify({ username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId'), year: localStorage.getItem('year') })
         })
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    //window.location.replace('http://localhost:3000/login');
                 }
                 setYourPosts(data.posts);
-                console.log("your posts data ", data.posts);
             })
             .catch(err => {
                 setIsLoading(false);
