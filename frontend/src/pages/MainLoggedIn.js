@@ -21,7 +21,7 @@ function MainLoggedIn() {
             .then(data => {
                 if (data.success === false) {
                     toast.error('Login required', { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
+                    window.location.replace('https://interax.netlify.app/login');
                 }
             })
             .catch(err => {

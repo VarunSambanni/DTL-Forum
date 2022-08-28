@@ -9,7 +9,7 @@ const Navbar = () => {
     return <>
         <div className="navbarWrapper">
             <ul className="navbarList">
-                <li className="logo" onClick={() => window.location.replace('http://localhost:3000/')}>INTERAX</li>
+                <li className="logo" onClick={() => window.location.replace('https://interax.netlify.app/')}>INTERAX</li>
                 <div className="navbarLinksWrapper">
                     <li className="navbarLink"><Link to='/' style={{ textDecoration: 'none' }}><div className="link2"><HomeIcon /> <p className="linktext">Home</p> </div></Link></li>
                     <li className="navbarLink"><Link to='/login' style={{ textDecoration: 'none' }}><div className="link2"><LoginIcon /> <p className="linktext">Login</p></div></Link></li>

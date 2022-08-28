@@ -53,7 +53,7 @@ const PostForum = () => {
                 }
                 else {
                     toast.success(data.msg, { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/mainLoggedIn/forum');
+                    window.location.replace('https://interax.netlify.app/mainLoggedIn/forum');
                 }
             })
             .catch(err => {

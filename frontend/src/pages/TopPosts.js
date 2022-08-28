@@ -32,7 +32,7 @@ const TopPosts = () => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
+                    window.location.replace('https://interax.netlify.app/login');
                 }
                 console.log("topposts data ", data.posts);
                 let topPosts = [[], [], []], temp = [[], [], []];
