@@ -5,6 +5,7 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
 const ChangePassword = () => {
+    document.title = 'Change Password - Interax';
     const [reqId, setReqId] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -27,7 +28,7 @@ const ChangePassword = () => {
             return;
         }
         setIsLoading(true);
-        fetch('http://localhost:5000/changePassword', {
+        fetch('https://interax.herokuapp.com/changePassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

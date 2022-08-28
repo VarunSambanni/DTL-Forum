@@ -5,19 +5,24 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
 const Login = () => {
-    const [username, setUsername] = useState("");
+    document.title = 'Login - Interax';
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const login = () => {
+        if (email === '' || password == '') {
+            toast.error('Enter the required fields ', { autoClose: false });
+            return;
+        }
         setIsLoading(true);
-        fetch('http://localhost:5000/login', {
+        fetch('https://interax.herokuapp.com/login', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: username, password: password })
+            body: JSON.stringify({ email: email, password: password })
         })
             .then(res => res.json())
             .then(data => {
@@ -51,10 +56,10 @@ const Login = () => {
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
                         <h4 className='centerText'>Login</h4>
-                        <TextField size='small' sx={{ margin: '0.5em' }} value={username} label='Username' onChange={(e) => setUsername(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
                         <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
-                            <button className='button'><p className='centerText buttonText' onClick={login}>LOGIN</p></button>
+                            <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
                         </div>
                         <p className="centerText homePageContent">
                             <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>

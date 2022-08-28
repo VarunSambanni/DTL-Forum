@@ -16,6 +16,7 @@ const styles = {
 
 
 const PostForum = () => {
+    document.title = 'Post Forum - Interax';
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [category, setCategory] = useState('1st Cat');
@@ -35,7 +36,7 @@ const PostForum = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/postForum', {
+        fetch('https://interax.herokuapp.com/postForum', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -73,11 +74,7 @@ const PostForum = () => {
                     <NavbarForum />
                     <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
                 </Grid>
-                <Grid item md={7} xs={12}>
-                    <div className='headingWrapper'>
-                        <h1 className='centerText heading' >Post Forum Page</h1>
-                    </div>
-                </Grid>
+
             </Grid>
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
@@ -92,7 +89,7 @@ const PostForum = () => {
                     <Checkbox sx={{ margin: '1em' }} onChange={() => setChecked(!checked)} size='small' ></Checkbox>
                 </div>
                 <div className='buttonWrapper'>
-                    <button className='button' style={{ margin: '0em' }} ><p className='centerText buttonText' onClick={postForumHandler}>POST</p></button>
+                    <button className='button' style={{ margin: '0em' }} onClick={postForumHandler}><p className='centerText buttonText' >POST</p></button>
                 </div>
             </div>
         </div>

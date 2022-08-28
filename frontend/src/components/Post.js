@@ -5,9 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import Linkify from 'react-linkify'
 
-const findUserId = (upvotes, userId) => {
+const findUserId = (upvotes, username) => {
     for (let i = 0; i < upvotes.length; i++) {
-        if (upvotes[i] === userId) {
+        if (upvotes[i] === username) {
             return i;
         }
     }
@@ -21,7 +21,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     const [postUpdate, setPostUpdate] = useState(false);
 
     const postUpvote = () => {
-        fetch('http://localhost:5000/upvote', {
+        fetch('https://interax.herokuapp.com/upvote', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -64,9 +64,9 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                         </Linkify>
                     </div>
                     <div className="emailWrapper">
-                        <p className="bold">Posted By: {username}{`(${year})`}{email !== 'Email' ? '-' + email : ''}</p>
+                        <p className="bold">Posted By: {username} {`(${year})`}</p>
                         <div className="answerButtonWrapper">
-                            <button className={(findUserId(upvotes, localStorage.getItem('userId')) !== -1) ? 'upvotedButton' : 'button upvoteButton'} style={{ margin: '0 0.4em' }} onClick={postUpvote} >
+                            <button onClick={postUpvote} className={(findUserId(upvotes, localStorage.getItem('username')) !== -1) ? 'upvotedButton' : 'button upvoteButton'} style={{ margin: '0 0.4em' }}>
                                 <p className='centerText buttonText' >
                                     <ThumbUpOffAltIcon sx={{ marginTop: '-0.08em' }} />
                                 </p>
@@ -75,7 +75,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                                 </div>
                             </button>
                             {!yourPostsFlag &&
-                                <button className='button' style={{ margin: '0 0.4em' }}><p className='centerText buttonText' onClick={() => setIsModalOpen(true)}>REPLY</p></button>
+                                <button className='button' style={{ margin: '0 0.4em' }} onClick={() => setIsModalOpen(true)} ><p className='centerText buttonText' >REPLY</p></button>
                             }
                         </div>
 

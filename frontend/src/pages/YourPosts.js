@@ -9,13 +9,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout'
 
 const YourPosts = () => {
-
+    document.title = 'Your Posts - Interax';
     const [yourPosts, setYourPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/yourPosts', {
+        fetch('https://interax.herokuapp.com/yourPosts', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

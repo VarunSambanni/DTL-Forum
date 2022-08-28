@@ -12,7 +12,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const transport = nodemailer.createTransport(
     {
-        service: 'gmail',
+        service: 'hotmail',
         auth: {
             user: process.env.TRANSPORTER_EMAIL,
             pass: process.env.TRANSPORTER_EMAIL_PASSWORD
@@ -58,12 +58,16 @@ exports.getIsUserAuth = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     console.log("From login ");
-    console.log("username: ", username, " password: ", password);
+    console.log("email: ", email);
 
-    User.findOne({ username: username })
+    if (email === '' || password === '') {
+        return res.json({ success: false, msg: 'Enter valid inputs' });
+    }
+
+    User.findOne({ email: email })
         .then(userData => {
             if (!userData) {
                 console.log("No such user exists");
@@ -76,7 +80,7 @@ exports.postLogin = (req, res, next) => {
             const token = jwt.sign({ id: userData.id }, process.env.JWT_SECRET, {  // change jwtSecret 
                 expiresIn: 900
             });
-            return res.json({ success: true, token: token, msg: "Successfull logged in", user: { username: username, email: userData.email, year: userData.year, userId: userData.userId } }); // Other things as well
+            return res.json({ success: true, token: token, msg: "Successfull logged in", user: { username: userData.username, email: userData.email, year: userData.year, userId: userData.userId } }); // Other things as well
         })
         .catch(err => {
             console.log("Error while performing login ", err);
@@ -85,14 +89,14 @@ exports.postLogin = (req, res, next) => {
 }
 
 exports.postSignUp = (req, res, next) => {
-    const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
     const year = req.body.year;
     const code = req.body.code;
-    if (username.length < 5 || password.length < 10 || /\S+@\S+\.\S+/.test(email) === false || code === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (password.length < 10 || /\S+@\S+\.\S+/.test(email) === false || code === "" || email.includes("@rvce.edu.in") === false) {
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
+    const username = email.split('.')[0];
     User.findOne({ $or: [{ username: { $eq: username } }, { email: { $eq: email } }] }) // Either username or email already exists
         .then(userData => {
             if (userData) { // If user already exists 
@@ -163,14 +167,23 @@ exports.getForum = (req, res, next) => {
         .then(result1 => {
             console.log("fetching posts ", result1);
             posts[0] = result1;
+            for (let i = 0; i < posts[0].length; i++) {
+                posts[0][i].userId = 'Unavailable';
+            }
             Forum2.find()   // Now fetch forum2 posts
                 .then(result2 => {
                     console.log("fetching posts ", result2);
                     posts[1] = result2;
+                    for (let i = 0; i < posts[1].length; i++) {
+                        posts[1][i].userId = 'Unavailable';
+                    }
                     Forum3.find()
                         .then(result3 => {
                             console.log("fetching posts ", result3);
                             posts[2] = result3;
+                            for (let i = 0; i < posts[2].length; i++) {
+                                posts[2][i].userId = 'Unavailable';
+                            }
                             return res.json({ success: true, posts: posts });
                         })
                         .catch(err => {
@@ -235,7 +248,6 @@ exports.postForum = (req, res, next) => {
 exports.postAnswer = (req, res, next) => {
     const username = req.body.username;
     const answer = req.body.answer;
-    const id = req.body.id;
     const email = req.body.email;
     const year = req.body.year;
     const userId = req.body.userId;
@@ -379,13 +391,13 @@ exports.postUpvote = (req, res, next) => {
                 Forum1.findOne({ postId: postId }).then(post => {
                     console.log("post with matching id in forum1 ", post);
                     for (let i = 0; i < post.upvotes.length; i++) {
-                        if (post.upvotes[i] === userId) {
+                        if (post.upvotes[i] === username) {
                             console.log("User has already upvoted");
                             flag = i;
                         }
                     }
                     if (flag === -1) {
-                        post.upvotes.push(userId);
+                        post.upvotes.push(username);
                     }
                     console.log("After upvoting/not ", post.upvotes);
                     return post.save();
@@ -416,13 +428,13 @@ exports.postUpvote = (req, res, next) => {
                 Forum2.findOne({ postId: postId }).then(post => {
                     console.log("post with matching id in forum2 ", post);
                     for (let i = 0; i < post.upvotes.length; i++) {
-                        if (post.upvotes[i] === userId) {
+                        if (post.upvotes[i] === username) {
                             console.log("User has already upvoted");
                             flag = i;
                         }
                     }
                     if (flag === -1) {
-                        post.upvotes.push(userId);
+                        post.upvotes.push(username);
                     }
                     console.log("After upvoting/not ", post.upvotes);
                     return post.save();
@@ -453,13 +465,13 @@ exports.postUpvote = (req, res, next) => {
                 Forum3.findOne({ postId: postId }).then(post => {
                     console.log("post with matching id in forum3 ", post);
                     for (let i = 0; i < post.upvotes.length; i++) {
-                        if (post.upvotes[i] === userId) {
+                        if (post.upvotes[i] === username) {
                             console.log("User has already upvoted");
                             flag = i;
                         }
                     }
                     if (flag === -1) {
-                        post.upvotes.push(userId);
+                        post.upvotes.push(username);
                     }
                     console.log("After upvoting/not ", post.upvotes);
                     return post.save();
@@ -492,15 +504,16 @@ exports.postCheckAuth = (req, res, next) => {
 
 exports.postSendCode = (req, res, next) => {
 
-    const username = req.body.username;
     const email = req.body.email;
     const year = req.body.year;
 
     const code = uuidv4();
 
-    if (username.length < 5 || /\S+@\S+\.\S+/.test(email) === false || year === "") {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (/\S+@\S+\.\S+/.test(email) === false || year === "" || email.includes("@rvce.edu.in") === false) {
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
+
+    const username = email.split('.')[0];
 
     var mailOptions = {
         from: process.env.TRANSPORTER_EMAIL,
@@ -558,7 +571,8 @@ exports.postForgotPassword = (req, res, next) => {
     const email = req.body.email;
     const code = uuidv4();
 
-    if (/\S+@\S+\.\S+/.test(email) === false) {  // Put this back later(email.includes("@rvce.edu.in") === false)
+    if (/\S+@\S+\.\S+/.test(email) === false || email.includes("@rvce.edu.in") === false) {
+
         return res.json({ success: false, msg: "Enter valid inputs" });
     }
 
@@ -569,7 +583,7 @@ exports.postForgotPassword = (req, res, next) => {
             }
             const username = userData.username;
             console.log("Username ", username);
-            passwordRequests.findOneAndDelete({ email: email })// Check if it already exits passwordRequests, so that changePassword 'findOneAndDelete' functionality works 
+            passwordRequests.findOneAndDelete({ email: email })// Check if it already exits in passwordRequests, so that changePassword 'findOneAndDelete' functionality works 
                 .then(result => {
                     const passwordRequest = new passwordRequests({
                         username: username,
@@ -587,7 +601,7 @@ exports.postForgotPassword = (req, res, next) => {
                                 text: `Your Request ID: ${code}, expires in 5 minutes \n Visit http://localhost:3000/changePassword to proceed`, // Change link later
                                 html: ` <h3>Hey ${username},</h3>
                                         <h4> Your password reset Request ID: ${code}, expires in 5 minutes </h4> 
-                                        <p><a href='http://localhost:3000/changePassword'>Click here to proceed </a></p>
+                                        <p><a href='https://interax.netlify.app/changePassword'>Click here to proceed </a></p>
                                       `
                             }
                             transport.sendMail(mailOptions, (err, info) => {

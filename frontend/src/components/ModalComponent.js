@@ -15,7 +15,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/answer', {
+        fetch('https://interax.herokuapp.com/answer', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -47,7 +47,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='modalCloseButtonWrapper'>
-            <button className='button' style={{ margin: '0.2em' }} ><p className='centerText buttonText' onClick={() => setIsModalOpen(false)}>CLOSE</p></button>
+            <button className='button' style={{ margin: '0.2em' }} onClick={() => setIsModalOpen(false)} ><p className='centerText buttonText' >CLOSE</p></button>
         </div>
         <div className='titleWrapper'>
             <h4 className="title">{title}</h4>
@@ -63,7 +63,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
             <TextField multiline minRows={5} maxRows={5} variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Body' value={answerBody} onChange={(e) => setAnswerBody(e.target.value)}></TextField>
         </div>
         <div className="modalPostButtonWrapper">
-            <button className='button' style={{ margin: '0em' }} ><p className='centerText buttonText' onClick={postHandler}>POST</p></button>
+            <button className='button' style={{ margin: '0em' }} onClick={postHandler}><p className='centerText buttonText' >POST</p></button>
         </div>
     </Modal >
 }

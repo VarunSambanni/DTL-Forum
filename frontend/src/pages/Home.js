@@ -1,6 +1,7 @@
 import React from "react";
 
 const Home = () => {
+    document.title = 'Interax'
     return <>
         <div className="backgroundContainer">
             <div className='homeContentContainer'>

@@ -11,7 +11,7 @@ import Logout from '../utils/Logout'
 const TOP_QUESTIONS_LIMIT = 2;
 
 const TopPosts = () => {
-
+    document.title = 'Top Posts - Interax';
     const [category, setCategory] = useState('1st Cat');
     const [posts, setPosts] = useState([]);
     const [posts1, setPosts1] = useState([]);
@@ -21,7 +21,7 @@ const TopPosts = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/forum', {
+        fetch('https://interax.herokuapp.com/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

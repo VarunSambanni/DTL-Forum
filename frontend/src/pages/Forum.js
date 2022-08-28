@@ -11,7 +11,7 @@ import Logout from '../utils/Logout'
 
 
 const Forum = () => {
-
+    document.title = 'Forum - Interax';
     const [category, setCategory] = useState('1st Cat');
     const [posts, setPosts] = useState([]);
     const [posts1, setPosts1] = useState([]);
@@ -22,7 +22,7 @@ const Forum = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/forum', {
+        fetch('https://interax.herokuapp.com/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

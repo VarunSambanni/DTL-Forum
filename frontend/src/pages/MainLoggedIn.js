@@ -8,9 +8,10 @@ import YourPosts from './YourPosts';
 import TopPosts from './TopPosts';
 
 function MainLoggedIn() {
+    document.title = 'mainLoggedIn - Interax';
     console.log("mainloggedIn");
     useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
+        fetch('https://interax.herokuapp.com/checkAuth', {
             method: "POST",
             headers: {
                 'x-access-token': localStorage.getItem('token')

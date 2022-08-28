@@ -5,6 +5,7 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
 const ForgotPassword = () => {
+    document.title = 'Forgot Password - Interax'
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/forgotPassword', {
+        fetch('https://interax.herokuapp.com/forgotPassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

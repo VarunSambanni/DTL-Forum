@@ -45,7 +45,7 @@ const forum1Schema = new Schema({
             username: String
         }
     ],
-    upvotes: [  // Array of userIds 
+    upvotes: [  // Array of usernames 
         {
             type: String
         }
