@@ -19,7 +19,14 @@ const Signup = () => {
     const [codeSent, setCodeSent] = useState(false);
 
     const sendCode = () => {
-
+        if (/\S+@\S+\.\S+/.test(email) === false) {
+            toast.error('Enter valid email', { autoClose: false });
+            return;
+        }
+        if (email.includes("@rvce.edu.in") == false) {
+            toast.error('Use college mail ID only', { autoClose: false });
+            return;
+        }
         if (password.length < 10) {
             toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
             return;
@@ -29,14 +36,7 @@ const Signup = () => {
             toast.error('Passwords must match', { autoClose: 4000 });
             return;
         }
-        if (email.includes("@rvce.edu.in") == false) {
-            toast.error('Use college mail ID only', { autoClose: false });
-            return;
-        }
-        if (/\S+@\S+\.\S+/.test(email) === false) {
-            toast.error('Enter valid email', { autoClose: false });
-            return;
-        }
+
 
         setIsLoading(true);
         fetch('https://interax.herokuapp.com/sendCode', {
