@@ -5,7 +5,7 @@ const Logout = () => {
     localStorage.removeItem('year');
     localStorage.removeItem('email');
 
-    window.location.replace('http://localhost:3000/');
+    window.location.replace('https://interax.netlify.app/');
 }
 
 export default Logout; 

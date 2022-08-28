@@ -27,6 +27,7 @@ const Signup = () => {
             toast.error('Use college mail ID only', { autoClose: false });
             return;
         }
+
         if (password.length < 10) {
             toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
             return;
@@ -65,6 +66,14 @@ const Signup = () => {
     }
 
     const signup = () => {
+        if (/\S+@\S+\.\S+/.test(email) === false) {
+            toast.error('Enter valid email', { autoClose: false });
+            return;
+        }
+        if (email.includes("@rvce.edu.in") == false) {
+            toast.error('Use college mail ID only', { autoClose: false });
+            return;
+        }
 
         if (password.length < 10) {
             toast.error('Password must contain 10 characters at least', { autoClose: 4000 });
@@ -73,11 +82,6 @@ const Signup = () => {
 
         if (password !== confirmPassword) {
             toast.error('Passwords must match', { autoClose: 4000 });
-            return;
-        }
-
-        if (/\S+@\S+\.\S+/.test(email) === false) {
-            toast.error('Enter valid email', { autoClose: false });
             return;
         }
 
