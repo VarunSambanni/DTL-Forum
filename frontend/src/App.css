@@ -215,7 +215,7 @@ body {
   box-shadow: grey 0.1em 0.05em 0.4em;
 }
 .navbarLink {
-  margin: 0.2em 1em;
+  margin: 0.2em 1vw;
 }
 .navbarLinksWrapper {
   display: flex;
