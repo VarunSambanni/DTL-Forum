@@ -598,7 +598,7 @@ exports.postForgotPassword = (req, res, next) => {
                                 from: process.env.TRANSPORTER_EMAIL,
                                 to: email,
                                 subject: 'Password reset instructions',
-                                text: `Your Request ID: ${code}, expires in 5 minutes \n Visit http://localhost:3000/changePassword to proceed`, // Change link later
+                                text: `Your Request ID: ${code}, expires in 5 minutes \n Visit https://interax.netlify.app/changePassword to proceed`, // Change link later
                                 html: ` <h3>Hey ${username},</h3>
                                         <h4> Your password reset Request ID: ${code}, expires in 5 minutes </h4> 
                                         <p><a href='https://interax.netlify.app/changePassword'>Click here to proceed </a></p>
