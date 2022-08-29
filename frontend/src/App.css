@@ -156,7 +156,7 @@ body {
 }
 
 .backgroundContainer {
-  min-height: 80vh;
+  min-height: 85vh;
   position: relative;
   display: flex;
   justify-content: center;
@@ -540,7 +540,7 @@ p {
 }
 
 .footer {
-  height: 5.5em;
+  min-height: 10vh;
   background-color: #4549b7;
   color: white;
   margin: 0;

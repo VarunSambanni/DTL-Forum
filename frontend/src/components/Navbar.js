@@ -5,7 +5,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const Navbar = () => {
-
+    console.log()
     return <>
         <div className="navbarWrapper">
             <ul className="navbarList">
