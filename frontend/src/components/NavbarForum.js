@@ -14,10 +14,10 @@ const NavbarForum = () => { // Navbar forum is just a button now
         <Drawer achor='left' open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
             <div className="drawerListWrapper">
                 <ul className="drawerLinks">
-                    <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><ForumIcon /> Forum</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><PostAddIcon /> Post</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AccountBoxIcon /> Your Posts</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><LocalFireDepartmentIcon /> Top Posts</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><PostAddIcon sx={{ margin: '-0.2em 0.2em' }} />Post</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AccountBoxIcon sx={{ margin: '-0.2em 0.2em' }} />Your Posts</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>
                 </ul>
             </div>
         </Drawer>

@@ -4,10 +4,14 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import LinearProgress from "@mui/material/LinearProgress";
 import Linkify from 'react-linkify';
+import CloseIcon from '@mui/icons-material/Close';
 
 const styles = {
     content: {
         height: 'fit-content',
+        margin: '1em 0',
+        maxHeight: '70vh',
+        overflow: 'auto'
     }
 }
 
@@ -53,7 +57,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='modalCloseButtonWrapper'>
-            <button className='button' style={{ margin: '0.2em' }} onClick={() => setIsModalOpen(false)} ><p className='centerText buttonText' >CLOSE</p></button>
+            <button className='button' style={{ margin: '0.2em' }} onClick={() => setIsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon sx={{ margin: '0.1em' }} /></p></button>
         </div>
         <div className='titleWrapper'>
             <h4 className="title">{title}</h4>
