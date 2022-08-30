@@ -100,7 +100,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                                 </div>
                             </button>
                             {yourPostsFlag ?
-                                <button className='button' style={{ margin: '0 0.4em', padding: '0 0.4em' }} onClick={() => deletePost()} ><p className='centerText buttonText' ><DeleteIcon /></p></button>
+                                <button className='button upvoteButton' style={{ margin: '0 0.4em' }} onClick={() => deletePost()} ><p className='centerText buttonText' ><DeleteIcon sx={{ marginTop: '-0.08em' }} /></p></button>
                                 :
                                 <button className='button' style={{ margin: '0 0.4em' }} onClick={() => setIsModalOpen(true)} ><p className='centerText buttonText' >REPLY</p></button>
                             }
