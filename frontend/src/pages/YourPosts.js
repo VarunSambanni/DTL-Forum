@@ -12,6 +12,7 @@ const YourPosts = () => {
     document.title = 'Your Posts - Interax';
     const [yourPosts, setYourPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [yourPostsUpdate, setYourPostsUpdate] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -37,7 +38,7 @@ const YourPosts = () => {
                 console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
-    }, []);
+    }, [yourPostsUpdate]);
 
     return <>
         <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
@@ -60,7 +61,7 @@ const YourPosts = () => {
                 {yourPosts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                 {
                     yourPosts.map((post, index) => {
-                        return <Post key={index} title={post.title} year={post.year} body={post.body} username={post.username} email={post.email} answers={post.answers} postId={post.postId} id={post._id} category={post.category} yourPostsFlag={true} upvotes={post.upvotes} time={post.time} />
+                        return <Post key={index} title={post.title} year={post.year} body={post.body} username={post.username} email={post.email} answers={post.answers} postId={post.postId} id={post._id} category={post.category} yourPostsFlag={true} upvotes={post.upvotes} time={post.time} yourPostsUpdate={yourPostsUpdate} setYourPostsUpdate={setYourPostsUpdate} />
                     })
                 }
             </div>

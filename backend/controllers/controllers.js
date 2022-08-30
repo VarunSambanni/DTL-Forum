@@ -681,3 +681,50 @@ exports.postChangePassword = (req, res, next) => {
             return res.json({ success: false, msg: "Error changing password" });
         })
 }
+
+exports.postDeletePost = (req, res, next) => {
+    const username = req.body.username;
+    const userId = req.body.userId;
+    const email = req.body.email;
+    const year = req.body.year;
+    const category = req.body.category;
+    const postId = req.body.postId;
+    console.log("Req made to delete post ");
+    verifyCreds(userId, username, email, year)
+        .then(result => {
+            if (category === '1st Cat') {
+                Forum1.findOneAndDelete({ postId: postId })
+                    .then(result => {
+                        return res.json({ success: true, msg: "Post deleted" });
+                    })
+                    .catch(err => {
+                        console.log("Error deleting post");
+                        return res.json({ success: false, msg: "Error deleting post" });
+                    })
+            }
+            else if (category === '2nd Cat') {
+                Forum2.findOneAndDelete({ postId: postId })
+                    .then(result => {
+                        return res.json({ success: true, msg: "Post deleted" });
+                    })
+                    .catch(err => {
+                        console.log("Error deleting post");
+                        return res.json({ success: false, msg: "Error deleting post" });
+                    })
+            }
+            else if (category === '3rd Cat') {
+                Forum3.findOneAndDelete({ postId: postId })
+                    .then(result => {
+                        return res.json({ success: true, msg: "Post deleted" });
+                    })
+                    .catch(err => {
+                        console.log("Error deleting post");
+                        return res.json({ success: false, msg: "Error deleting post" });
+                    })
+            }
+        })
+        .catch(err => {
+            console.log("User creds are invalid ", err);
+            return res.json({ success: false, msg: "User creds are invalid" });
+        })
+}

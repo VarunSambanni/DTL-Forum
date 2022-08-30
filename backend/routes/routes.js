@@ -20,6 +20,8 @@ const verifyJWT = (req, res, next) => {
     }
 }
 
+router.post('/deletePost', controllers.postDeletePost);
+
 router.post('/changePassword', controllers.postChangePassword);
 
 router.post('/forgotPassword', controllers.postForgotPassword);

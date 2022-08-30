@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import ModalComponent from "./ModalComponent";
 import { ToastContainer, toast } from 'react-toastify';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Linkify from 'react-linkify'
 
 const findUserId = (upvotes, username) => {
@@ -14,7 +15,7 @@ const findUserId = (upvotes, username) => {
     return -1;
 }
 
-const Post = ({ title, body, username, email, answers, id, year, postId, category, yourPostsFlag, upvotes, time, forumUpdate, setForumUpdate }) => {
+const Post = ({ title, body, username, email, answers, id, year, postId, category, yourPostsFlag, upvotes, time, forumUpdate, setForumUpdate, yourPostsUpdate, setYourPostsUpdate }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [answerBody, setAnswerBody] = useState('');
@@ -39,6 +40,30 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     if (data.msg === "Post upvoted") {
                         setForumUpdate(!forumUpdate);
                         setPostUpdate(!postUpdate);
+                    }
+                    toast.success(data.msg, { autoClose: 4000 });
+                }
+            })
+    }
+
+    const deletePost = () => {
+        fetch('https://interax.herokuapp.com/deletePost', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({ category: category, username: localStorage.getItem('username'), email: localStorage.getItem('email'), year: localStorage.getItem('year'), userId: localStorage.getItem('userId'), postId: postId }) // CHANGE THIS 
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success === false) {
+                    toast.error(data.msg, { autoClose: 4000 });
+                }
+                else {
+                    if (data.msg === "Post deleted") {
+                        setYourPostsUpdate(!yourPostsUpdate);
                     }
                     toast.success(data.msg, { autoClose: 4000 });
                 }
@@ -74,7 +99,9 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                                     <p className="upvotesText">{upvotes.length}</p>
                                 </div>
                             </button>
-                            {!yourPostsFlag &&
+                            {yourPostsFlag ?
+                                <button className='button' style={{ margin: '0 0.4em', padding: '0 0.4em' }} onClick={() => deletePost()} ><p className='centerText buttonText' ><DeleteIcon /></p></button>
+                                :
                                 <button className='button' style={{ margin: '0 0.4em' }} onClick={() => setIsModalOpen(true)} ><p className='centerText buttonText' >REPLY</p></button>
                             }
                         </div>
