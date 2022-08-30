@@ -5,6 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import LinearProgress from "@mui/material/LinearProgress";
 import Linkify from 'react-linkify';
 
+const styles = {
+    content: {
+        height: 'fit-content',
+    }
+}
+
 const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, setAnswerBody, id, postId, category }) => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +48,8 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
             })
     }
 
-    return <Modal isOpen={isModalOpen} contentLabel='Reply post'>
-        <div className='linearProgressContainer'>
+    return <Modal style={styles} isOpen={isModalOpen} contentLabel='Reply post'>
+        <div className='linearProgressContainer' style={{ backgroundColor: 'white' }}>
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='modalCloseButtonWrapper'>

@@ -249,6 +249,8 @@ body {
   transition: all 0.4s;
   padding: 0.4em;
   margin: 0.4em;
+  border: 1px solid blue;
+  box-shadow: blue 0.1em 0.05em 0.1em;
 }
 
 .category:hover {
@@ -443,7 +445,7 @@ p {
 
 .link2 {
   color: rgb(237, 237, 254);
-  margin: 0;
+  margin: 0 0.2em;
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
