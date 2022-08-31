@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import '../index.css'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import '../index.css';
 import NavbarForum from '../components/NavbarForum';
-import { TextField, Button, Grid } from '@mui/material';
 import Logout from '../utils/Logout';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const UserInfo = () => {
@@ -20,7 +21,13 @@ const UserInfo = () => {
 
                 <NavbarForum />
                 <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+                <Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+                    <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                        </div>
+                    </div>
+                </Link>
                 <hr />
                 <div className='postsWrapper' style={{
                     padding: '0em', margin: '0em',

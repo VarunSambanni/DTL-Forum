@@ -70,16 +70,25 @@ body {
 }
 
 .loggedInAsTextContainer {
-  border: 1px solid black;
-  background-color: rgb(44, 100, 255);
-  box-shadow: rgb(209, 209, 209) 0.1em 0.05em 0.1em;
+  border: 1px solid blue;
+  border-radius: 0.2em;
+  background-color: rgb(17, 82, 221);
   display: flex;
   justify-content: center;
   margin: 0.8em 0.2em;
+  color: white;
+  transition: all 0.2s;
+  padding: 0.1em;
+}
+
+.loggedInAsTextContainer:hover {
+  cursor: pointer;
+  color: blue;
+  background-color: white;
+  box-shadow: rgb(168, 168, 168) 0.2em 0.1em 0.2em;
 }
 
 .loggedInAsText {
-  color: white;
   font-size: 0.85rem;
 }
 

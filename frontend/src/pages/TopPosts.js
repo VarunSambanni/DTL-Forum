@@ -7,6 +7,8 @@ import '../index.css';
 import LinearProgress from '@mui/material/LinearProgress';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout'
+import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const TOP_QUESTIONS_LIMIT = 2;
 
@@ -92,7 +94,11 @@ const TopPosts = () => {
         <div className='forumWrapper'>
             <NavbarForum />
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                </div>
+            </div>
             <hr />
             <div className='categoriesWrapper'>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-around' }}>

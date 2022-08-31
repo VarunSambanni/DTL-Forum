@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TextField, Button, Grid } from '@mui/material';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Post from '../components/Post';
 import NavbarForum from '../components/NavbarForum';
@@ -7,7 +8,8 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Logout from '../utils/Logout'
+import Logout from '../utils/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const Forum = () => {
@@ -58,7 +60,11 @@ const Forum = () => {
             <NavbarForum />
             <button style={{ margin: '0.4em', width: '3em' }} className={`button`} onClick={() => setForumUpdate(!forumUpdate)} ><RefreshIcon sx={{ margin: '-0.35em' }} /></button>
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                </div>
+            </div>
             <hr />
             <div className='categoriesWrapper'>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-around' }}>

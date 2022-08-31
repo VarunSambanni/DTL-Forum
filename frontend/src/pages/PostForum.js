@@ -5,8 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
+import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Logout from '../utils/Logout'
+import Logout from '../utils/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const styles = {
     resize: {
@@ -71,7 +73,11 @@ const PostForum = () => {
         <div className='forumWrapper'>
             <NavbarForum />
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                </div>
+            </div>
             <hr />
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>

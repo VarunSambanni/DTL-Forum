@@ -7,6 +7,8 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout'
+import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const YourPosts = () => {
     document.title = 'Your Posts - Interax';
@@ -48,7 +50,11 @@ const YourPosts = () => {
         <div className='forumWrapper'>
             <NavbarForum />
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                </div>
+            </div>
             <hr />
             <div className='postsWrapper'>
                 {yourPosts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
