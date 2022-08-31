@@ -5,8 +5,6 @@ import NavbarForum from '../components/NavbarForum';
 import { TextField, Button, Grid } from '@mui/material';
 import Logout from '../utils/Logout';
 import LogoutIcon from '@mui/icons-material/Logout';
-import LinearProgress from '@mui/material/LinearProgress';
-import { Scale } from '@mui/icons-material';
 
 
 const UserInfo = () => {
@@ -19,22 +17,15 @@ const UserInfo = () => {
 
             </div>
             <div className='forumWrapper' >
-                <Grid container>
-                    <Grid item md={5.2} xs={12}>
-                        <NavbarForum />
-                        <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                    </Grid>
-                    <Grid item md={6.8} xs={12}>
-                        <div className='headingWrapper'>
-                            <h1 className='centerText heading' ></h1>
-                        </div>
-                    </Grid>
-                </Grid>
+
+                <NavbarForum />
+                <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+                <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
                 <hr />
                 <div className='postsWrapper' style={{
                     padding: '0em', margin: '0em',
                 }} >
-                    <div className='loginContainer' style={{ padding: '1em', fontSize: '0.85rem', margin: '1em auto' }} >
+                    <div className='loginContainer' style={{ padding: '0.4em', fontSize: '0.95rem', margin: 'auto' }} >
                         <div className='loginForm'>
                             <h4 className='centerText'>User Info</h4>
                             <div className='userInfoText' style={{ display: 'flex', flexDirection: 'row' }}>

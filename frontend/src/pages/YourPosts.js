@@ -46,16 +46,9 @@ const YourPosts = () => {
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
-            <Grid container>
-                <Grid item md={5.2} xs={12}>
-                    <NavbarForum />
-                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                </Grid>
-                <Grid item md={6.8} xs={12}>
-                    <div className='headingWrapper'>
-                    </div>
-                </Grid>
-            </Grid>
+            <NavbarForum />
+            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
             <hr />
             <div className='postsWrapper'>
                 {yourPosts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}

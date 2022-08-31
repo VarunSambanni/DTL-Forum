@@ -69,13 +69,10 @@ const PostForum = () => {
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
-            <Grid container>
-                <Grid item md={5} xs={12}>
-                    <NavbarForum />
-                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                </Grid>
-
-            </Grid>
+            <NavbarForum />
+            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
+            <hr />
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
                 <TextField multiline minRows={8} maxRows={8} variant='outlined' size='small' sx={{ margin: '0.5em' }} inputProps={{ style: { fontSize: '0.96rem' } }} label='Body' value={body} onChange={(e) => { setBody(e.target.value) }}></TextField>

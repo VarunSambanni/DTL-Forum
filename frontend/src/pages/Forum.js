@@ -55,18 +55,10 @@ const Forum = () => {
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
-            <Grid container>
-                <Grid item md={5.2} xs={12}>
-                    <NavbarForum />
-                    <button style={{ margin: '0.4em', width: '3em' }} className={`button`} onClick={() => setForumUpdate(!forumUpdate)} ><RefreshIcon sx={{ margin: '-0.35em' }} /></button>
-                    <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                </Grid>
-                <Grid item md={6.8} xs={12}>
-                    <div className='headingWrapper'>
-                        <h1 className='centerText heading' ></h1>
-                    </div>
-                </Grid>
-            </Grid>
+            <NavbarForum />
+            <button style={{ margin: '0.4em', width: '3em' }} className={`button`} onClick={() => setForumUpdate(!forumUpdate)} ><RefreshIcon sx={{ margin: '-0.35em' }} /></button>
+            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+            <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}><p className='loggedInAsText'>{localStorage.getItem('username')}</p></div>
             <hr />
             <div className='categoriesWrapper'>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-around' }}>
