@@ -6,6 +6,7 @@ import PostForum from './PostForum';
 import { ToastContainer, toast } from 'react-toastify';
 import YourPosts from './YourPosts';
 import TopPosts from './TopPosts';
+import UserInfo from './UserInfo';
 
 function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
@@ -45,6 +46,9 @@ function MainLoggedIn() {
                     </Route>
                     <Route exact path='/mainLoggedIn/topPosts'>
                         <TopPosts></TopPosts>
+                    </Route>
+                    <Route exact path='/mainLoggedIn/userInfo'>
+                        <UserInfo></UserInfo>
                     </Route>
                 </Switch>
             </Router>

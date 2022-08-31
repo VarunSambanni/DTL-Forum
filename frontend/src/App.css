@@ -29,6 +29,24 @@ body {
   box-shadow: rgb(59, 59, 59) 0.1em 0.05em 0.4em;
 }
 
+.userInfoContainer {
+  min-height: 85vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.userInfoText {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .homeContentContainer {
   margin: 0 auto;
   background-color: rgb(244, 252, 255);
@@ -171,7 +189,6 @@ body {
 
 .linearProgressContainer {
   display: flex;
-
   justify-content: center;
   flex-direction: column;
   min-height: 0.4em;

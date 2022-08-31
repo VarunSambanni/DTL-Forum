@@ -10,7 +10,7 @@ const Footer = () => {
             <p className="centerText">
                 Mail: rvcolforum@gmail.com | Contact No: +91 12345 12345
             </p>
-            <p className="centerText">
+            <p className="centerText" style={{ margin: '0em' }}>
                 &copy; All rights reserved
             </p>
         </div>
