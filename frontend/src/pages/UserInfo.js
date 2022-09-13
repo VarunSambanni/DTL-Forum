@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import '../index.css';
 import NavbarForum from '../components/NavbarForum';
 import Logout from '../utils/Logout';
