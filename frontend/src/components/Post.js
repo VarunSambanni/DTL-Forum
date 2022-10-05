@@ -76,7 +76,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                 <ModalComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} title={title} body={body} answerBody={answerBody} setAnswerBody={setAnswerBody} id={id} postId={postId} category={category} />
                 <div className="postWrapper">
                     <div className='titleWrapper'>
-                        <h4 className="title">{title}</h4>
+                        <h4 className="title">{title.substring(title.length - 4) === 'html' ? title.substring(0, title.length - 5) : title}</h4>
                         <p className="time">{time}</p>
                         <hr />
                         {yourPostsFlag && <p className="askedInCat">Asked in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
