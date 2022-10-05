@@ -83,9 +83,12 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     </div>
                     <div className='bodyWrapper'>
                         <Linkify>
-                            <pre>
-                                {body}
-                            </pre>
+                            {
+                                title.substring(title.length - 4) === 'html' ?
+                                    <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: body }}></pre>
+                                    :
+                                    <pre style={{ maxHeight: '40em' }} >{body}</pre>
+                            }
                         </Linkify>
                     </div>
                     <div className="emailWrapper">
