@@ -37,6 +37,11 @@ const PostForum = () => {
             return;
         }
 
+        if (title.substring(title.length - 5) === '.html' && body.search("<style") !== -1 || body.search("<script") !== -1) {
+            toast.error('style/script tags are not allowed while using html !', { autoClose: 4000 });
+            return;
+        }
+
         setIsLoading(true);
         fetch('https://interax.herokuapp.com/postForum', {
             method: "POST",

@@ -7,7 +7,6 @@ import Logout from '../utils/Logout';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-
 const UserInfo = () => {
     document.title = 'User Info - Interax';
 

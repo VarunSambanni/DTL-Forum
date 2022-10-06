@@ -5,6 +5,22 @@ import { ToastContainer, toast } from 'react-toastify';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Linkify from 'react-linkify'
+import ReactMarkdown from "react-markdown";
+
+const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+`
+    ;
 
 const findUserId = (upvotes, username) => {
     for (let i = 0; i < upvotes.length; i++) {
@@ -76,20 +92,20 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                 <ModalComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} title={title} body={body} answerBody={answerBody} setAnswerBody={setAnswerBody} id={id} postId={postId} category={category} />
                 <div className="postWrapper">
                     <div className='titleWrapper'>
-                        <h4 className="title">{title.substring(title.length - 4) === 'html' ? title.substring(0, title.length - 5) : title}</h4>
+                        <h4 className="title">{title.substring(title.length - 5) === '.html' ? title.substring(0, title.length - 5) : title.substring(title.length - 3) === '.md' ? title.substring(0, title.length - 3) : title}</h4>
                         <p className="time">{time}</p>
                         <hr />
                         {yourPostsFlag && <p className="askedInCat">Asked in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
                     </div>
                     <div className='bodyWrapper'>
-                        <Linkify>
-                            {
-                                title.substring(title.length - 4) === 'html' ?
-                                    <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: body }}></pre>
-                                    :
-                                    <pre style={{ maxHeight: '40em' }} >{body}</pre>
-                            }
-                        </Linkify>
+
+                        {
+                            title.substring(title.length - 5) === '.html' ?
+                                <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: body }}></pre>
+                                :
+                                title.substring(title.length - 3) === '.md' ? <div style={{ maxHeight: '40em' }}> <ReactMarkdown>{body}</ReactMarkdown> </div> : <Linkify> <pre style={{ maxHeight: '40em' }} >{body}</pre>  </Linkify>
+                        }
+
                     </div>
                     <div className="emailWrapper">
                         <p className="bold">Posted By: {username} {`(${year})`}</p>
