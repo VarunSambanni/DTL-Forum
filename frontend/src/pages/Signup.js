@@ -40,7 +40,7 @@ const Signup = () => {
 
 
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/sendCode', {
+        fetch('http://localhost:5000/sendCode', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -91,7 +91,7 @@ const Signup = () => {
         }
 
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/signup', {
+        fetch('http://localhost:5000/signup', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

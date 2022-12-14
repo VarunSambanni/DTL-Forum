@@ -43,7 +43,7 @@ const PostForum = () => {
         }
 
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/postForum', {
+        fetch('http://localhost:5000/postForum', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

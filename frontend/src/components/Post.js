@@ -38,7 +38,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     const [postUpdate, setPostUpdate] = useState(false);
 
     const postUpvote = () => {
-        fetch('https://interax.herokuapp.com/upvote', {
+        fetch('http://localhost:5000//upvote', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -63,7 +63,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     }
 
     const deletePost = () => {
-        fetch('https://interax.herokuapp.com/deletePost', {
+        fetch('http://localhost:5000//deletePost', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

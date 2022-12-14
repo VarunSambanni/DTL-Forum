@@ -292,6 +292,28 @@ body {
   box-shadow: blue 0.1em 0.05em 0.1em;
 }
 
+.searchContainer {
+  display: flex;
+  padding: 1em;
+  justify-content: center;
+}
+
+.search {
+  width: 20em;
+  height: 2em;
+}
+
+.searchButton {
+  border: 1px solid black;
+  transition: all 0.4s;
+  background-color: #aaadff;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+  background-color: #7b7fff;
+}
+
 .category:hover {
   cursor: pointer;
 }

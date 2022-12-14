@@ -28,7 +28,7 @@ const ChangePassword = () => {
             return;
         }
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/changePassword', {
+        fetch('http://localhost:5000/changePassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

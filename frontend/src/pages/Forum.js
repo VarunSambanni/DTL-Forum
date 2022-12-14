@@ -8,8 +8,10 @@ import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SearchIcon from '@mui/icons-material/Search';
 import Logout from '../utils/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 
 const Forum = () => {
@@ -21,10 +23,39 @@ const Forum = () => {
     const [posts3, setPosts3] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [forumUpdate, setForumUpdate] = useState(false);
+    const [searchInput, setSearchInput] = useState();
+
+    const searchHandler = () => {
+        let searchResults = [];
+        if (category === '1st Cat') {
+            for (let i = 0; i < posts[0].length; i++) {
+                if (posts[0][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[0][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                    searchResults.push(posts[0][i]);
+                }
+            }
+            setPosts1(searchResults);
+        }
+        else if (category === '2nd Cat') {
+            for (let i = 0; i < posts[1].length; i++) {
+                if (posts[1][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[1][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                    searchResults.push(posts[1][i]);
+                }
+            }
+            setPosts2(searchResults);
+        }
+        else {
+            for (let i = 0; i < posts[2].length; i++) {
+                if (posts[2][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[2][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                    searchResults.push(posts[2][i]);
+                }
+            }
+            setPosts3(searchResults);
+        }
+    }
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/forum', {
+        fetch('http://localhost:5000/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')
@@ -37,7 +68,7 @@ const Forum = () => {
                     toast.error(data.msg, { autoClose: 4000 });
                     window.location.replace('https://interax.netlify.app/login');
                 }
-                data.posts[0].reverse();
+                setPosts(data.posts); data.posts[0].reverse();
                 data.posts[1].reverse();
                 data.posts[2].reverse();
                 setPosts1(data.posts[0]);
@@ -80,6 +111,12 @@ const Forum = () => {
                         <h4 onClick={() => setCategory('3rd Cat')} className={`centerText category ${category === '3rd Cat' ? 'selectedCategory' : null}`}>Miscellaneous</h4>
                     </Grid>
                 </Grid>
+            </div>
+            <div className='searchContainer'>
+                <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
+                    setSearchInput(e.target.value)
+                }}></input>
+                <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
             </div>
             {category === '1st Cat' &&
                 <div className='postsWrapper'>

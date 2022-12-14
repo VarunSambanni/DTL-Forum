@@ -17,7 +17,7 @@ const ForgotPassword = () => {
         }
 
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/forgotPassword', {
+        fetch('http://localhost:5000/forgotPassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

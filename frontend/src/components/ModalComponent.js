@@ -25,7 +25,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
         }
 
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/answer', {
+        fetch('http://localhost:5000//answer', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

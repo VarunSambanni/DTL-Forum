@@ -12,7 +12,7 @@ function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
     console.log("mainloggedIn");
     useEffect(() => {
-        fetch('https://interax.herokuapp.com/checkAuth', {
+        fetch('http://localhost:5000/checkAuth', {
             method: "POST",
             headers: {
                 'x-access-token': localStorage.getItem('token')

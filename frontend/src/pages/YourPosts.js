@@ -18,7 +18,7 @@ const YourPosts = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/yourPosts', {
+        fetch('http://localhost:5000/yourPosts', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

@@ -23,7 +23,7 @@ const TopPosts = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/forum', {
+        fetch('http://localhost:5000/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

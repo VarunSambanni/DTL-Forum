@@ -16,7 +16,7 @@ const Login = () => {
             return;
         }
         setIsLoading(true);
-        fetch('https://interax.herokuapp.com/login', {
+        fetch('http://localhost:5000/login', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -41,6 +41,7 @@ const Login = () => {
                 }
             })
             .catch(err => {
+                console.log(err);
                 setIsLoading(false);
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
