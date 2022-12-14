@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import Logout from '../utils/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 
 
 
@@ -25,14 +26,14 @@ const Forum = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [forumUpdate, setForumUpdate] = useState(false);
     const [searchInput, setSearchInput] = useState();
-    const [filterValue, setFilterValue] = useState('Body/Title');
+    const [filterValue, setFilterValue] = useState('Content');
 
     const searchHandler = () => {
         let searchResults = [];
 
         if (category === '1st Cat') {
             for (let i = 0; i < posts[0].length; i++) {
-                if (filterValue === 'Body/Title') {
+                if (filterValue === 'Content') {
                     if (posts[0][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[0][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
                         searchResults.push(posts[0][i]);
                     }
@@ -90,7 +91,7 @@ const Forum = () => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    window.location.replace('https://interax.netlify.app/login');
+                    window.location.replace('http://localhost:3000/login');
                 }
                 setPosts(data.posts); data.posts[0].reverse();
                 data.posts[1].reverse();
@@ -137,18 +138,36 @@ const Forum = () => {
                 </Grid>
             </div>
             <hr></hr>
-            <div className='searchContainer'>
-                <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
-                    setSearchInput(e.target.value)
-                }}></input>
-                <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button className='searchButton' ><TuneIcon sx={{ marginBottom: '-0.2em' }}></TuneIcon></button>
-                <Select size='small' sx={{ marginTop: '-0.4em', minWidth: '5em', maxHeight: '2.5em', alignSelf: 'center' }} value={filterValue} onChange={(e) => { setFilterValue(e.target.value) }}>
-                    <MenuItem value={'Body/Title'}>Body/Title</MenuItem>
-                    <MenuItem value={'Posted By'}>Posted By</MenuItem>
-                </Select>
-            </div>
+            <Grid container>
+                <Grid item md={3} xs={12}>
+                    <div className='searchContainer'>
+                        <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
+                            setSearchInput(e.target.value)
+                        }}></input>
+                        <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
+                    </div>
+                </Grid>
+                <Grid item md={3} xs={6}>
+                    <div className='searchContainer'>
+                        <button className='searchButton' ><TuneIcon sx={{ marginBottom: '-0.2em' }}></TuneIcon></button>
+                        <Select size='small' sx={{ marginTop: '-0.4em', minWidth: '5em', maxHeight: '2.5em', alignSelf: 'center' }} value={filterValue} onChange={(e) => { setFilterValue(e.target.value) }}>
+                            <MenuItem value={'Content'}>Content</MenuItem>
+                            <MenuItem value={'Posted By'}>Posted By</MenuItem>
+                        </Select>
+                    </div>
+                </Grid>
+                <Grid item md={6} xs={6}>
+                    <Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: '#82009c' }}>
+                        <div className='searchContainer announcementsButtonContainer'>
+                            <button className='announcementsButton'>
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <AnnouncementIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>Announcements</p>
+                                </div>
+                            </button>
+                        </div>
+                    </Link>
+                </Grid>
+            </Grid>
             {category === '1st Cat' &&
                 <div className='postsWrapper'>
                     {posts1.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}

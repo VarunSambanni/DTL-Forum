@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import YourPosts from './YourPosts';
 import TopPosts from './TopPosts';
 import UserInfo from './UserInfo';
+import Announcements from './Announcements';
 
 function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
@@ -35,6 +36,9 @@ function MainLoggedIn() {
         <div className="App">
             <Router>
                 <Switch>
+                    <Route exact path='/mainLoggedIn/announcements'>
+                        <Announcements></Announcements>
+                    </Route>
                     <Route exact path='/mainLoggedIn/forum'>
                         <Forum></Forum>
                     </Route>

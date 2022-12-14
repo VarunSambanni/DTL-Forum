@@ -8,6 +8,8 @@ import MainLoggedIn from './pages/MainLoggedIn';
 import Footer from './components/Footer'
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
+import AdminLogin from './pages/AdminLogin';
+import MainLoggedInAdmin from './pages/MainLoggedInAdmin';
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
         <Navbar></Navbar>
         <div className='contentWrapper'>
           <Switch>
+            <Route path='/AdminLogin'>
+              <AdminLogin></AdminLogin>
+            </Route>
             <Route path='/changePassword'>
               <ChangePassword></ChangePassword>
             </Route>
@@ -24,6 +29,9 @@ function App() {
             </Route>
             <Route path='/mainLoggedIn'>
               <MainLoggedIn></MainLoggedIn>
+            </Route>
+            <Route path='/mainLoggedInAdmin'>
+              <MainLoggedInAdmin></MainLoggedInAdmin>
             </Route>
             <Route exact path='/login'>
               <Login></Login>

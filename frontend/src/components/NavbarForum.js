@@ -6,6 +6,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 const NavbarForum = () => {
@@ -16,6 +17,7 @@ const NavbarForum = () => {
             <div className="drawerListWrapper">
                 <ul className="drawerLinks">
                     <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AnnouncementIcon sx={{ margin: '-0.2em 0.2em' }} />Announcements</div></Link></li>
                     <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><PostAddIcon sx={{ margin: '-0.2em 0.2em' }} />Post</div></Link></li>
                     <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AccountBoxIcon sx={{ margin: '-0.2em 0.2em' }} />Your Posts</div></Link></li>
                     <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
-const Login = () => {
+const AdminLogin = () => {
     document.title = 'Login - Interax';
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +16,7 @@ const Login = () => {
             return;
         }
         setIsLoading(true);
-        fetch('http://localhost:5000/login', {
+        fetch('http://localhost:5000/adminLogin', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -34,7 +34,7 @@ const Login = () => {
                     localStorage.setItem("email", data.user.email);
                     localStorage.setItem("year", data.user.year);
                     localStorage.setItem("userId", data.user.userId);
-                    window.location.replace('https://interax.netlify.app/mainLoggedIn/forum'); // Perform apt redirection
+                    window.location.replace('https://interax.netlify.app/mainLoggedInAdmin/announcements'); // Perform apt redirection
                 }
                 else {
                     toast.error(data.msg, { autoClose: 4000 });
@@ -56,15 +56,12 @@ const Login = () => {
                         <div className='linearProgressLoginContainer'>
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
-                        <h4 className='centerText'>Login</h4>
+                        <h4 className='centerText'>Login-Admin</h4>
                         <TextField size='small' sx={{ margin: '0.5em', width: '16em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
                         <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
                             <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
                         </div>
-                        <p className="centerText homePageContent">
-                            <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
-                        </p>
                     </div>
                 </div >
             </div>
@@ -73,4 +70,4 @@ const Login = () => {
 }
 
 
-export default Login;
+export default AdminLogin;
