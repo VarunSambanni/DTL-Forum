@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button, Grid, Select, MenuItem } from '@mui/material';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Post from '../components/Post';
@@ -9,6 +9,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
+import TuneIcon from '@mui/icons-material/Tune';
 import Logout from '../utils/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -24,29 +25,52 @@ const Forum = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [forumUpdate, setForumUpdate] = useState(false);
     const [searchInput, setSearchInput] = useState();
+    const [filterValue, setFilterValue] = useState('Body/Title');
 
     const searchHandler = () => {
         let searchResults = [];
+
         if (category === '1st Cat') {
             for (let i = 0; i < posts[0].length; i++) {
-                if (posts[0][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[0][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
-                    searchResults.push(posts[0][i]);
+                if (filterValue === 'Body/Title') {
+                    if (posts[0][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[0][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                        searchResults.push(posts[0][i]);
+                    }
+                }
+                else {
+                    if (posts[0][i].username === searchInput.trim()) {
+                        searchResults.push(posts[0][i]);
+                    }
                 }
             }
             setPosts1(searchResults);
         }
         else if (category === '2nd Cat') {
             for (let i = 0; i < posts[1].length; i++) {
-                if (posts[1][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[1][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
-                    searchResults.push(posts[1][i]);
+                if (filterValue === 'Body/Title') {
+                    if (posts[1][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[1][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                        searchResults.push(posts[1][i]);
+                    }
+                }
+                else {
+                    if (posts[1][i].username === searchInput.trim()) {
+                        searchResults.push(posts[1][i]);
+                    }
                 }
             }
             setPosts2(searchResults);
         }
         else {
             for (let i = 0; i < posts[2].length; i++) {
-                if (posts[2][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[2][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
-                    searchResults.push(posts[2][i]);
+                if (filterValue === 'Body/Title') {
+                    if (posts[2][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[2][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                        searchResults.push(posts[2][i]);
+                    }
+                }
+                else {
+                    if (posts[2][i].username == searchInput.trim()) {
+                        searchResults.push(posts[2][i]);
+                    }
                 }
             }
             setPosts3(searchResults);
@@ -112,11 +136,18 @@ const Forum = () => {
                     </Grid>
                 </Grid>
             </div>
+            <hr></hr>
             <div className='searchContainer'>
                 <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
                     setSearchInput(e.target.value)
                 }}></input>
                 <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button className='searchButton' ><TuneIcon sx={{ marginBottom: '-0.2em' }}></TuneIcon></button>
+                <Select size='small' sx={{ marginTop: '-0.4em', minWidth: '5em', maxHeight: '2.5em', alignSelf: 'center' }} value={filterValue} onChange={(e) => { setFilterValue(e.target.value) }}>
+                    <MenuItem value={'Body/Title'}>Body/Title</MenuItem>
+                    <MenuItem value={'Posted By'}>Posted By</MenuItem>
+                </Select>
             </div>
             {category === '1st Cat' &&
                 <div className='postsWrapper'>

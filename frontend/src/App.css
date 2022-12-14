@@ -294,19 +294,21 @@ body {
 
 .searchContainer {
   display: flex;
-  padding: 1em;
-  justify-content: center;
+  padding: 0.5em 0.4em;
+  justify-content: left;
 }
 
 .search {
   width: 20em;
   height: 2em;
+  transition: all 0.4s;
 }
 
 .searchButton {
   border: 1px solid black;
   transition: all 0.4s;
-  background-color: #aaadff;
+  height: 2.5em;
+  background-color: #c4c3ff;
 }
 
 .searchButton:hover {

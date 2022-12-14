@@ -7,20 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Linkify from 'react-linkify'
 import ReactMarkdown from "react-markdown";
 
-const markdown = `A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-`
-    ;
 
 const findUserId = (upvotes, username) => {
     for (let i = 0; i < upvotes.length; i++) {
@@ -38,7 +24,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     const [postUpdate, setPostUpdate] = useState(false);
 
     const postUpvote = () => {
-        fetch('http://localhost:5000//upvote', {
+        fetch('http://localhost:5000/upvote', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -63,7 +49,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     }
 
     const deletePost = () => {
-        fetch('http://localhost:5000//deletePost', {
+        fetch('http://localhost:5000/deletePost', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
