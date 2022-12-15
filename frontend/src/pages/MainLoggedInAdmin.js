@@ -3,6 +3,9 @@ import '../App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import AnnouncementsAdmin from './AnnouncementsAdmin';
+import AdminHome from './AdminHome';
+import PostAnnouncement from './PostAnnouncement';
+import UserInfo from './UserInfo';
 
 function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
@@ -33,6 +36,15 @@ function MainLoggedInAdmin() {
                 <Switch>
                     <Route exact path='/mainLoggedInAdmin/announcements'>
                         <AnnouncementsAdmin></AnnouncementsAdmin>
+                    </Route>
+                    <Route exact path='/mainLoggedInAdmin/home'>
+                        <AdminHome></AdminHome>
+                    </Route>
+                    <Route exact path='/mainLoggedInAdmin/postAnnouncement'>
+                        <PostAnnouncement></PostAnnouncement>
+                    </Route>
+                    <Route exact path='/mainLoggedInAdmin/userInfo'>
+                        <UserInfo isAdmin={true}></UserInfo>
                     </Route>
                 </Switch>
             </Router>

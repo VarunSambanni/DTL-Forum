@@ -1,0 +1,95 @@
+import React, { useEffect, useState } from 'react'
+import { TextField, Button, MenuItem, Grid, Checkbox } from '@mui/material';
+import Select from '@mui/material/Select';
+import { ToastContainer, toast } from 'react-toastify';
+import NavbarForum from '../components/NavbarForum';
+import '../index.css'
+import LinearProgress from '@mui/material/LinearProgress';
+import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Logout from '../utils/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+
+const PostAnnouncement = () => {
+    document.title = 'Add Announcement-Admin - Interax';
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [category, setCategory] = useState('1st Cat');
+    const [checked, setChecked] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const postAnnouncementHandler = () => {
+        if (title.length < 5) {
+            toast.error('Title must container 5 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (body.length < 10) {
+            toast.error('Body must container 10 characters at least', { autoClose: 4000 });
+            return;
+        }
+
+        if (title.substring(title.length - 5) === '.html' && body.search("<style") !== -1 || body.search("<script") !== -1) {
+            toast.error('style/script tags are not allowed while using html !', { autoClose: 4000 });
+            return;
+        }
+
+        setIsLoading(true);
+        fetch('http://localhost:5000/postAnnouncement', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({ title: title, body: body, username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId') })
+        })
+            .then(res => res.json())
+            .then(data => {
+                setIsLoading(false);
+                if (data.success === false) {
+                    toast.error(data.msg, { autoClose: 4000 });
+                }
+                else {
+                    toast.success(data.msg, { autoClose: 4000 });
+                    window.location.replace('http://localhost:3000/mainLoggedInAdmin/announcements');
+                }
+            })
+            .catch(err => {
+                setIsLoading(false);
+                console.log("Error connecting to server");
+                toast.error("Error connecting to server", { autoClose: 4000 });
+            })
+    }
+
+    return <>
+        <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
+        <div className='linearProgressContainer'>
+            {isLoading && <LinearProgress></LinearProgress>}
+        </div>
+        <div className='forumWrapper'>
+            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { window.location.replace('/mainLoggedInAdmin/home') }}><AdminPanelSettingsIcon sx={{ margin: '-0.35em' }} /></button>
+            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+            <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+                <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                    </div>
+                </div>
+            </Link>
+            <hr />
+            <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
+                <p style={{ 'padding': '0 0.6em' }}><i><b> Note:</b> For html/markdown posts, add <b>.html/.md</b> at the end of the title</i></p>
+                <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
+                <TextField multiline minRows={12} maxRows={12} variant='outlined' size='small' sx={{ margin: '0.5em' }} inputProps={{ style: { fontSize: '0.96rem' } }} label='Body' value={body} onChange={(e) => { setBody(e.target.value) }}></TextField>
+                <div className='buttonWrapper'>
+                    <button className='button' style={{ margin: '4em' }} onClick={postAnnouncementHandler}><p className='centerText buttonText' >POST</p></button>
+                </div>
+            </div>
+        </div>
+    </>
+}
+
+export default PostAnnouncement;

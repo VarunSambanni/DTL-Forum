@@ -157,15 +157,15 @@ const Forum = () => {
                     </div>
                 </Grid>
                 <Grid item md={6} xs={6}>
-                    <Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: '#82009c' }}>
-                        <div className='searchContainer announcementsButtonContainer'>
+                    <div className='searchContainer announcementsButtonContainer'>
+                        <Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: '#82009c' }}>
                             <button className='announcementsButton'>
                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                                     <AnnouncementIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>Announcements</p>
                                 </div>
                             </button>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 </Grid>
             </Grid>
             {category === '1st Cat' &&

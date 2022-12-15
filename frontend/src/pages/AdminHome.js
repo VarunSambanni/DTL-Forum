@@ -11,16 +11,18 @@ import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Linkify from 'react-linkify'
 import ReactMarkdown from "react-markdown";
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 
-const Announcements = () => {
-    document.title = 'Announcements - Interax';
+const AdminHome = () => {
+    document.title = 'Home-Admin - Interax';
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/announcements', {
+        fetch('http://localhost:5000/announcementsAdmin', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')
@@ -32,7 +34,6 @@ const Announcements = () => {
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
                 }
-                data.posts.reverse();
                 setPosts(data.posts);
             })
             .catch(err => {
@@ -48,9 +49,8 @@ const Announcements = () => {
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
-            <NavbarForum />
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+            <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
                 <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
@@ -59,37 +59,42 @@ const Announcements = () => {
             </Link>
             <hr />
             <div className='postsWrapper'>
-                {posts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
-                {
-                    posts.map((post, index) => {
-                        return <Grid container>
-                            <Grid item xs={12}>
-                                <div className="postWrapper">
-                                    <div className='titleWrapper'>
-                                        <h4 className="title">{post.title.substring(post.title.length - 5) === '.html' ? post.title.substring(0, post.title.length - 5) : post.title.substring(post.title.length - 3) === '.md' ? post.title.substring(0, post.title.length - 3) : post.title}</h4>
-                                        <p className="time">{post.time}</p>
-                                        <hr />
-                                    </div>
-                                    <div className='bodyWrapper'>
-                                        {
-                                            post.title.substring(post.title.length - 5) === '.html' ?
-                                                <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: post.body }}></pre>
-                                                :
-                                                post.title.substring(post.title.length - 3) === '.md' ? <div style={{ maxHeight: '40em' }}> <ReactMarkdown>{post.body}</ReactMarkdown> </div> : <Linkify> <pre style={{ maxHeight: '40em' }} >{post.body}</pre>  </Linkify>
-                                        }
-
-                                    </div>
-                                    <div className="emailWrapper">
-                                        <p className="bold" >Posted By: <p className='announcementUsername'>{post.username}</p></p>
+                <div className='adminHomeHeading'>Admin Home </div>
+                <div className='adminMenu'>
+                    <Grid container>
+                        <Grid item md={6} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div className='adminMenuOption'>
+                                <div className='adminOptionContainer'>
+                                    <AnnouncementIcon
+                                        sx={{ transform: 'scale(2.5)', margin: '0.075em 0', height: 'fit-content', padding: '0.9em' }}
+                                        onClick={() => window.location.replace('/mainLoggedInAdmin/announcements')}>
+                                    </AnnouncementIcon>
+                                    <div className='optionText'>
+                                        <p className='innnerOptionText'>View</p>
+                                        <p className='innnerOptionText'>Announcements</p>
                                     </div>
                                 </div>
-                            </Grid>
+                            </div>
                         </Grid>
-                    })
-                }
+                        <Grid item md={6} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div className='adminMenuOption'>
+                                <div className='adminOptionContainer'>
+                                    <AddCommentIcon
+                                        sx={{ transform: 'scale(2.5)', margin: '0.075em 0', height: 'fit-content', padding: '0.9em' }}
+                                        onClick={() => window.location.replace('/mainLoggedInAdmin/postAnnouncement')}>
+                                    </AddCommentIcon>
+                                    <p className='optionText'>
+                                        <p className='innnerOptionText'>Post</p>
+                                        <p className='innnerOptionText'>Announcement</p>
+                                    </p>
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid >
+                </div>
             </div>
         </div>
     </>
 }
 
-export default Announcements;   
+export default AdminHome;   

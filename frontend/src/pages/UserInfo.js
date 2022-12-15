@@ -6,21 +6,26 @@ import NavbarForum from '../components/NavbarForum';
 import Logout from '../utils/Logout';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
-const UserInfo = () => {
-    document.title = 'User Info - Interax';
-
+const UserInfo = ({ isAdmin }) => {
+    if (isAdmin) {
+        document.title = 'User Info - Interax';
+    }
+    else {
+        document.title = 'User Info-Admin - Interax';
+    }
     return (
         <>
             <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
             <div className='linearProgressContainer'>
-
             </div>
             <div className='forumWrapper' >
 
-                <NavbarForum />
+                {!isAdmin && <NavbarForum />}
+                {isAdmin && <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { window.location.replace('/mainLoggedInAdmin/home') }}><AdminPanelSettingsIcon sx={{ margin: '-0.35em' }} /></button>}
                 <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                <Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+                <Link to={isAdmin ? '/mainLoggedInAdmin/userInfo' : 'mainLoggedIn/userInfo'} style={{ textDecoration: 'none', color: '#82009c' }}>
                     <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>

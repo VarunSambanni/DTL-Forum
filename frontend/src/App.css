@@ -627,6 +627,60 @@ p {
   margin: 1em;
 }
 
+.adminHomeHeading {
+  text-align: center;
+  border-bottom: 1px solid black;
+  background-color: rgb(9, 6, 177);
+  color: white;
+  font-size: 1.25rem;
+  padding: 0.75em;
+  font-weight: 600;
+  border-radius: 0.25em;
+}
+
+.adminMenu {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  background-color: #d5e4ff;
+}
+
+.adminMenuOption {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  height: 8em;
+  padding: 0.6em;
+  margin: 2em;
+  width: fit-content;
+  color: white;
+  background-color: rgb(73, 73, 255);
+  border-radius: 0.5em;
+  transition: 0.4s all;
+}
+
+.adminMenuOption:hover {
+  background-color: white;
+  color: rgb(73, 73, 255);
+  cursor: pointer;
+}
+
+.optionText {
+  text-align: center;
+}
+
+.innnerOptionText {
+  margin: 0em;
+  padding: 0em;
+  font-size: 1rem;
+}
+
+.adminOptionContainer {
+  padding: 0em;
+  text-align: center;
+}
+
 .footerText {
   margin: 0.1em;
   padding: 0.1em;
