@@ -34,7 +34,7 @@ const AdminLogin = () => {
                     localStorage.setItem("email", data.user.email);
                     localStorage.setItem("year", data.user.year);
                     localStorage.setItem("userId", data.user.userId);
-                    window.location.replace('https://interax.netlify.app/mainLoggedInAdmin/announcements'); // Perform apt redirection
+                    window.location.replace('http://localhost:3000/mainLoggedInAdmin/announcements'); // Perform apt redirection
                 }
                 else {
                     toast.error(data.msg, { autoClose: 4000 });

@@ -12,12 +12,29 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Linkify from 'react-linkify'
 import ReactMarkdown from "react-markdown";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SearchIcon from '@mui/icons-material/Search';
 
+let mainPosts;
 
 const AnnouncementsAdmin = () => {
     document.title = 'Announcements-Admin - Interax';
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchInput, setSearchInput] = useState();
+
+    const searchHandler = () => {
+        let searchResults = [];
+        if (searchInput.trim().length === 0) {
+            setPosts(mainPosts);
+            return;
+        }
+        for (let i = 0; i < mainPosts.length; i++) {
+            if (mainPosts[i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || mainPosts[i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
+                searchResults.push(mainPosts[i]);
+            }
+        }
+        setPosts(searchResults);
+    }
 
     useEffect(() => {
         setIsLoading(true);
@@ -32,8 +49,10 @@ const AnnouncementsAdmin = () => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
+                    window.location.replace('http://localhost:3000/adminLogin');
                 }
                 data.posts.reverse();
+                mainPosts = data.posts;
                 setPosts(data.posts);
             })
             .catch(err => {
@@ -59,6 +78,12 @@ const AnnouncementsAdmin = () => {
                 </div>
             </Link>
             <hr />
+            <div className='searchContainer'>
+                <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
+                    setSearchInput(e.target.value)
+                }}></input>
+                <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
+            </div>
             <div className='postsWrapper'>
                 {posts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                 {

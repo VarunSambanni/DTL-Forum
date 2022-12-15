@@ -102,7 +102,7 @@ const Forum = () => {
             })
             .catch(err => {
                 setIsLoading(false);
-                console.log("Error connecting to server");
+                console.log("Error connecting to server from Forum");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }, [forumUpdate]);

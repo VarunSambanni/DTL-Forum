@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { TextField, Button, Grid } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
-import Post from '../components/Post';
-import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Linkify from 'react-linkify'
-import ReactMarkdown from "react-markdown";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
@@ -33,6 +29,7 @@ const AdminHome = () => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
+                    window.location.replace('http://localhost:3000/adminLogin');
                 }
                 setPosts(data.posts);
             })

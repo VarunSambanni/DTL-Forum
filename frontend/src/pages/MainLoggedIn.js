@@ -13,8 +13,8 @@ function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
     console.log("mainloggedIn");
     useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
-            method: "POST",
+        fetch('http://localhost:5000/isUserAuth', {
+            method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')
             }
@@ -27,7 +27,7 @@ function MainLoggedIn() {
                 }
             })
             .catch(err => {
-                console.log("Error connecting to server");
+                console.log("Error connecting to server from mainLoggedIn");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }, []);

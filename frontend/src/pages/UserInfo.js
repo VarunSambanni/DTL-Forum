@@ -25,7 +25,7 @@ const UserInfo = ({ isAdmin }) => {
                 {!isAdmin && <NavbarForum />}
                 {isAdmin && <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { window.location.replace('/mainLoggedInAdmin/home') }}><AdminPanelSettingsIcon sx={{ margin: '-0.35em' }} /></button>}
                 <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-                <Link to={isAdmin ? '/mainLoggedInAdmin/userInfo' : 'mainLoggedIn/userInfo'} style={{ textDecoration: 'none', color: '#82009c' }}>
+                <Link to={isAdmin ? '/mainLoggedInAdmin/userInfo' : '/mainLoggedIn/userInfo'} style={{ textDecoration: 'none', color: '#82009c' }}>
                     <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>

@@ -11,8 +11,8 @@ function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
     console.log("mainloggedInAdmin");
     useEffect(() => {
-        fetch('http://localhost:5000/checkAuth', {
-            method: "POST",
+        fetch('http://localhost:5000/isUserAuthAdmin', {
+            method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')
             }
