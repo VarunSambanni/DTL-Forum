@@ -77,6 +77,7 @@ const Announcements = () => {
                 </div>
             </Link>
             <hr />
+            <div className='pageHeading'>Announcements</div>
             <div className='searchContainer'>
                 <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
                     setSearchInput(e.target.value)

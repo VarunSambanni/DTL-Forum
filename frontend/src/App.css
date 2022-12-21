@@ -627,7 +627,7 @@ p {
   margin: 1em;
 }
 
-.adminHomeHeading {
+.pageHeading {
   text-align: center;
   border-bottom: 1px solid black;
   background-color: rgb(9, 6, 177);
@@ -636,6 +636,7 @@ p {
   padding: 0.75em;
   font-weight: 600;
   border-radius: 0.25em;
+  margin: 0em 0.3em;
 }
 
 .adminMenu {

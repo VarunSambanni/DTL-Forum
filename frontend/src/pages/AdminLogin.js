@@ -56,7 +56,7 @@ const AdminLogin = () => {
                         <div className='linearProgressLoginContainer'>
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
-                        <h4 className='centerText'>Login-Admin</h4>
+                        <h4 className='centerText'>Login - Admin</h4>
                         <TextField size='small' sx={{ margin: '0.5em', width: '16em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
                         <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>

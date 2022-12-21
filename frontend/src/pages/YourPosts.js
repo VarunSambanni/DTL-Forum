@@ -58,6 +58,7 @@ const YourPosts = () => {
                 </div>
             </Link>
             <hr />
+            <div className='pageHeading'>Your Posts</div>
             <div className='postsWrapper'>
                 {yourPosts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                 {

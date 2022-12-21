@@ -55,8 +55,8 @@ const AdminHome = () => {
                 </div>
             </Link>
             <hr />
+            <div className='pageHeading'>Admin Home </div>
             <div className='postsWrapper'>
-                <div className='adminHomeHeading'>Admin Home </div>
                 <div className='adminMenu'>
                     <Grid container>
                         <Grid item md={6} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>

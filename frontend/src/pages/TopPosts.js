@@ -115,6 +115,7 @@ const TopPosts = () => {
                     </Grid>
                 </Grid>
             </div>
+            <div className='pageHeading'>Top Posts</div>
             {category === '1st Cat' &&
                 <div className='postsWrapper'>
                     {posts1.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}

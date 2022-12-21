@@ -78,4 +78,4 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
     </Modal >
 }
 
-export default ModalComponent
+export default ModalComponent;

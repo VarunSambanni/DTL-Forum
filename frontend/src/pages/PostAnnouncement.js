@@ -80,6 +80,7 @@ const PostAnnouncement = () => {
                 </div>
             </Link>
             <hr />
+            <div className='pageHeading'>Post Announcement</div>
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <p style={{ 'padding': '0 0.6em' }}><i><b> Note:</b> For html/markdown posts, add <b>.html/.md</b> at the end of the title</i></p>
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>

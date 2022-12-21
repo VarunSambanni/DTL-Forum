@@ -138,6 +138,7 @@ const Forum = () => {
                 </Grid>
             </div>
             <hr></hr>
+            <div className='pageHeading'>Forum</div>
             <Grid container>
                 <Grid item md={3} xs={12}>
                     <div className='searchContainer'>

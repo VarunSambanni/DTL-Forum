@@ -33,8 +33,9 @@ const UserInfo = ({ isAdmin }) => {
                     </div>
                 </Link>
                 <hr />
+                <div className='pageHeading'>User Info</div>
                 <div className='postsWrapper' style={{
-                    padding: '0em', margin: '0em',
+
                 }} >
                     <div className='loginContainer' style={{ padding: '0.4em', fontSize: '0.95rem', margin: 'auto' }} >
                         <div className='loginForm'>
