@@ -124,6 +124,7 @@ const Forum = () => {
                 </div>
             </Link>
             <hr />
+            <div className='pageHeading'>Forum</div>
             <div className='categoriesWrapper'>
                 <Grid container sx={{ display: 'flex', justifyContent: 'space-around' }}>
                     <Grid item md={4} sm={4} xs={12}>
@@ -138,7 +139,6 @@ const Forum = () => {
                 </Grid>
             </div>
             <hr></hr>
-            <div className='pageHeading'>Forum</div>
             <Grid container>
                 <Grid item md={3} xs={12}>
                     <div className='searchContainer'>
