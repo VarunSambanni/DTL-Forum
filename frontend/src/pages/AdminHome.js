@@ -13,37 +13,10 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const AdminHome = () => {
     document.title = 'Home-Admin - Interax';
-    const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        setIsLoading(true);
-        fetch('http://localhost:5000/announcementsAdmin', {
-            method: "GET",
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                if (data.success === false) {
-                    toast.error(data.msg, { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/adminLogin');
-                }
-                setPosts(data.posts);
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.log("Error connecting to server");
-                toast.error("Error connecting to server", { autoClose: 4000 });
-            })
-    }, []);
 
     return <>
         <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
         <div className='linearProgressContainer'>
-            {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
             <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>

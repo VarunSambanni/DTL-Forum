@@ -43,7 +43,7 @@ const PostForum = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/postForum', {
+        fetch('https://dtlforum-backend.vercel.app/postForum', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

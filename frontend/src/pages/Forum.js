@@ -80,7 +80,7 @@ const Forum = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/forum', {
+        fetch('https://dtlforum-backend.vercel.app/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')
@@ -139,8 +139,10 @@ const Forum = () => {
                 </Grid>
             </div>
             <hr></hr>
-            <Grid container>
-                <Grid item md={3} xs={12}>
+            <Grid container sx={{
+                backgroundColor: '#f5f2f2', boxShadow: 'rgba(0, 0, 0, 0.35) 0em 0.1em 0.4em;'
+            }}>
+                < Grid item md={3} xs={12} >
                     <div className='searchContainer'>
                         <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
                             setSearchInput(e.target.value)
@@ -169,7 +171,8 @@ const Forum = () => {
                     </div>
                 </Grid>
             </Grid>
-            {category === '1st Cat' &&
+            {
+                category === '1st Cat' &&
                 <div className='postsWrapper'>
                     {posts1.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                     {
@@ -179,7 +182,8 @@ const Forum = () => {
                     }
                 </div>
             }
-            {category === '2nd Cat' &&
+            {
+                category === '2nd Cat' &&
                 <div className='postsWrapper'>
                     {posts2.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                     {
@@ -189,7 +193,8 @@ const Forum = () => {
                     }
                 </div>
             }
-            {category === '3rd Cat' &&
+            {
+                category === '3rd Cat' &&
                 <div className='postsWrapper'>
                     {posts3.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
                     {
@@ -199,7 +204,7 @@ const Forum = () => {
                     }
                 </div>
             }
-        </div>
+        </div >
     </>
 }
 

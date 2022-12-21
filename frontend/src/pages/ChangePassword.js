@@ -28,7 +28,7 @@ const ChangePassword = () => {
             return;
         }
         setIsLoading(true);
-        fetch('http://localhost:5000/changePassword', {
+        fetch('https://dtlforum-backend.vercel.app/changePassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

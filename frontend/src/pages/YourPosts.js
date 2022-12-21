@@ -18,7 +18,7 @@ const YourPosts = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/yourPosts', {
+        fetch('https://dtlforum-backend.vercel.app/yourPosts', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

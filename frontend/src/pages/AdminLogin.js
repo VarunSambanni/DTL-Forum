@@ -16,7 +16,7 @@ const AdminLogin = () => {
             return;
         }
         setIsLoading(true);
-        fetch('http://localhost:5000/adminLogin', {
+        fetch('https://dtlforum-backend.vercel.app/adminLogin', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

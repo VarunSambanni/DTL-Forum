@@ -13,7 +13,7 @@ function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
     console.log("mainloggedIn");
     useEffect(() => {
-        fetch('http://localhost:5000/isUserAuth', {
+        fetch('https://dtlforum-backend.vercel.app/isUserAuth', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

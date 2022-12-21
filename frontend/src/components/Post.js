@@ -24,7 +24,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     const [postUpdate, setPostUpdate] = useState(false);
 
     const postUpvote = () => {
-        fetch('http://localhost:5000/upvote', {
+        fetch('https://dtlforum-backend.vercel.app/upvote', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -49,7 +49,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
     }
 
     const deletePost = () => {
-        fetch('http://localhost:5000/deletePost', {
+        fetch('https://dtlforum-backend.vercel.app/deletePost', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

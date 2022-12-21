@@ -17,7 +17,7 @@ const ForgotPassword = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/forgotPassword', {
+        fetch('https://dtlforum-backend.vercel.app/forgotPassword', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

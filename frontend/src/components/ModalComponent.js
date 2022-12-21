@@ -25,7 +25,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/answer', {
+        fetch('https://dtlforum-backend.vercel.app/answer', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

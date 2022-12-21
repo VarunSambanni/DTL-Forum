@@ -37,7 +37,7 @@ const PostAnnouncement = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/postAnnouncement', {
+        fetch('https://dtlforum-backend.vercel.app/postAnnouncement', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

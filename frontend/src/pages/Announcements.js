@@ -38,7 +38,7 @@ const Announcements = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/announcements', {
+        fetch('https://dtlforum-backend.vercel.app/announcements', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

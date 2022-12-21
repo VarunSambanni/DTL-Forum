@@ -15,7 +15,6 @@ const TOP_QUESTIONS_LIMIT = 2;
 const TopPosts = () => {
     document.title = 'Top Posts - Interax';
     const [category, setCategory] = useState('1st Cat');
-    const [posts, setPosts] = useState([]);
     const [posts1, setPosts1] = useState([]);
     const [posts2, setPosts2] = useState([]);
     const [posts3, setPosts3] = useState([]);

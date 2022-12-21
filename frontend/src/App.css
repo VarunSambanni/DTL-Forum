@@ -299,7 +299,8 @@ body {
 }
 
 .search {
-  width: 20em;
+  width: 100%;
+  max-width: 30em;
   height: 2em;
   transition: all 0.4s;
 }
