@@ -64,6 +64,9 @@ const Login = () => {
                         </div>
                         <p className="centerText homePageContent">
                             <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
+                            <br />
+                            <br />
+                            <a href='/adminLogin' className='getStartedLink button'>Admin Login</a>
                         </p>
                     </div>
                 </div >
