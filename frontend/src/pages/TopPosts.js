@@ -22,7 +22,7 @@ const TopPosts = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/forum', {
+        fetch('https://dtlforum-backend.vercel.app/forum', {
             method: "GET",
             headers: {
                 'x-access-token': localStorage.getItem('token')

@@ -54,7 +54,7 @@ const PostAnnouncement = () => {
                 }
                 else {
                     toast.success(data.msg, { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/mainLoggedInAdmin/announcements');
+                    window.location.replace('https://interax.netlify.app/mainLoggedInAdmin/announcements');
                 }
             })
             .catch(err => {

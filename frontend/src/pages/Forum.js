@@ -91,7 +91,7 @@ const Forum = () => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
-                    window.location.replace('http://localhost:3000/login');
+                    window.location.replace('https://interax.netlify.app/login');
                 }
                 setPosts(data.posts); data.posts[0].reverse();
                 data.posts[1].reverse();
