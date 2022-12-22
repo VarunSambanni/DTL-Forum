@@ -48,7 +48,7 @@ const Forum = () => {
         }
         else if (category === '2nd Cat') {
             for (let i = 0; i < posts[1].length; i++) {
-                if (filterValue === 'Body/Title') {
+                if (filterValue === 'Content') {
                     if (posts[1][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[1][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
                         searchResults.push(posts[1][i]);
                     }
@@ -63,7 +63,7 @@ const Forum = () => {
         }
         else {
             for (let i = 0; i < posts[2].length; i++) {
-                if (filterValue === 'Body/Title') {
+                if (filterValue === 'Content') {
                     if (posts[2][i].body.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null || posts[2][i].title.toLowerCase().match(RegExp(searchInput.toLowerCase()))) {
                         searchResults.push(posts[2][i]);
                     }
@@ -140,7 +140,7 @@ const Forum = () => {
             </div>
             <hr></hr>
             <Grid container sx={{
-                backgroundColor: '#f5f2f2', boxShadow: 'rgba(0, 0, 0, 0.35) 0em 0.1em 0.4em;'
+                backgroundColor: '#f5f2f2', boxShadow: 'rgba(0, 0, 0, 0.35) 0em 0.1em 0.4em;',
             }}>
                 < Grid item md={3} xs={12} >
                     <div className='searchContainer'>
