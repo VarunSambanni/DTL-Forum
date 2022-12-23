@@ -482,7 +482,8 @@ p {
 .button {
   height: 3em;
   width: 8em;
-  margin: 1em;
+  margin: 0.4em;
+  margin-bottom: 1em;
   padding: 0.2em;
   background-color: #6c6cf8;
   color: white;
@@ -496,7 +497,11 @@ p {
   color: rgb(120, 120, 255);
   cursor: pointer;
   border-radius: 0.2em;
-  margin: 1em;
+}
+
+.loginButtonsWrapper {
+  display: flex;
+  justify-content: space-around;
 }
 
 .buttonText {

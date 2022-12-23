@@ -62,11 +62,13 @@ const Login = () => {
                         <p className="centerText homePageContent">
                             <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
                         </p>
-                        <div className='buttonWrapper'>
-                            <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
-                        </div>
-                        <div className='buttonWrapper'>
-                            <button className='button' onClick={() => window.location.replace('https://interax.netlify.app/adminLogin')}><p className='centerText buttonText' >ADMIN</p></button>
+                        <div className='loginButtonsWrapper'>
+                            <div className='buttonWrapper'>
+                                <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
+                            </div>
+                            <div className='buttonWrapper'>
+                                <button className='button' onClick={() => window.location.replace('https://interax.netlify.app/adminLogin')}><p className='centerText buttonText' >ADMIN</p></button>
+                            </div>
                         </div>
                     </div>
                 </div >
