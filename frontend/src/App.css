@@ -481,7 +481,7 @@ p {
 
 .button {
   height: 3em;
-  width: fit-content;
+  width: 8em;
   margin: 1em;
   padding: 0.2em;
   background-color: #6c6cf8;

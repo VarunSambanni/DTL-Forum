@@ -59,15 +59,15 @@ const Login = () => {
                         <h4 className='centerText'>Login</h4>
                         <TextField size='small' sx={{ margin: '0.5em', width: '16em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
                         <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <p className="centerText homePageContent">
+                            <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
+                        </p>
                         <div className='buttonWrapper'>
                             <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
                         </div>
-                        <p className="centerText homePageContent">
-                            <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
-                            <br />
-                            <br />
-                            <a href='/adminLogin' className='getStartedLink button'>Admin Login</a>
-                        </p>
+                        <div className='buttonWrapper'>
+                            <button className='button' onClick={() => window.location.replace('https://interax.netlify.app/adminLogin')}><p className='centerText buttonText' >ADMIN</p></button>
+                        </div>
                     </div>
                 </div >
             </div>
