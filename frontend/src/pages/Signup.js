@@ -91,7 +91,7 @@ const Signup = () => {
         }
 
         setIsLoading(true);
-        fetch('http://localhost:5000/signup', {
+        fetch('https://dtlforum-backend.vercel.app/signup', {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
