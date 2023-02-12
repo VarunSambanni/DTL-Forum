@@ -8,10 +8,13 @@ import YourPosts from './YourPosts';
 import TopPosts from './TopPosts';
 import UserInfo from './UserInfo';
 import Announcements from './Announcements';
+import { CircularProgress } from '@mui/material';
 
 function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
-    console.log("mainloggedIn");
+    if (localStorage.getItem("isAuth") === null) {
+        localStorage.setItem("isAuth", false);
+    }
     useEffect(() => {
         fetch('https://dtlforum-backend.vercel.app/isUserAuth', {
             method: "GET",
@@ -23,7 +26,11 @@ function MainLoggedIn() {
             .then(data => {
                 if (data.success === false) {
                     toast.error('Login required', { autoClose: 4000 });
+                    localStorage.setItem("isAuth", false);
                     window.location.replace('https://interax.netlify.app/login');
+                }
+                else {
+                    localStorage.setItem("isAuth", true);
                 }
             })
             .catch(err => {
@@ -34,28 +41,42 @@ function MainLoggedIn() {
 
     return (
         <div className="App">
-            <Router>
-                <Switch>
-                    <Route exact path='/mainLoggedIn/announcements'>
-                        <Announcements></Announcements>
-                    </Route>
-                    <Route exact path='/mainLoggedIn/forum'>
-                        <Forum></Forum>
-                    </Route>
-                    <Route exact path='/mainLoggedIn/postForum'>
-                        <PostForum></PostForum>
-                    </Route>
-                    <Route exact path='/mainLoggedIn/yourPosts'>
-                        <YourPosts></YourPosts>
-                    </Route>
-                    <Route exact path='/mainLoggedIn/topPosts'>
-                        <TopPosts></TopPosts>
-                    </Route>
-                    <Route exact path='/mainLoggedIn/userInfo'>
-                        <UserInfo></UserInfo>
-                    </Route>
-                </Switch>
-            </Router>
+            {!(JSON.parse(localStorage.getItem("isAuth"))) ?
+                <div className='loadingAuthCheck'>
+                    <div>
+                        <div className='centerText'>
+                            Checking Authentication...
+                        </div>
+                        <div className="centerText">
+                            <CircularProgress sx={{ margin: '0 auto' }} />
+                        </div>
+                    </div>
+                </div>
+                :
+
+                <Router>
+                    <Switch>
+                        <Route exact path='/mainLoggedIn/announcements'>
+                            <Announcements></Announcements>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/forum'>
+                            <Forum></Forum>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/postForum'>
+                            <PostForum></PostForum>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/yourPosts'>
+                            <YourPosts></YourPosts>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/topPosts'>
+                            <TopPosts></TopPosts>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/userInfo'>
+                            <UserInfo></UserInfo>
+                        </Route>
+                    </Switch>
+                </Router>
+            }
         </div>
     );
 }

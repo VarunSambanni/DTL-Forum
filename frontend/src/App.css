@@ -706,3 +706,12 @@ td {
   padding: 0.2em;
   text-align: center;
 }
+
+.loadingAuthCheck {
+  height: 90vh;
+  width: 100vw;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
