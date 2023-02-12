@@ -6,10 +6,13 @@ import AnnouncementsAdmin from './AnnouncementsAdmin';
 import AdminHome from './AdminHome';
 import PostAnnouncement from './PostAnnouncement';
 import UserInfo from './UserInfo';
+import { CircularProgress } from '@mui/material';
 
 function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
-    console.log("mainloggedInAdmin");
+    if (localStorage.getItem("isAuth") === null) {
+        localStorage.setItem("isAuth", false);
+    }
     useEffect(() => {
         fetch('https://dtlforum-backend.vercel.app/isUserAuthAdmin', {
             method: "GET",
@@ -21,7 +24,11 @@ function MainLoggedInAdmin() {
             .then(data => {
                 if (data.success === false) {
                     toast.error('Login required', { autoClose: 4000 });
+                    localStorage.setItem("isAuth", false);
                     window.location.replace('https://interax.netlify.app/AdminLogin');
+                }
+                else {
+                    localStorage.setItem("isAuth", true);
                 }
             })
             .catch(err => {
@@ -32,22 +39,36 @@ function MainLoggedInAdmin() {
 
     return (
         <div className="App">
-            <Router>
-                <Switch>
-                    <Route exact path='/mainLoggedInAdmin/announcements'>
-                        <AnnouncementsAdmin></AnnouncementsAdmin>
-                    </Route>
-                    <Route exact path='/mainLoggedInAdmin/home'>
-                        <AdminHome></AdminHome>
-                    </Route>
-                    <Route exact path='/mainLoggedInAdmin/postAnnouncement'>
-                        <PostAnnouncement></PostAnnouncement>
-                    </Route>
-                    <Route exact path='/mainLoggedInAdmin/userInfo'>
-                        <UserInfo isAdmin={true}></UserInfo>
-                    </Route>
-                </Switch>
-            </Router>
+            {!(JSON.parse(localStorage.getItem("isAuth"))) ?
+                <div className='loadingAuthCheck'>
+                    <div>
+                        <div className='centerText'>
+                            Checking Authentication...
+                        </div>
+                        <div className="centerText">
+                            <CircularProgress sx={{ margin: '0 auto' }} />
+                        </div>
+                    </div>
+                </div>
+                :
+
+                <Router>
+                    <Switch>
+                        <Route exact path='/mainLoggedInAdmin/announcements'>
+                            <AnnouncementsAdmin></AnnouncementsAdmin>
+                        </Route>
+                        <Route exact path='/mainLoggedInAdmin/home'>
+                            <AdminHome></AdminHome>
+                        </Route>
+                        <Route exact path='/mainLoggedInAdmin/postAnnouncement'>
+                            <PostAnnouncement></PostAnnouncement>
+                        </Route>
+                        <Route exact path='/mainLoggedInAdmin/userInfo'>
+                            <UserInfo isAdmin={true}></UserInfo>
+                        </Route>
+                    </Switch>
+                </Router>
+            }
         </div>
     );
 }
