@@ -4,7 +4,7 @@ const Logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('year');
     localStorage.removeItem('email');
-
+    localStorage.removeItem('isAuth');
     window.location.replace('https://interax.netlify.app/');
 }
 

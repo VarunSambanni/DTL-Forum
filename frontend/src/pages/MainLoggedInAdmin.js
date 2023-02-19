@@ -10,6 +10,8 @@ import { CircularProgress } from '@mui/material';
 
 function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
+    const [updatePage, setUpdatePage] = useState(false);
+
     if (localStorage.getItem("isAuth") === null) {
         localStorage.setItem("isAuth", false);
     }
@@ -29,13 +31,14 @@ function MainLoggedInAdmin() {
                 }
                 else {
                     localStorage.setItem("isAuth", true);
+                    setUpdatePage(!updatePage);
                 }
             })
             .catch(err => {
                 console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
-    }, []);
+    }, [updatePage]);
 
     return (
         <div className="App">
