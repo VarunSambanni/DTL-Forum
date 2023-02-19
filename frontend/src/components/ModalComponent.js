@@ -57,11 +57,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, title, body, answerBody, 
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='modalCloseButtonWrapper'>
-<<<<<<< HEAD
             <button className='button' style={{ margin: '0.2em', width: 'fit-content' }} onClick={() => setIsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon sx={{ margin: '0.1em' }} /></p></button>
-=======
-            <button className='button' style={{ margin: '0.2em', width:'fit-content' }} onClick={() => setIsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon sx={{ margin: '0.1em' }} /></p></button>
->>>>>>> efe339df9f6efbcf5f205ff3318b56c9a0b7f3e6
         </div>
         <div className='titleWrapper'>
             <h4 className="title">{title}</h4>

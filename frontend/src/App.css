@@ -191,7 +191,7 @@ body {
 }
 
 .homePageContent {
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 0.5em;
 }
 
@@ -265,7 +265,7 @@ body {
 .logo {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.75rem;
   align-self: center;
   text-align: center;
   padding: 0 0.2em;
@@ -420,7 +420,7 @@ pre {
 
 .answerWrapper {
   padding: 0.1em 0.5em;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   overflow-x: auto;
 }
 
@@ -581,7 +581,7 @@ p {
 }
 
 .stayAnonymousText {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   padding: 1.1em;
 }
@@ -638,7 +638,7 @@ p {
   border-bottom: 1px solid black;
   background-color: rgb(9, 6, 177);
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   padding: 0.75em;
   font-weight: 600;
   border-radius: 0.25em;
@@ -714,4 +714,23 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@media only screen and (max-width: 576px) {
+  .bodyWrapper,
+  .time,
+  .answersWrapper,
+  button {
+    font-size: 0.75rem;
+  }
+
+  .titleWrapper,
+  .category,
+  .loggedInAsText,
+  .announcementsButton {
+    font-size: 0.9rem;
+  }
+  .pageHeading {
+    font-size: 1rem;
+  }
 }

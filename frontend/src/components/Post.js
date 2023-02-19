@@ -80,7 +80,6 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     <div className='titleWrapper'>
                         <h4 className="title">{title.substring(title.length - 5) === '.html' ? title.substring(0, title.length - 5) : title.substring(title.length - 3) === '.md' ? title.substring(0, title.length - 3) : title}</h4>
                         <p className="time">{time}</p>
-                        <hr />
                         {yourPostsFlag && <p className="askedInCat">Asked in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
                     </div>
                     <div className='bodyWrapper'>
@@ -94,7 +93,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
 
                     </div>
                     <div className="emailWrapper">
-                        <p className="bold">Posted By: {username} {`(${year})`}</p>
+                        <p className="bold">- {username} {`(${year})`}</p>
                         <div className="answerButtonWrapper">
                             <button onClick={postUpvote} className={(findUserId(upvotes, localStorage.getItem('username')) !== -1) ? 'upvotedButton' : 'button upvoteButton'} style={{ margin: '0 0.4em' }}>
                                 <p className='centerText buttonText' >
@@ -107,7 +106,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                             {yourPostsFlag ?
                                 <button className='button upvoteButton' style={{ margin: '0 0.4em' }} onClick={() => deletePost()} ><p className='centerText buttonText' ><DeleteIcon sx={{ marginTop: '-0.08em' }} /></p></button>
                                 :
-                                <button className='button' style={{ margin: '0 0.4em' }} onClick={() => setIsModalOpen(true)} ><p className='centerText buttonText' >REPLY</p></button>
+                                <button className='button' style={{ margin: '0 0.4em', width: 'fit-content', padding: '0em 0.4em' }} onClick={() => setIsModalOpen(true)} ><p className='centerText buttonText' >REPLY</p></button>
                             }
                         </div>
 
