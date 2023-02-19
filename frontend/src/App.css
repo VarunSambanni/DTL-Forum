@@ -715,9 +715,6 @@ td {
 }
 
 .userBarContainer {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
   background-color: rgb(241, 238, 238);
   box-shadow: 0.02em 0.01em 0.18em rgb(88, 87, 87);
   z-index: 4;
@@ -736,5 +733,16 @@ td {
     font-size: 1rem;
   }
   .searchContainer {
+  }
+
+  button {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .userBarContainer {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
   }
 }

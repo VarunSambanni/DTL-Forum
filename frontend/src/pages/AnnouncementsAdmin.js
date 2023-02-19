@@ -68,15 +68,17 @@ const AnnouncementsAdmin = () => {
             {isLoading && <LinearProgress></LinearProgress>}
         </div>
         <div className='forumWrapper'>
-            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { window.location.replace('/mainLoggedInAdmin/home') }}><AdminPanelSettingsIcon sx={{ margin: '-0.35em' }} /></button>
-            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
-                <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+            <div className='userBarContainer'>
+                <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { window.location.replace('/mainLoggedInAdmin/home') }}><AdminPanelSettingsIcon sx={{ margin: '-0.35em' }} /></button>
+                <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+                <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+                    <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                        </div>
                     </div>
-                </div>
-            </Link>
+                </Link>
+            </div>
             <hr />
             <div className='pageHeading'>Announcements</div>
             <div className='searchContainer'>

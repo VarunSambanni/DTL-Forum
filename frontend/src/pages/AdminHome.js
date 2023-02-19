@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 
 const AdminHome = () => {
@@ -19,20 +20,22 @@ const AdminHome = () => {
         <div className='linearProgressContainer'>
         </div>
         <div className='forumWrapper'>
-            <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
-            <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
-                <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+            <div className='userBarContainer'>
+                <button style={{ margin: '0.4em', width: '3em' }} className='button' onClick={() => { Logout() }}><LogoutIcon sx={{ margin: '-0.35em' }} /></button>
+                <Link to='/mainLoggedInAdmin/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}>
+                    <div className='loggedInAsTextContainer' style={{ display: 'inline', float: 'right' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <AccountCircleIcon sx={{ margin: '0.075em 0' }} /><p className='loggedInAsText'>{localStorage.getItem('username')}</p>
+                        </div>
                     </div>
-                </div>
-            </Link>
+                </Link>
+            </div>
             <hr />
             <div className='pageHeading'>Admin Home </div>
             <div className='postsWrapper'>
                 <div className='adminMenu'>
                     <Grid container>
-                        <Grid item md={6} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div className='adminMenuOption'>
                                 <div className='adminOptionContainer'>
                                     <AnnouncementIcon
@@ -46,7 +49,7 @@ const AdminHome = () => {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item md={6} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div className='adminMenuOption'>
                                 <div className='adminOptionContainer'>
                                     <AddCommentIcon
@@ -56,6 +59,20 @@ const AdminHome = () => {
                                     <p className='optionText'>
                                         <p className='innnerOptionText'>Post</p>
                                         <p className='innnerOptionText'>Announcement</p>
+                                    </p>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div className='adminMenuOption'>
+                                <div className='adminOptionContainer'>
+                                    <AnalyticsIcon
+                                        sx={{ transform: 'scale(2.5)', margin: '0.075em 0', height: 'fit-content', padding: '0.9em' }}
+                                        onClick={() => window.location.replace('/mainLoggedInAdmin/postAnnouncement')}>
+                                    </AnalyticsIcon>
+                                    <p className='optionText'>
+                                        <p className='innnerOptionText'>View</p>
+                                        <p className='innnerOptionText'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statistics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                     </p>
                                 </div>
                             </div>
