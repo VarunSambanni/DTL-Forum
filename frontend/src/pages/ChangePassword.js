@@ -67,7 +67,7 @@ const ChangePassword = () => {
                         <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={confirmPassword} label='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
-                            <button className='button'><p className='centerText buttonText' onClick={reqPasswordChange}>Change Password</p></button>
+                            <button className='button'><p className='centerText buttonText' onClick={reqPasswordChange}>CHANGE</p></button>
                         </div>
                     </div>
                 </div >
