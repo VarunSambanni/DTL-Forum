@@ -72,9 +72,8 @@ body {
   border: 1px solid blue;
   border-radius: 0.2em;
   background-color: rgb(17, 82, 221);
-  display: flex;
   justify-content: center;
-  margin: 0.8em 0.2em;
+  margin: 0.6em 0.2em;
   color: white;
   transition: all 0.2s;
   padding: 0.1em;
@@ -213,8 +212,8 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  min-height: 0.4em;
-  max-height: 0.4em;
+  min-height: 0.25em;
+  max-height: 0.25em;
   padding: 0em 0;
   background-color: rgb(241, 238, 238);
 }
@@ -294,7 +293,7 @@ body {
 
 .searchContainer {
   display: flex;
-  padding: 0.5em 0.4em;
+  padding: 0.35em;
   justify-content: left;
 }
 
@@ -382,7 +381,7 @@ body {
 .bodyWrapper {
   border: 1px solid black;
   margin: 1em;
-  padding: 0 0.5em;
+  padding: 0em 0.5em;
   overflow-x: auto;
   font-size: 0.85em;
   background-color: rgb(242, 242, 255);
@@ -716,6 +715,15 @@ td {
   justify-content: center;
 }
 
+.userBarContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: rgb(241, 238, 238);
+  box-shadow: 0.02em 0.01em 0.18em rgb(88, 87, 87);
+  z-index: 4;
+}
+
 @media only screen and (max-width: 576px) {
   .bodyWrapper,
   .time,
@@ -727,5 +735,7 @@ td {
   }
   .pageHeading {
     font-size: 1rem;
+  }
+  .searchContainer {
   }
 }
