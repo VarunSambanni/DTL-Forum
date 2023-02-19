@@ -720,13 +720,8 @@ td {
   .bodyWrapper,
   .time,
   .answersWrapper,
-  button {
-    font-size: 0.75rem;
-  }
-
   .titleWrapper,
   .category,
-  .loggedInAsText,
   .announcementsButton {
     font-size: 0.9rem;
   }
