@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 const styles = {
     content: {
         height: 'fit-content',
-        margin: '1em 0',
+        margin: 'auto',
         maxHeight: '70vh',
         overflow: 'auto'
     }
