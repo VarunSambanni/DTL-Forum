@@ -121,12 +121,12 @@ body {
 
 @keyframes slide-in-right {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-5%);
     opacity: 0%;
   }
 
   10% {
-    transform: translateX(-10%);
+    transform: translateX(-5%);
     opacity: 0%;
   }
 
@@ -139,12 +139,12 @@ body {
 
 @keyframes slide-in-right-with-delay {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-5%);
     opacity: 0%;
   }
 
   70% {
-    transform: translateX(-10%);
+    transform: translateX(-5%);
     opacity: 0%;
   }
 
@@ -157,12 +157,12 @@ body {
 
 @keyframes slide-in-left-with-delay2 {
   0% {
-    transform: translateX(10%);
+    transform: translateX(5%);
     opacity: 0%;
   }
 
   80% {
-    transform: translateX(10%);
+    transform: translateX(5%);
     opacity: 0%;
   }
 
@@ -175,11 +175,11 @@ body {
 
 @keyframes slide-in-left-with-delay {
   0% {
-    transform: translateX(10%);
+    transform: translateX(5%);
     opacity: 0%;
   }
   50% {
-    transform: translateX(10%);
+    transform: translateX(5%);
     opacity: 0%;
   }
   100% {
