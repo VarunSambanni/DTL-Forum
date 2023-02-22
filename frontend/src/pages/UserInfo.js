@@ -9,11 +9,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const UserInfo = ({ isAdmin }) => {
-    if (isAdmin) {
-        document.title = 'User Info - Interax';
+    if (isAdmin === true) {
+        console.log("Here right");
+        document.title = 'User Info-Admin - Interax';
     }
     else {
-        document.title = 'User Info-Admin - Interax';
+        document.title = 'User Info - Interax';
     }
     return (
         <>

@@ -16,6 +16,9 @@ function MainLoggedIn() {
     if (localStorage.getItem("isAuth") === null) {
         localStorage.setItem("isAuth", false);
     }
+    if (localStorage.getItem("isAuthAdmin") === null) {
+        localStorage.setItem("isAuthAdmin", false);
+    }
     useEffect(() => {
         fetch('https://dtlforum-backend.vercel.app/isUserAuth', {
             method: "GET",
@@ -28,10 +31,12 @@ function MainLoggedIn() {
                 if (data.success === false) {
                     toast.error('Login required', { autoClose: 4000 });
                     localStorage.setItem("isAuth", false);
+                    localStorage.setItem("isAuthAdmin", false);
                     window.location.replace('https://interax.netlify.app/login');
                 }
                 else {
                     localStorage.setItem("isAuth", true);
+                    localStorage.setItem("isAuthAdmin", false);
                     setUpdatePage(!updatePage);
                 }
             })
@@ -74,7 +79,7 @@ function MainLoggedIn() {
                             <TopPosts></TopPosts>
                         </Route>
                         <Route exact path='/mainLoggedIn/userInfo'>
-                            <UserInfo></UserInfo>
+                            <UserInfo isAdmin={false}></UserInfo>
                         </Route>
                     </Switch>
                 </Router>

@@ -16,12 +16,12 @@ const NavbarForum = () => {
         <Drawer achor='left' open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
             <div className="drawerListWrapper">
                 <ul className="drawerLinks">
-                    <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AnnouncementIcon sx={{ margin: '-0.2em 0.2em' }} />Announcements</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><PostAddIcon sx={{ margin: '-0.2em 0.2em' }} />Post</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><AccountBoxIcon sx={{ margin: '-0.2em 0.2em' }} />Your Posts</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>
-                    <li className="drawerLink"><Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: '#82009c' }}><div className="link"><DisplaySettingsIcon sx={{ margin: '-0.2em 0.2em' }} />User Info</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Forum " ? "white" : "#82009c"}` }}><div className="link"><ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Announcements " ? "white" : "#82009c"}` }}><div className="link"><AnnouncementIcon sx={{ margin: '-0.2em 0.2em' }} />Announcements</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Post Forum " ? "white" : "#82009c"}` }}><div className="link"><PostAddIcon sx={{ margin: '-0.2em 0.2em' }} />Post</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Your Posts " ? "white" : "#82009c"}` }}><div className="link"><AccountBoxIcon sx={{ margin: '-0.2em 0.2em' }} />Your Posts</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Top Posts " ? "white" : "#82009c"}` }}><div className="link"><LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>
+                    <li className="drawerLink"><Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "User Info " ? "white" : "#82009c"}` }}><div className="link"><DisplaySettingsIcon sx={{ margin: '-0.2em 0.2em' }} />User Info</div></Link></li>
                 </ul>
             </div>
         </Drawer>

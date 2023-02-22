@@ -57,8 +57,8 @@ const Login = () => {
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
                         <h4 className='centerText'>Login</h4>
-                        <TextField size='small' sx={{ margin: '0.5em', width: '16em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
-                        <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
+                        <TextField size='small' type='password' sx={{ margin: '0.5em', width: '18em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <p className="centerText homePageContent">
                             <a href="/forgotPassword" className="getStartedLink">Forgot Password ?</a>
                         </p>

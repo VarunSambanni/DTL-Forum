@@ -129,10 +129,10 @@ const Signup = () => {
                         {isLoading && <LinearProgress></LinearProgress>}
                     </div>
                     <h4 className='centerText'>Sign Up</h4>
-                    <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={!codeSent ? (e) => setEmail(e.target.value) : null}></TextField>
-                    <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={password} label='Password' onChange={!codeSent ? (e) => setPassword(e.target.value) : null}></TextField>
-                    <TextField size='small' sx={{ margin: '0.5em' }} type='password' value={confirmPassword} label='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)}></TextField>
-                    <Select size='small' sx={{ margin: '0.5em' }} value={year} onChange={!codeSent ? (e) => setYear(e.target.value) : null} >
+                    <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} value={email} label='Email' onChange={!codeSent ? (e) => setEmail(e.target.value) : null}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} type='password' value={password} label='Password' onChange={!codeSent ? (e) => setPassword(e.target.value) : null}></TextField>
+                    <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} type='password' value={confirmPassword} label='Confirm Password' onChange={(e) => setConfirmPassword(e.target.value)}></TextField>
+                    <Select size='small' sx={{ margin: '0.5em', width: '18em' }} value={year} onChange={!codeSent ? (e) => setYear(e.target.value) : null} >
                         <MenuItem value={'1st Year'}>1st Year</MenuItem>
                         <MenuItem value={'2nd Year'}>2nd Year</MenuItem>
                         <MenuItem value={'3rd Year'}>3rd Year</MenuItem>

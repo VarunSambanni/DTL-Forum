@@ -12,8 +12,8 @@ function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
     const [updatePage, setUpdatePage] = useState(false);
 
-    if (localStorage.getItem("isAuth") === null) {
-        localStorage.setItem("isAuth", false);
+    if (localStorage.getItem("isAuthAdmin") === null) {
+        localStorage.setItem("isAuthAdmin", false);
     }
     useEffect(() => {
         fetch('https://dtlforum-backend.vercel.app/isUserAuthAdmin', {
@@ -27,10 +27,12 @@ function MainLoggedInAdmin() {
                 if (data.success === false) {
                     toast.error('Login required', { autoClose: 4000 });
                     localStorage.setItem("isAuth", false);
+                    localStorage.setItem("isAuthAdmin", false);
                     window.location.replace('https://interax.netlify.app/AdminLogin');
                 }
                 else {
-                    localStorage.setItem("isAuth", true);
+                    localStorage.setItem("isAuth", false);
+                    localStorage.setItem("isAuthAdmin", true);
                     setUpdatePage(!updatePage);
                 }
             })
@@ -42,7 +44,7 @@ function MainLoggedInAdmin() {
 
     return (
         <div className="App">
-            {!(JSON.parse(localStorage.getItem("isAuth"))) ?
+            {!(JSON.parse(localStorage.getItem("isAuthAdmin"))) ?
                 <div className='loadingAuthCheck'>
                     <div>
                         <div className='centerText'>
@@ -54,7 +56,6 @@ function MainLoggedInAdmin() {
                     </div>
                 </div>
                 :
-
                 <Router>
                     <Switch>
                         <Route exact path='/mainLoggedInAdmin/announcements'>
