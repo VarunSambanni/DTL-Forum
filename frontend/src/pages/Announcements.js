@@ -108,7 +108,7 @@ const Announcements = () => {
 
                                     </div>
                                     <div className="emailWrapper">
-                                        <p className="bold" >Posted By: <p className='announcementUsername'>{post.username}</p></p>
+                                        <p className="bold" ><p className='announcementUsername'>{post.username}</p></p>
                                     </div>
                                 </div>
                             </Grid>

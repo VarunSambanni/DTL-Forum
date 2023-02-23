@@ -57,8 +57,8 @@ const AdminLogin = () => {
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
                         <h4 className='centerText'>Login - Admin</h4>
-                        <TextField size='small' sx={{ margin: '0.5em', width: '16em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
-                        <TextField size='small' type='password' sx={{ margin: '0.5em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
+                        <TextField size='small' type='password' sx={{ margin: '0.5em', width: '18em' }} value={password} label='Password' onChange={(e) => setPassword(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
                             <button className='button' onClick={login}><p className='centerText buttonText' >LOGIN</p></button>
                         </div>
