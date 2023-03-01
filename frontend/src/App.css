@@ -730,7 +730,7 @@ td {
   padding: 0.4em;
   border: 1px solid black;
   white-space: normal;
-  transition: all 0.4s;
+  transition: all 0.6s;
 }
 
 .previewContainer2 {
@@ -743,7 +743,7 @@ td {
   padding: 0.4em;
   overflow: hidden;
   border: 1px solid black;
-  transition: all 0.4s;
+  transition: all 0.6s;
 }
 
 @media only screen and (max-width: 576px) {
