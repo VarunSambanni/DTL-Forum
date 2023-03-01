@@ -52,7 +52,7 @@ const ForgotPassword = () => {
                             {isLoading && <LinearProgress></LinearProgress>}
                         </div>
                         <h4 className='centerText'>Forgot Password</h4>
-                        <TextField size='small' sx={{ margin: '0.5em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
+                        <TextField size='small' sx={{ margin: '0.5em', width: '18em' }} value={email} label='Email' onChange={(e) => setEmail(e.target.value)}></TextField>
                         <div className='buttonWrapper'>
                             <button className='button'><p className='centerText buttonText' onClick={sendMail}>SEND MAIL</p></button>
                         </div>

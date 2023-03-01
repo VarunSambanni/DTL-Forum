@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ReactMarkdown from "react-markdown";
 
 const styles = {
     resize: {
@@ -24,6 +25,8 @@ const PostForum = () => {
     const [category, setCategory] = useState('1st Cat');
     const [checked, setChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [previewOption, setPreviewOption] = useState('html');
+    const [showPreview, setShowPreview] = useState("previewContainer2");
 
     const postForumHandler = () => {
 
@@ -69,7 +72,16 @@ const PostForum = () => {
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }
+    console.log("preview ", showPreview);
 
+    const previewToggleHanlder = () => {
+        if (showPreview === 'previewContainer') {
+            setShowPreview('previewContainer2')
+        }
+        else {
+            setShowPreview('previewContainer')
+        }
+    }
     return <>
         <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
         <div className='linearProgressContainer'>
@@ -93,6 +105,23 @@ const PostForum = () => {
                 <p style={{ 'padding': '0 0.6em' }}><i><b> Note:</b> For html/markdown posts, add <b>.html/.md</b> at the end of the title</i></p>
                 <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
                 <TextField multiline minRows={8} maxRows={8} variant='outlined' size='small' sx={{ margin: '0.5em' }} inputProps={{ style: { fontSize: '0.96rem' } }} label='Body' value={body} onChange={(e) => { setBody(e.target.value) }}></TextField>
+                <div className={showPreview} >
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <button className='button' onClick={previewToggleHanlder}> PREVIEW</button>
+                        <div>
+                            Option :
+                            <Select size='small' sx={{ margin: '0.5em', maxWidth: "8em", alignSelf: 'left' }} value={previewOption} onChange={(e) => setPreviewOption(e.target.value)} >
+                                <MenuItem value={'html'}>HTML</MenuItem>
+                                <MenuItem value={'md'}>Markdown</MenuItem>
+                            </Select>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    {
+                        previewOption === 'html' ? <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: body }}></pre>
+                            : <ReactMarkdown>{body}</ReactMarkdown>
+                    }
+                </div>
                 <Select size='small' sx={{ margin: '0.5em', minWidth: "15em", alignSelf: 'center' }} value={category} onChange={(e) => setCategory(e.target.value)} >
                     <MenuItem value={'1st Cat'}>Academics</MenuItem>
                     <MenuItem value={'2nd Cat'}>Placements/Internships</MenuItem>
@@ -105,6 +134,7 @@ const PostForum = () => {
                 <div className='buttonWrapper'>
                     <button className='button' style={{ margin: '0em' }} onClick={postForumHandler}><p className='centerText buttonText' >POST</p></button>
                 </div>
+
             </div>
         </div>
     </>

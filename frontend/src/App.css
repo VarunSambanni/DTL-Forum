@@ -720,6 +720,30 @@ td {
   z-index: 4;
 }
 
+.previewContainer {
+  margin: 1em 0em;
+  overflow-y: none;
+  overflow-x: auto;
+  max-height: 60vh;
+  min-height: 60vh;
+  background-color: white;
+  padding: 0.4em;
+  border: 1px solid black;
+  white-space: normal;
+}
+
+.previewContainer2 {
+  margin: 1em 0em;
+  overflow-y: none;
+  overflow-x: none;
+  max-height: 3.6em;
+  min-height: 3.6em;
+  background-color: white;
+  padding: 0.4em;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
 @media only screen and (max-width: 576px) {
   .bodyWrapper,
   .time,
