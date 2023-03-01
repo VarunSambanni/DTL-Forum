@@ -721,7 +721,7 @@ td {
 }
 
 .previewContainer {
-  margin: 1em 0em;
+  margin: 1em 0.4em;
   overflow-y: none;
   overflow-x: auto;
   max-height: 60vh;
@@ -730,10 +730,11 @@ td {
   padding: 0.4em;
   border: 1px solid black;
   white-space: normal;
+  transition: all 0.4s;
 }
 
 .previewContainer2 {
-  margin: 1em 0em;
+  margin: 1em 0.4em;
   overflow-y: none;
   overflow-x: none;
   max-height: 3.6em;
@@ -742,6 +743,7 @@ td {
   padding: 0.4em;
   overflow: hidden;
   border: 1px solid black;
+  transition: all 0.4s;
 }
 
 @media only screen and (max-width: 576px) {

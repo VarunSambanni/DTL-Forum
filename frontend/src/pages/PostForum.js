@@ -11,6 +11,7 @@ import Logout from '../utils/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ReactMarkdown from "react-markdown";
 
+
 const styles = {
     resize: {
         fontSize: '10px'
@@ -117,6 +118,7 @@ const PostForum = () => {
                         </div>
                     </div>
                     <hr></hr>
+
                     {
                         previewOption === 'html' ? <pre style={{ maxHeight: '40em' }} dangerouslySetInnerHTML={{ __html: body }}></pre>
                             : <ReactMarkdown>{body}</ReactMarkdown>
