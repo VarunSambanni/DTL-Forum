@@ -80,7 +80,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     <div className='titleWrapper'>
                         <h4 className="title">{title.substring(title.length - 5) === '.html' ? title.substring(0, title.length - 5) : title.substring(title.length - 3) === '.md' ? title.substring(0, title.length - 3) : title}</h4>
                         <p className="time">{time}</p>
-                        {yourPostsFlag && <p className="askedInCat">Asked in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
+                        {yourPostsFlag && <p className="askedInCat">Posted in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
                     </div>
                     <div className='bodyWrapper'>
 
