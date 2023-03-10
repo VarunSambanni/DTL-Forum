@@ -68,7 +68,7 @@ const AdminHome = () => {
                                 <div className='adminOptionContainer'>
                                     <AnalyticsIcon
                                         sx={{ transform: 'scale(2.5)', margin: '0.075em 0', height: 'fit-content', padding: '0.9em' }}
-                                        onClick={() => window.location.replace('/mainLoggedInAdmin/postAnnouncement')}>
+                                        onClick={() => window.location.replace('/mainLoggedInAdmin/viewstatistics')}>
                                     </AnalyticsIcon>
                                     <p className='optionText'>
                                         <p className='innnerOptionText'>View</p>

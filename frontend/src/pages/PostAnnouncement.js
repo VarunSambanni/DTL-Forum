@@ -14,7 +14,7 @@ import ReactMarkdown from "react-markdown";
 
 
 const PostAnnouncement = () => {
-    document.title = 'Add Announcement-Admin - Interax';
+    document.title = 'Post Announcement-Admin - Interax';
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [isLoading, setIsLoading] = useState(false);

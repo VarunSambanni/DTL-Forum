@@ -351,7 +351,7 @@ body {
 
 .postsWrapper {
   padding: 0.5em;
-  margin: 0.4em auto;
+  margin: 0.4em;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -744,6 +744,16 @@ td {
   overflow: hidden;
   border: 1px solid black;
   transition: all 0.6s;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+}
+
+.pieChartContainer {
+  max-height: 25em;
+
+  max-width: 20em;
 }
 
 @media only screen and (max-width: 576px) {

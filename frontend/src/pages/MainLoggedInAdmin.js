@@ -7,6 +7,7 @@ import AdminHome from './AdminHome';
 import PostAnnouncement from './PostAnnouncement';
 import UserInfo from './UserInfo';
 import { CircularProgress } from '@mui/material';
+import ViewStatistics from './ViewStatistics'
 
 function MainLoggedInAdmin() {
     document.title = 'mainLoggedIn-Admin - Interax';
@@ -66,6 +67,9 @@ function MainLoggedInAdmin() {
                         </Route>
                         <Route exact path='/mainLoggedInAdmin/postAnnouncement'>
                             <PostAnnouncement></PostAnnouncement>
+                        </Route>
+                        <Route exact path='/mainLoggedInAdmin/viewstatistics'>
+                            <ViewStatistics></ViewStatistics>
                         </Route>
                         <Route exact path='/mainLoggedInAdmin/userInfo'>
                             <UserInfo isAdmin={true}></UserInfo>
