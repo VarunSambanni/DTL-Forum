@@ -19,6 +19,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Sort } from '@mui/icons-material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -26,14 +28,19 @@ const PostAnnouncement = () => {
     document.title = 'View Statistics-Admin - Interax';
     const [isLoading, setIsLoading] = useState(false);
     const [stats, setStats] = useState([]);
+    const [userPostsCount, setUserPostsCount] = useState({}); // userId -> count
+    const [userRepliesCount, setUserRepliesCount] = useState({}); // username -> count
 
+    if (localStorage.getItem("lineChartData") === null) {
+        localStorage.setItem("lineChartData", JSON.stringify([]));
+    }
 
     const pieChartData = {
         labels: ['Academics', 'Placements/Internships', 'Miscellaneous',],
         datasets: [
             {
                 label: '# of Posts',
-                data: stats.length > 0 ? stats[1] : [0, 0, 0],
+                data: stats.length > 0 ? [stats[1][0].length, stats[1][1].length, stats[1][2].length] : [0, 0, 0],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -55,7 +62,6 @@ const PostAnnouncement = () => {
         ],
     };
 
-
     useEffect(() => {
         setIsLoading(true);
         fetch('https://dtlforum-backend.vercel.app/getStatsAdmin', {
@@ -67,18 +73,76 @@ const PostAnnouncement = () => {
             .then(res => res.json())
             .then(data => {
                 setStats([]);
+                setUserPostsCount({});
+                setUserRepliesCount({});
+                let datePosts = {};
+                let lineChartData = [];
                 stats.push(data.data[0]);
                 stats.push(data.data[1]);
                 setStats(stats);
-                setIsLoading(false)
                 console.log("stats => ", stats);
+                for (let i = 0; i < stats[0].length; i++) {
+                    userPostsCount[stats[0][i].userId] = 0;
+                    userRepliesCount[stats[0][i].username] = 0;
+                }
+                // Initializing map for dates
+                for (let i = 0; i < stats[1][0].length; i++) {
+                    datePosts[stats[1][0][i].time.split(' ')[0]] = 0;
+                }
+                for (let i = 0; i < stats[1][1].length; i++) {
+                    datePosts[stats[1][1][i].time.split(' ')[0]] = 0;
+                }
+                for (let i = 0; i < stats[1][2].length; i++) {
+                    datePosts[stats[1][2][i].time.split(' ')[0]] = 0;
+                }
+
+                for (let i = 0; i < stats[1][0].length; i++) {
+                    userPostsCount[stats[1][0][i].userId]++;
+                    datePosts[stats[1][0][i].time.split(' ')[0]]++;
+                    for (let j = 0; j < stats[1][0][i].answers.length; j++) {
+                        userRepliesCount[stats[1][0][i].answers[j].username]++;
+                    }
+                }
+                for (let i = 0; i < stats[1][1].length; i++) {
+                    userPostsCount[stats[1][1][i].userId]++;
+                    datePosts[stats[1][1][i].time.split(' ')[0]]++;
+                    for (let j = 0; j < stats[1][1][i].answers.length; j++) {
+                        userRepliesCount[stats[1][1][i].answers[j].username]++;
+                    }
+
+                }
+                for (let i = 0; i < stats[1][2].length; i++) {
+                    userPostsCount[stats[1][2][i].userId]++;
+                    datePosts[stats[1][2][i].time.split(' ')[0]]++;
+                    for (let j = 0; j < stats[1][2][i].answers.length; j++) {
+                        userRepliesCount[stats[1][2][i].answers[j].username]++;
+                    }
+                }
+                console.log("dateposts ", datePosts);
+                for (const date in datePosts) {
+                    lineChartData.push({ date: date, posts: datePosts[date] });
+                }
+                lineChartData.sort((a, b) => {
+                    if (a.date > b.date) {
+                        return 1;
+                    }
+                    if (a.date < b.date) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                localStorage.setItem("lineChartData", JSON.stringify(lineChartData));
+                console.log("lineChartData ", lineChartData);
+                setUserPostsCount(userPostsCount);
+                setUserRepliesCount(userRepliesCount);
+                setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
                 }
             })
             .catch(err => {
                 setIsLoading(false);
-                console.log("Error connecting to server");
+                console.log("Error connecting to server ", err);
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }, []);
@@ -100,17 +164,26 @@ const PostAnnouncement = () => {
                 </Link>
             </div>
             <hr />
-            <div className='pageHeading'>View Statistics</div>
+            <div className='pageHeading'>Statistics</div>
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
                 <div className='pieChartContainer'>
                     <p className='subtitle'>Category wise posts</p>
                     <Pie data={pieChartData} />
                 </div>
+                <div className='pieChartContainer'>
+                    <p className='subtitle'>Activity</p>
+                    <LineChart width={1400} height={300} data={JSON.parse(localStorage.getItem("lineChartData")).length > 0 ? JSON.parse(localStorage.getItem("lineChartData")) : []}>
+                        <Line type="monotone" dataKey="posts" stroke="#8884d8" />
+                        <CartesianGrid stroke="#ccc" />
+                        <XAxis dataKey="date" />
+                        <YAxis />
+                    </LineChart>
+                </div>
 
                 <div classname="usersList">
                     <p className='subtitle'>Users List</p>
                     {stats.length > 0 &&
-                        <Table component={Paper} >
+                        <Table component={Paper} sx={{ maxWidth: '98vw', overflowX: 'auto' }}>
                             <TableHead sx={{ border: '1px solid black' }}>
                                 <TableRow>
                                     <TableCell align="center" sx={{ border: '1px solid black' }}>Username</TableCell>
@@ -128,8 +201,8 @@ const PostAnnouncement = () => {
                                         <TableCell align="left">{user.email}</TableCell>
                                         <TableCell align="left">{user.userId}</TableCell>
                                         <TableCell align="left">{user.year}</TableCell>
-                                        <TableCell align="left"></TableCell>
-                                        <TableCell align="left"></TableCell>
+                                        <TableCell align="left">{userPostsCount[user.userId]}</TableCell>
+                                        <TableCell align="left">{userRepliesCount[user.username]}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

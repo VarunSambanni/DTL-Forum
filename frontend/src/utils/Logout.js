@@ -5,6 +5,8 @@ const Logout = () => {
     localStorage.removeItem('year');
     localStorage.removeItem('email');
     localStorage.removeItem('isAuth');
+    localStorage.removeItem('isAuthAdmin');
+    localStorage.removeItem('lineChartData');
     window.location.replace('https://interax.netlify.app/');
 }
 
