@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout';
@@ -20,16 +21,17 @@ import Paper from '@mui/material/Paper';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { Sort } from '@mui/icons-material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PostAnnouncement = () => {
+const ViewStatistics = () => {
     document.title = 'View Statistics-Admin - Interax';
     const [isLoading, setIsLoading] = useState(false);
     const [stats, setStats] = useState([]);
     const [userPostsCount, setUserPostsCount] = useState({}); // userId -> count
     const [userRepliesCount, setUserRepliesCount] = useState({}); // username -> count
+    const [sortValue, setSortValue] = useState('Posts');
+    const [usersList, setUsersList] = useState([]);
 
     if (localStorage.getItem("lineChartData") === null) {
         localStorage.setItem("lineChartData", JSON.stringify([]));
@@ -73,12 +75,14 @@ const PostAnnouncement = () => {
             .then(res => res.json())
             .then(data => {
                 setStats([]);
+                setUsersList([]);
                 setUserPostsCount({});
                 setUserRepliesCount({});
                 let datePosts = {};
                 let lineChartData = [];
                 stats.push(data.data[0]);
                 stats.push(data.data[1]);
+                stats.push(data.data[2]);
                 setStats(stats);
                 console.log("stats => ", stats);
                 for (let i = 0; i < stats[0].length; i++) {
@@ -135,6 +139,16 @@ const PostAnnouncement = () => {
                 console.log("lineChartData ", lineChartData);
                 setUserPostsCount(userPostsCount);
                 setUserRepliesCount(userRepliesCount);
+                data.data[0].sort((a, b) => {
+                    if (userPostsCount[a.userId] > userPostsCount[b.userId]) {
+                        return -1;
+                    }
+                    if (userPostsCount[a.userId] < userPostsCount[b.userId]) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                setUsersList(data.data[0]);
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
@@ -146,6 +160,34 @@ const PostAnnouncement = () => {
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
     }, []);
+
+    const userListSortHandler = (e) => {
+        console.log(sortValue);
+        setSortValue(e.target.value);
+        if (sortValue === 'Replies') { // Works opposite
+            usersList.sort((a, b) => {
+                if (userPostsCount[a.userId] > userPostsCount[b.userId]) {
+                    return -1;
+                }
+                if (userPostsCount[a.userId] < userPostsCount[b.userId]) {
+                    return 1;
+                }
+                return 0;
+            })
+        }
+        else {
+            usersList.sort((a, b) => {
+                if (userRepliesCount[a.username] > userRepliesCount[b.username]) {
+                    return -1;
+                }
+                if (userRepliesCount[a.username] < userRepliesCount[b.username]) {
+                    return 1;
+                }
+                return 0;
+            })
+        }
+    }
+
     return <>
         <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
         <div className='linearProgressContainer'>
@@ -166,9 +208,23 @@ const PostAnnouncement = () => {
             <hr />
             <div className='pageHeading'>Statistics</div>
             <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
-                <div className='pieChartContainer'>
-                    <p className='subtitle'>Category wise posts</p>
-                    <Pie data={pieChartData} />
+                <div className='pieChartContainer' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Grid container style={{ display: 'flex', justifyContent: 'space-around' }}>
+                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div style={{ minHeight: '22em', maxWidth: '60%', minWidth: '50%', overflowX: 'auto' }}>
+                                <p className='subtitle'>Category wise posts</p>
+                                <Pie data={pieChartData} />
+                            </div>
+                        </Grid>
+                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div className="infoContainer">
+                                <div className='linearProgressContainer' style={{ backgroundColor: 'rgb(208, 216, 255)' }}> {stats.length === 0 && <LinearProgress />}</div>
+                                <pre style={{ margin: '0.2em 0em', padding: '0em' }}>Number of Users : {stats.length > 0 ? stats[0].length : '  '}</pre>
+                                <pre style={{ margin: '0.2em 0em', padding: '0em' }}>Posts : {stats.length > 0 ? stats[1][0].length + stats[1][1].length + stats[1][2].length : '  '}</pre>
+                                <pre style={{ margin: '0.2em 0em', padding: '0em' }}>Announcements : {stats.length > 0 ? stats[2] : '  '}</pre>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </div>
                 <div className='pieChartContainer'>
                     <p className='subtitle'>Activity</p>
@@ -182,31 +238,40 @@ const PostAnnouncement = () => {
 
                 <div classname="usersList">
                     <p className='subtitle'>Users List</p>
-                    {stats.length > 0 &&
-                        <Table component={Paper} sx={{ maxWidth: '98vw', overflowX: 'auto' }}>
-                            <TableHead sx={{ border: '1px solid black' }}>
-                                <TableRow>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>Username</TableCell>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>Email</TableCell>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>UserID</TableCell>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>Year</TableCell>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>Posts</TableCell>
-                                    <TableCell align="center" sx={{ border: '1px solid black' }}>Replies</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody sx={{ border: '1px solid black' }}>
-                                {stats[0].map((user) => (
-                                    <TableRow sx={{ border: '1px solid black' }}>
-                                        <TableCell align="left" >{user.username}</TableCell>
-                                        <TableCell align="left">{user.email}</TableCell>
-                                        <TableCell align="left">{user.userId}</TableCell>
-                                        <TableCell align="left">{user.year}</TableCell>
-                                        <TableCell align="left">{userPostsCount[user.userId]}</TableCell>
-                                        <TableCell align="left">{userRepliesCount[user.username]}</TableCell>
+                    <div className='searchContainer'>
+                        <div>Sort By : &nbsp;</div>
+                        <Select size='small' sx={{ marginTop: '-0.6em', minWidth: '5em', maxHeight: '2.5em', alignSelf: 'center' }} value={sortValue} onChange={userListSortHandler} >
+                            <MenuItem value={'Posts'}>Posts</MenuItem>
+                            <MenuItem value={'Replies'}>Replies</MenuItem>
+                        </Select>
+                    </div>
+                    {usersList.length > 0 &&
+                        <TableContainer component={Paper}>
+                            <Table sx={{ height: "max-content" }} >
+                                <TableHead sx={{ border: '1px solid black', backgroundColor: '#e0faff' }}>
+                                    <TableRow >
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Username</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Email</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>UserID</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Year</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Posts</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Replies</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHead>
+                                <TableBody >
+                                    {usersList.map((user, idx) => (
+                                        <TableRow sx={{ border: '1px solid black' }}>
+                                            <TableCell align="left" >{user.username}</TableCell>
+                                            <TableCell align="left">{user.email}</TableCell>
+                                            <TableCell align="left">{user.userId}</TableCell>
+                                            <TableCell align="left">{user.year}</TableCell>
+                                            <TableCell align="left">{userPostsCount[user.userId]}</TableCell>
+                                            <TableCell align="left">{userRepliesCount[user.username]}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     }
                 </div>
             </div>
@@ -214,4 +279,4 @@ const PostAnnouncement = () => {
     </>
 }
 
-export default PostAnnouncement;
+export default ViewStatistics;
