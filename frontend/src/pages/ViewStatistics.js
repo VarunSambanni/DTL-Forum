@@ -86,6 +86,7 @@ const ViewStatistics = () => {
                 setStats(stats);
                 console.log("stats => ", stats);
                 for (let i = 0; i < stats[0].length; i++) {
+                    delete stats[0][i].password;
                     userPostsCount[stats[0][i].userId] = 0;
                     userRepliesCount[stats[0][i].username] = 0;
                 }
