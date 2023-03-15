@@ -512,7 +512,8 @@ p {
   padding: 0.2em;
 }
 
-.drawerListWrapper {
+.drawerListWrapper,
+.drawerListWrapper2 {
   background-color: rgb(189, 189, 255);
   font-size: 0em;
   width: 100%;
@@ -527,13 +528,18 @@ p {
   list-style: none;
 }
 
+.drawer {
+  display: none;
+}
+
 .drawer:hover {
   transform: rotate(90deg);
 }
 
 .drawerLink {
   font-size: 1.2rem;
-  margin: 1em;
+  margin: 0.8em 0.6em;
+  padding: 0.1em;
 }
 
 .link {
@@ -792,6 +798,9 @@ td {
 @media only screen and (max-width: 900px) {
   .drawerListWrapper {
     display: none;
+  }
+  .drawer {
+    display: inline;
   }
 }
 
