@@ -251,6 +251,10 @@ body {
   margin-bottom: 0em;
   padding: 0;
 }
+
+.navbarWrapper {
+}
+
 .navbarLink {
   margin: 0.2em 1vw;
 }
@@ -510,19 +514,17 @@ p {
 
 .drawerListWrapper {
   background-color: rgb(189, 189, 255);
+  font-size: 0em;
+  width: 100%;
 }
 
 .drawerLinks {
   display: flex;
   justify-content: left;
   flex-direction: column;
-  padding: 1em;
+  padding: 0em;
   text-decoration: none;
   list-style: none;
-  margin-top: 0em;
-}
-
-.drawer {
 }
 
 .drawer:hover {
@@ -718,6 +720,8 @@ td {
   background-color: rgb(241, 238, 238);
   box-shadow: 0.02em 0.01em 0.18em rgb(88, 87, 87);
   z-index: 4;
+  margin-top: 0em;
+  margin-bottom: 0.4em;
 }
 
 .previewContainer {
@@ -785,6 +789,12 @@ td {
   overflow-x: auto;
 }
 
+@media only screen and (max-width: 900px) {
+  .drawerListWrapper {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 576px) {
   .bodyWrapper,
   .time,
@@ -796,8 +806,6 @@ td {
   }
   .pageHeading {
     font-size: 1rem;
-  }
-  .searchContainer {
   }
 
   button {
