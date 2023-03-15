@@ -26,6 +26,7 @@ const Announcements = () => {
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchInput, setSearchInput] = useState();
+    const [showDrawer, setShowDrawer] = useState(true);
 
     const searchHandler = () => {
         let searchResults = [];
@@ -81,9 +82,10 @@ const Announcements = () => {
                     </div>
                 </div>
             </Link>
+            <button className='menuButton' onClick={() => setShowDrawer(!showDrawer)}>MENU</button>
         </div>
         <Grid container >
-            <Grid container md={2.2} sm={0}>
+            <Grid item md={2.2} sm={0} sx={{ display: showDrawer ? 'inline' : 'none' }} >
                 <div className="drawerListWrapper">
                     <ul className="drawerLinks">
                         <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Forum " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Forum " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
@@ -95,7 +97,7 @@ const Announcements = () => {
                     </ul>
                 </div>
             </Grid>
-            <Grid item md={9.8} sm={12}>
+            <Grid item md={showDrawer ? 9.8 : 12} sm={12}>
                 <div className='forumWrapper'>
                     <div className='pageHeading'>Announcements</div>
                     <div className='searchContainer'>

@@ -33,6 +33,7 @@ const PostForum = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [previewOption, setPreviewOption] = useState('html');
     const [showPreview, setShowPreview] = useState("previewContainer2");
+    const [showDrawer, setShowDrawer] = useState(true);
 
     const postForumHandler = () => {
 
@@ -103,9 +104,10 @@ const PostForum = () => {
                     </div>
                 </div>
             </Link>
+            <button className='menuButton' onClick={() => setShowDrawer(!showDrawer)}>MENU</button>
         </div>
         <Grid container >
-            <Grid container md={2.2} sm={0}>
+            <Grid item md={2.2} sm={0} sx={{ display: showDrawer ? 'inline' : 'none' }} >
                 <div className="drawerListWrapper">
                     <ul className="drawerLinks">
                         <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Forum " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Forum " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
@@ -117,7 +119,7 @@ const PostForum = () => {
                     </ul>
                 </div>
             </Grid>
-            <Grid item md={9.8} sm={12}>
+            <Grid item md={showDrawer ? 9.8 : 12} sm={12}>
                 <div className='forumWrapper'>
                     <div className='pageHeading'>Post</div>
                     <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
