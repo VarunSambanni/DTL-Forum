@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import AnnouncementsAdmin from './AnnouncementsAdmin';
 import AdminHome from './AdminHome';
 import PostAnnouncement from './PostAnnouncement';
-import UserInfo from './UserInfo';
+import UserInfoAdmin from './UserInfoAdmin';
 import { CircularProgress } from '@mui/material';
 import ViewStatistics from './ViewStatistics'
 
@@ -72,7 +72,7 @@ function MainLoggedInAdmin() {
                             <ViewStatistics></ViewStatistics>
                         </Route>
                         <Route exact path='/mainLoggedInAdmin/userInfo'>
-                            <UserInfo isAdmin={true}></UserInfo>
+                            <UserInfoAdmin isAdmin={true}></UserInfoAdmin>
                         </Route>
                     </Switch>
                 </Router>
