@@ -81,7 +81,7 @@ const YourPosts = () => {
                         <h3 className='generalGuidelinesHeading'>General Guidelines</h3>
                         <ul>
                             <li className='guideline'>Avoid posting or replying anything that contains any bad words, against someones's interests or considered obscene</li>
-                            <li className='guideline'>Before posting something, check if the same post already exists using the search feature </li>
+                            <li className='guideline'>Before posting something, check if a similar post already exists using the search feature </li>
                             <li className='guideline'>Announcements page contains posts made by the college, so its recommended that you visit it regularly</li>
                             <li className='guideline'>For any questions or problems faced, mail us at : rvcolforum@gmail.com</li>
                         </ul>
