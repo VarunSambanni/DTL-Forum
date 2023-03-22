@@ -54,6 +54,15 @@ const UserInfo = ({ isAdmin }) => {
                             <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Top Posts " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Top Posts " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>
                             <li className="drawerLink"><Link to='/mainLoggedIn/userInfo' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "User Info " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "User Info " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<DisplaySettingsIcon sx={{ margin: '-0.2em 0.2em' }} />User Info</div></Link></li>
                         </ul>
+                        <div className='guidelinesContainer'>
+                            <h3 className='generalGuidelinesHeading'>General Guidelines</h3>
+                            <ul>
+                                <li className='guideline'>Avoid posting or replying anything that contains any bad words, against someones's interests or considered obscene</li>
+                                <li className='guideline'>Before posting something, check if the same post already exists using the search feature </li>
+                                <li className='guideline'>Announcements page contains posts made by the college, so its recommended that you visit it regularly</li>
+                                <li className='guideline'>For any questions or problems faced, mail us at : rvcolforum@gmail.com</li>
+                            </ul>
+                        </div>
                     </div>
                 </Grid>
                 <Grid item md={showDrawer ? 9.8 : 12} sm={12}>
