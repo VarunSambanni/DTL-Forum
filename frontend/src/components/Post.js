@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import ModalComponent from "./ModalComponent";
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,7 +6,23 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Linkify from 'react-linkify'
 import ReactMarkdown from "react-markdown";
+import Modal from 'react-modal';
+import CloseIcon from '@mui/icons-material/Close';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GradeIcon from '@mui/icons-material/Grade';
 
+
+const styles = {
+    content: {
+        height: 'fit-content',
+        margin: '0 auto',
+        maxHeight: '70vh',
+        overflow: 'auto',
+        width: 'fit-content',
+        top: '20%',
+        left: '0em',
+    }
+}
 
 const findUserId = (upvotes, username) => {
     for (let i = 0; i < upvotes.length; i++) {
@@ -18,10 +34,11 @@ const findUserId = (upvotes, username) => {
 }
 
 const Post = ({ title, body, username, email, answers, id, year, postId, category, yourPostsFlag, upvotes, time, forumUpdate, setForumUpdate, yourPostsUpdate, setYourPostsUpdate }) => {
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [answerBody, setAnswerBody] = useState('');
     const [postUpdate, setPostUpdate] = useState(false);
+    const [userScore, setUserScore] = useState(0);
+    const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
 
     const postUpvote = () => {
         fetch('https://dtlforum-backend.vercel.app/upvote', {
@@ -45,6 +62,33 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     }
                     toast.success(data.msg, { autoClose: 4000 });
                 }
+            })
+    }
+
+    const usernameClickHandler = () => {
+        if (username === "Anonymous") {
+            return;
+        }
+        setIsUserDetailsModalOpen(true);
+        fetch('https://dtlforum-backend.vercel.app/getScore', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({ username: username })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("data    ", data);
+                if (data.success === true) {
+                    setUserScore(data.score);
+                }
+            })
+            .catch(err => {
+                console.log("Error connecting to server");
+
             })
     }
 
@@ -72,6 +116,8 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
             })
     }
 
+
+
     return <>
         <Grid container>
             <Grid item xs={12}>
@@ -82,6 +128,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                         <p className="time">{time}</p>
                         {yourPostsFlag && <p className="askedInCat">Posted in {category === '1st Cat' ? 'Academics' : (category === '2nd Cat' ? 'Placements/Internships' : 'Miscellaneous')}</p>}
                     </div>
+
                     <div className='bodyWrapper'>
 
                         {
@@ -93,7 +140,38 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
 
                     </div>
                     <div className="emailWrapper">
-                        <p className="bold">- {username} {`(${year})`}</p>
+                        <p className="bold usernameLink" onClick={usernameClickHandler}><AccountBoxIcon style={{ marginBottom: '-0.3em' }} />{username}</p>
+                        <Modal style={styles} isOpen={isUserDetailsModalOpen}>
+                            <div className='modalCloseButtonWrapper'>
+                                <button className='button' style={{ margin: '0.2em', width: 'fit-content', height: 'fit-content', padding: '0em' }} onClick={() => setIsUserDetailsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon fontSize="0.1em" sx={{ margin: '0.1em' }} /></p></button>
+                            </div>
+                            <div className="userDetailsContainer">
+                                <div className='loginContainer' style={{ padding: '0.4em', fontSize: '0.95rem', margin: 'auto' }} >
+                                    <div className='loginForm'>
+                                        <h4 className='centerText'>User Info</h4>
+                                        <div className='userInfoText' style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <h4 style={{ margin: '0.2em', padding: '0em' }}>Username: </h4>
+                                            <h4 style={{ margin: '0.2em', padding: '0em', fontWeight: '100' }}>{username}</h4>
+                                        </div>
+                                        <div className='userInfoText' style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <h4 style={{ margin: '0.2em', padding: '0em' }}>Email: </h4>
+                                            <h4 style={{ margin: '0.2em', padding: '0em', fontWeight: '100' }}>{email}</h4>
+                                        </div>
+                                        <div className='userInfoText' style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <h4 style={{ margin: '0.2em', padding: '0em' }}>Year: </h4>
+                                            <h4 style={{ margin: '0.2em', padding: '0em', fontWeight: '100' }}>{year}</h4>
+                                        </div>
+                                        <div className='userInfoText' style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <h4 style={{ margin: '0.2em', padding: '0em' }}>User Score: </h4>
+                                            <div style={{ display: 'flex' }}>
+                                                <h4 style={{ margin: '0.2em', padding: '0em', fontWeight: '100' }}>{userScore > 0 ? userScore.toFixed(4) : 0}</h4>
+                                                <GradeIcon sx={{ color: 'rgb(94, 3, 179);' }} />
+                                            </div >
+                                        </div>
+                                    </div>
+                                </div >
+                            </div>
+                        </Modal>
                         <div className="answerButtonWrapper">
                             <button onClick={postUpvote} className={(findUserId(upvotes, localStorage.getItem('username')) !== -1) ? 'upvotedButton' : 'button upvoteButton'} style={{ margin: '0 0.4em' }}>
                                 <p className='centerText buttonText' >
@@ -128,7 +206,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                     }
                 </div>
             </Grid>
-        </Grid>
+        </Grid >
     </>
 }
 
