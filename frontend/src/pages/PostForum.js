@@ -132,7 +132,9 @@ const PostForum = () => {
                 <div className='forumWrapper'>
                     <div className='pageHeading'>Post</div>
                     <div className='postsWrapper' style={{ backgroundColor: 'rgb(242, 242, 255)' }} >
-                        <p style={{ 'padding': '0 0.6em' }}><i><b> Note:</b> For html/markdown posts, add <b>.html/.md</b> at the end of the title</i></p>
+                        <div className='note'>
+                            <b> Note:</b> For html/markdown posts, add <b>.html/.md</b> at the end of the title.
+                        </div>
                         <TextField variant='outlined' size='small' sx={{ margin: '0.5em' }} label='Title' value={title} onChange={(e) => { setTitle(e.target.value) }}></TextField>
                         <TextField multiline minRows={8} maxRows={8} variant='outlined' size='small' sx={{ margin: '0.5em' }} inputProps={{ style: { fontSize: '0.96rem' } }} label='Body' value={body} onChange={(e) => { setBody(e.target.value) }}></TextField>
                         <div className={showPreview} >

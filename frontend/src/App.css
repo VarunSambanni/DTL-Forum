@@ -892,3 +892,40 @@ td {
     top: 0;
   }
 }
+
+.scoreWrapper {
+  display: flex;
+  flex-direction: row;
+  animation-name: scoreAnimation;
+  animation-duration: 0.4s;
+  animation-iteration-count: 6;
+  background-color: #367bfa;
+  color: white;
+}
+
+@keyframes scoreAnimation {
+  0% {
+    background-color: #367bfa;
+    color: white;
+    transform: rotate(2deg);
+  }
+  50% {
+    background-color: #cbccfd;
+    color: black;
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(2deg);
+    background-color: #367bfa;
+    color: white;
+  }
+}
+
+.note {
+  background-color: white;
+  margin: 0 auto;
+  padding: 0.2em;
+  font-size: 0.8rem;
+  border: 1px solid black;
+  border-radius: 0.2em;
+}
