@@ -15,12 +15,12 @@ import GradeIcon from '@mui/icons-material/Grade';
 const styles = {
     content: {
         height: 'fit-content',
-        margin: '0 auto',
+        margin: 'auto',
         maxHeight: '70vh',
         overflow: 'auto',
         width: 'fit-content',
-        top: '20%',
-        left: '0em',
+        position: 'fixed',
+        left: '0.5em'
     }
 }
 
@@ -143,7 +143,7 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                         <p className="bold usernameLink" onClick={usernameClickHandler}><AccountBoxIcon style={{ marginBottom: '-0.3em' }} />{username}</p>
                         <Modal style={styles} isOpen={isUserDetailsModalOpen}>
                             <div className='modalCloseButtonWrapper'>
-                                <button className='button' style={{ margin: '0.2em', width: 'fit-content', height: 'fit-content', padding: '0em' }} onClick={() => setIsUserDetailsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon fontSize="0.1em" sx={{ margin: '0.1em' }} /></p></button>
+                                <button className='button' style={{ margin: '0.8em 0.2em', width: 'fit-content', height: 'fit-content', padding: '0em', height: '2em' }} onClick={() => setIsUserDetailsModalOpen(false)} ><p className='centerText buttonText' ><CloseIcon fontSize="0.1em" sx={{ margin: '0.1em' }} /></p></button>
                             </div>
                             <div className="userDetailsContainer">
                                 <div className='loginContainer' style={{ padding: '0.4em', fontSize: '0.95rem', margin: 'auto' }} >
@@ -193,12 +193,12 @@ const Post = ({ title, body, username, email, answers, id, year, postId, categor
                         <div className="answersWrapper">
                             {answers.map((answer, index) => {
                                 return <div key={index} className="answerWrapper">
-                                    <p style={{ margin: '0em', padding: '0em' }}>
-                                        <pre style={{ padding: '0em', margin: '0.2em' }}>
+                                    <p style={{ margin: '0.1em', padding: '0.2em' }}>
+                                        <p className="bold" style={{ display: "inline" }}>{answer.username} : </p>
+                                        <pre style={{ display: "inline", padding: '0em', margin: '0.2em' }}>
                                             <Linkify>{answer.answer}</Linkify>
                                         </pre>
                                     </p>
-                                    <p className="bold">- {answer.username}</p>
                                     <hr />
                                 </div>
                             })}
