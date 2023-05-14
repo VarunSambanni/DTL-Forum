@@ -163,7 +163,6 @@ const ViewStatistics = () => {
     }, []);
 
     const userListSortHandler = (e) => {
-        console.log(sortValue);
         setSortValue(e.target.value);
         if (sortValue === 'Replies') { // Works opposite
             usersList.sort((a, b) => {
@@ -257,6 +256,7 @@ const ViewStatistics = () => {
                                         <TableCell align="center" sx={{ border: '1px solid black' }}>Year</TableCell>
                                         <TableCell align="center" sx={{ border: '1px solid black' }}>Posts</TableCell>
                                         <TableCell align="center" sx={{ border: '1px solid black' }}>Replies</TableCell>
+                                        <TableCell align="center" sx={{ border: '1px solid black' }}>Score</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody >
@@ -268,6 +268,7 @@ const ViewStatistics = () => {
                                             <TableCell align="left">{user.year}</TableCell>
                                             <TableCell align="left">{userPostsCount[user.userId]}</TableCell>
                                             <TableCell align="left">{userRepliesCount[user.username]}</TableCell>
+                                            <TableCell align="left">{user.points == 0.5 ? 0.25 : user.points == 1 ? 0.5 : user.points == 0 ? 0 : Math.log2(user.points).toFixed(4)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
