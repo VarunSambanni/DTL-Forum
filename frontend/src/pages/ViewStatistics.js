@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { TextField, Button, MenuItem, Grid, Checkbox } from '@mui/material';
 import Select from '@mui/material/Select';
 import { ToastContainer, toast } from 'react-toastify';
-import NavbarForum from '../components/NavbarForum';
 import '../index.css'
 import LinearProgress from '@mui/material/LinearProgress';
-import CircularProgress from '@mui/material/CircularProgress';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout';
@@ -30,8 +28,8 @@ const ViewStatistics = () => {
     const [stats, setStats] = useState([]);
     const [userPostsCount, setUserPostsCount] = useState({}); // userId -> count
     const [userRepliesCount, setUserRepliesCount] = useState({}); // username -> count
-    const [sortValue, setSortValue] = useState('Posts');
     const [usersList, setUsersList] = useState([]);
+    const [sortValue, setSortValue] = useState('Posts');
 
     if (localStorage.getItem("lineChartData") === null) {
         localStorage.setItem("lineChartData", JSON.stringify([]));
@@ -140,16 +138,9 @@ const ViewStatistics = () => {
                 console.log("lineChartData ", lineChartData);
                 setUserPostsCount(userPostsCount);
                 setUserRepliesCount(userRepliesCount);
-                data.data[0].sort((a, b) => {
-                    if (userPostsCount[a.userId] > userPostsCount[b.userId]) {
-                        return -1;
-                    }
-                    if (userPostsCount[a.userId] < userPostsCount[b.userId]) {
-                        return 1;
-                    }
-                    return 0;
-                })
                 setUsersList(data.data[0]);
+                console.log("ok ", usersList);
+
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
@@ -162,10 +153,11 @@ const ViewStatistics = () => {
             })
     }, []);
 
-    const userListSortHandler = (e) => {
-        setSortValue(e.target.value);
-        if (sortValue === 'Replies') { // Works opposite
-            usersList.sort((a, b) => {
+    useEffect(() => {
+        console.log("Current SortValue : ", sortValue);
+        const tempUsersList = usersList
+        if (sortValue === 'Posts') { // Works opposite
+            tempUsersList.sort((a, b) => {
                 if (userPostsCount[a.userId] > userPostsCount[b.userId]) {
                     return -1;
                 }
@@ -175,8 +167,19 @@ const ViewStatistics = () => {
                 return 0;
             })
         }
+        else if (sortValue === "Score") {
+            tempUsersList.sort((a, b) => {
+                if (a.points > b.points) {
+                    return -1;
+                }
+                if (a.points < b.points) {
+                    return 1;
+                }
+                return 0;
+            })
+        }
         else {
-            usersList.sort((a, b) => {
+            tempUsersList.sort((a, b) => {
                 if (userRepliesCount[a.username] > userRepliesCount[b.username]) {
                     return -1;
                 }
@@ -186,6 +189,11 @@ const ViewStatistics = () => {
                 return 0;
             })
         }
+        setUsersList(tempUsersList);
+    }, [sortValue]);
+
+    const sortValueHandler = (event) => {
+        setSortValue(event.target.value);
     }
 
     return <>
@@ -238,12 +246,14 @@ const ViewStatistics = () => {
 
                 <div classname="usersList">
                     <p className='subtitle'>Users List</p>
+
                     <div className='searchContainer'>
                         <div>Sort By : &nbsp;</div>
-                        <Select size='small' sx={{ marginTop: '-0.6em', minWidth: '5em', maxHeight: '2.5em', alignSelf: 'center' }} value={sortValue} onChange={userListSortHandler} >
-                            <MenuItem value={'Posts'}>Posts</MenuItem>
-                            <MenuItem value={'Replies'}>Replies</MenuItem>
-                        </Select>
+                        <select value={sortValue} onChange={sortValueHandler}>
+                            <option value="Posts" >Posts</option>
+                            <option value="Score" >Score</option>
+                            <option value="Replies">Replies</option>
+                        </select>
                     </div>
                     {usersList.length > 0 &&
                         <TableContainer component={Paper}>
