@@ -9,6 +9,7 @@ import TopPosts from './TopPosts';
 import UserInfo from './UserInfo';
 import Announcements from './Announcements';
 import { CircularProgress } from '@mui/material';
+import Polls from './Polls';
 
 function MainLoggedIn() {
     document.title = 'mainLoggedIn - Interax';
@@ -77,6 +78,9 @@ function MainLoggedIn() {
                         </Route>
                         <Route exact path='/mainLoggedIn/topPosts'>
                             <TopPosts></TopPosts>
+                        </Route>
+                        <Route exact path='/mainLoggedIn/polls'>
+                            <Polls></Polls>
                         </Route>
                         <Route exact path='/mainLoggedIn/userInfo'>
                             <UserInfo isAdmin={false}></UserInfo>

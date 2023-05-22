@@ -939,3 +939,51 @@ td {
   color: rgb(29, 29, 173);
   transition: 0.4s;
 }
+
+.addPollContainer{
+  border-bottom: 1px solid black;
+}
+
+.pollContainer{
+  border: 1px solid black;
+  margin: 0.4em 0em;
+}
+
+.pollQuestion{
+  border-bottom: 1px solid black;
+  padding: 0.2em;
+  background-color: #444ae4;
+  color:white
+}
+
+.pollGraph{
+  display: flex;
+  justify-content: center;
+}
+
+.pollTimeContainer{
+  padding: 0.2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pollTime{
+  background-color: rgb(44, 44, 248);
+  color: white;
+  padding: 0.2em;
+  border-radius: 0.2em;
+}
+
+.totalVotes{
+  background-color: #070db1;
+  color:white;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+}
+
+.optionsRadioButton{  
+  border: 1px solid black;
+  display: flex;
+  justify-content: left;
+  font-size: 0.9rem;
+}

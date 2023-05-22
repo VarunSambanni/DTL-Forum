@@ -10,6 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
+import PollIcon from '@mui/icons-material/Poll';
 
 
 const AdminHome = () => {
@@ -34,8 +35,8 @@ const AdminHome = () => {
             <div className='pageHeading'>Admin Home </div>
             <div className='postsWrapper'>
                 <div className='adminMenu'>
-                    <Grid container>
-                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Grid container sx={{ display: 'flex', justifyContent: 'space-between', }}>
+                        <Grid item md={3} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div className='adminMenuOption'>
                                 <div className='adminOptionContainer'>
                                     <AnnouncementIcon
@@ -49,7 +50,7 @@ const AdminHome = () => {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item md={3} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div className='adminMenuOption'>
                                 <div className='adminOptionContainer'>
                                     <AddCommentIcon
@@ -63,7 +64,7 @@ const AdminHome = () => {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item md={3} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div className='adminMenuOption'>
                                 <div className='adminOptionContainer'>
                                     <AnalyticsIcon
@@ -73,6 +74,19 @@ const AdminHome = () => {
                                     <p className='optionText'>
                                         <p className='innnerOptionText'>View</p>
                                         <p className='innnerOptionText'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statistics&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                    </p>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item md={3} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <div className='adminMenuOption'>
+                                <div className='adminOptionContainer'>
+                                    <PollIcon
+                                        sx={{ transform: 'scale(2.5)', margin: '0.075em 0', height: 'fit-content', padding: '0.9em' }}
+                                        onClick={() => window.location.replace('/mainLoggedInAdmin/polls')}>
+                                    </PollIcon>
+                                    <p className='optionText'>
+                                        <p className='innnerOptionText' >&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; Polls &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                     </p>
                                 </div>
                             </div>

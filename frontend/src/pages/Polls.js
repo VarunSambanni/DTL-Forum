@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button, Grid, Radio } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import Post from '../components/Post';
 import NavbarForum from '../components/NavbarForum';
@@ -9,6 +9,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from '../utils/Logout'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Linkify from 'react-linkify'
+import ReactMarkdown from "react-markdown";
+import SearchIcon from '@mui/icons-material/Search';
 import ForumIcon from '@mui/icons-material/Forum';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -16,39 +19,71 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import PollIcon from '@mui/icons-material/Poll';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Poll from '../components/Poll';
 
-const YourPosts = () => {
-    document.title = 'Your Posts - Interax';
-    const [yourPosts, setYourPosts] = useState([]);
+let mainPolls;
+
+
+const Polls = () => {
+    document.title = 'Polls - Interax';
+
+    const [polls, setPolls] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [yourPostsUpdate, setYourPostsUpdate] = useState(false);
+    const [searchInput, setSearchInput] = useState();
     const [showDrawer, setShowDrawer] = useState(true);
+    const [pollsUpdate, setPollsUpdate] = useState(false);
+
+    const searchHandler = () => {
+        let searchResults = [];
+        if (searchInput.trim().length === 0) {
+            setPolls(mainPolls);
+            return;
+        }
+        for (let i = 0; i < mainPolls.length; i++) {
+            if (mainPolls[i].question.toLowerCase().match(RegExp(searchInput.toLowerCase())) !== null) {
+                searchResults.push(mainPolls[i]);
+            }
+        }
+        setPolls(searchResults);
+    }
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('https://dtlforum-backend.vercel.app/yourPosts', {
-            method: "POST",
+        fetch('https://dtlforum-backend.vercel.app/getPollsUsers', {
+            method: "GET",
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
                 'x-access-token': localStorage.getItem('token')
-            },
-            body: JSON.stringify({ username: localStorage.getItem('username'), email: localStorage.getItem('email'), userId: localStorage.getItem('userId'), year: localStorage.getItem('year') })
+            }
         })
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 if (data.success === false) {
                     toast.error(data.msg, { autoClose: 4000 });
+                    //window.location.replace('https://interax.netlify.app/adminLogin');
                 }
-                setYourPosts(data.posts);
+                data.polls.reverse();
+                let tempPolls = [];
+                for (let i = 0; i < data.polls.length; i++) {
+                    let pollData = [];
+                    let totalVotes = 0;
+                    for (let j = 0; j < data.polls[i].options.length; j++) {
+                        totalVotes += data.polls[i].votes[j];
+                        pollData.push({ option: data.polls[i].options[j], votes: data.polls[i].votes[j] });
+                    }
+                    tempPolls.push({ data: pollData, time: data.polls[i].time, question: data.polls[i].question, totalVotes: totalVotes, pollId: data.polls[i].pollId });
+                }
+                mainPolls = tempPolls;
+                setPolls(tempPolls);
             })
             .catch(err => {
                 setIsLoading(false);
                 console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
-    }, [yourPostsUpdate]);
+    }, [pollsUpdate]);
 
     return <>
         <ToastContainer autoClose={4000} hideProgressBar={true} limit={1} closeButton={true} position={'top-right'}></ToastContainer>
@@ -89,17 +124,22 @@ const YourPosts = () => {
                         </ul>
                     </div>
                 </div>
+
             </Grid>
             <Grid item md={showDrawer ? 9.8 : 12} sm={12}>
                 <div className='forumWrapper'>
-                    <div className='pageHeading'>Your Posts</div>
+                    <div className='pageHeading'>Polls</div>
+                    <div className='searchContainer'>
+                        <input className='search' placeholder='Search' value={searchInput} onChange={(e) => {
+                            setSearchInput(e.target.value)
+                        }}></input>
+                        <button className='searchButton' onClick={searchHandler}><SearchIcon sx={{ marginBottom: '-0.2em' }} /></button>
+                    </div>
                     <div className='postsWrapper'>
-                        {yourPosts.length === 0 && <p className='centerText' style={{ fontSize: '1.2rem' }}>No posts yet</p>}
-                        {
-                            yourPosts.map((post, index) => {
-                                return <Post key={index} title={post.title} year={post.year} body={post.body} username={post.username} email={post.email} answers={post.answers} postId={post.postId} id={post._id} category={post.category} yourPostsFlag={true} upvotes={post.upvotes} time={post.time} yourPostsUpdate={yourPostsUpdate} setYourPostsUpdate={setYourPostsUpdate} />
-                            })
-                        }
+
+                        {polls.map((poll, i) => {
+                            return <Poll pollsUpdate={pollsUpdate} setPollsUpdate={setPollsUpdate} poll={poll} i={i}></Poll>
+                        })}
                     </div>
                 </div>
             </Grid>
@@ -107,4 +147,4 @@ const YourPosts = () => {
     </>
 }
 
-export default YourPosts;   
+export default Polls;   
