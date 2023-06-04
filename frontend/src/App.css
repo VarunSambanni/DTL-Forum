@@ -359,12 +359,13 @@ body {
   margin: 0.4em;
   display: flex;
   flex-direction: column;
-  min-height: 92vh;
+  min-height: 110vh;
+  max-height: 110vh;
   border: 1px solid black;
   background-color: rgb(255, 255, 255);
   overflow-y: none;
   overflow-x: auto;
-  max-height: 100vh;
+
 }
 .title {
   margin: 0em;
@@ -947,6 +948,7 @@ td {
 .pollContainer{
   border: 1px solid black;
   margin: 0.4em 0em;
+  background-color: #f4f4ff;
 }
 
 .pollQuestion{
@@ -963,6 +965,7 @@ td {
 
 .pollTimeContainer{
   padding: 0.2em;
+  font-size: 0.85rem;
   display: flex;
   justify-content: space-between;
 }

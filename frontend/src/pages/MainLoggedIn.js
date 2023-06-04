@@ -45,7 +45,7 @@ function MainLoggedIn() {
                 console.log("Error connecting to server from mainLoggedIn");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
-    }, [updatePage]);
+    }, []);
 
     return (
         <div className="App">

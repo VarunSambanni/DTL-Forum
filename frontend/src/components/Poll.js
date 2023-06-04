@@ -4,25 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import Post from '../components/Post';
 import NavbarForum from '../components/NavbarForum';
 import '../index.css'
-import LinearProgress from '@mui/material/LinearProgress';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Logout from '../utils/Logout'
-import { Link } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Linkify from 'react-linkify'
-import ReactMarkdown from "react-markdown";
-import SearchIcon from '@mui/icons-material/Search';
-import ForumIcon from '@mui/icons-material/Forum';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import AnnouncementIcon from '@mui/icons-material/Announcement';
-import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
-import PollIcon from '@mui/icons-material/Poll';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
-const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
+const Poll = ({ pollsUpdate, setPollsUpdate, poll, i, pollVoted }) => {
     const [selectedOption, setSelectedOption] = useState('');
 
 
@@ -44,7 +29,7 @@ const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
                     toast.error(data.msg, { autoClose: 4000 });
                 }
                 else {
-                    if (data.msg === "Vote Submitted") {
+                    if (data.success === true) {
                         setSelectedOption(e.target.value);
                         setPollsUpdate(!pollsUpdate);
                     }
@@ -56,7 +41,7 @@ const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
     return <>
         <div className='pollContainer'>
             <div className="pollQuestion">
-                {poll.question}
+                Question : {poll.question}
             </div>
             <div className="pollTimeContainer">
                 <div className="totalVotes">Total Votes : {poll.totalVotes}</div>
@@ -65,7 +50,7 @@ const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
             <div className="pollGraph">
                 <div>
                     <BarChart
-                        width={0.8 * window.screen.width}
+                        width={0.7 * window.screen.width}
                         height={0.4 * window.screen.height}
                         data={poll.data}
                         margin={{
@@ -84,7 +69,7 @@ const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
                 </div>
             </div>
             <div className="optionsRadioButtonsContainer">
-                {
+                {!pollVoted &&
                     poll.data.map((option, key) => {
                         return <div key={key} className="optionsRadioButton">
                             <Radio
@@ -98,6 +83,7 @@ const Poll = ({ pollsUpdate, setPollsUpdate, poll, i }) => {
                         </div>
                     })
                 }
+                {pollVoted && <div className='centerText'><b>Poll has been answered </b></div>}
             </div>
         </div>
     </>

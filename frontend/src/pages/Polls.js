@@ -50,6 +50,7 @@ const Polls = () => {
     }
 
     useEffect(() => {
+        console.log("useEffect")
         setIsLoading(true);
         fetch('https://dtlforum-backend.vercel.app/getPollsUsers', {
             method: "GET",
@@ -64,6 +65,7 @@ const Polls = () => {
                     toast.error(data.msg, { autoClose: 4000 });
                     //window.location.replace('https://interax.netlify.app/adminLogin');
                 }
+
                 data.polls.reverse();
                 let tempPolls = [];
                 for (let i = 0; i < data.polls.length; i++) {
@@ -73,9 +75,10 @@ const Polls = () => {
                         totalVotes += data.polls[i].votes[j];
                         pollData.push({ option: data.polls[i].options[j], votes: data.polls[i].votes[j] });
                     }
-                    tempPolls.push({ data: pollData, time: data.polls[i].time, question: data.polls[i].question, totalVotes: totalVotes, pollId: data.polls[i].pollId });
+                    tempPolls.push({ data: pollData, time: data.polls[i].time, question: data.polls[i].question, totalVotes: totalVotes, pollId: data.polls[i].pollId, usersVoted: data.polls[i].usersVoted });
                 }
                 mainPolls = tempPolls;
+                console.log(mainPolls);
                 setPolls(tempPolls);
             })
             .catch(err => {
@@ -108,7 +111,7 @@ const Polls = () => {
                     <ul className="drawerLinks">
                         <li className="drawerLink"><Link to='/mainLoggedIn/forum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Forum " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Forum " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<ForumIcon sx={{ margin: '-0.2em 0.2em' }} />Forum</div></Link></li>
                         <li className="drawerLink"><Link to='/mainLoggedIn/announcements' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Announcements " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Announcements " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<AnnouncementIcon sx={{ margin: '-0.2em 0.2em' }} />Announcements</div></Link></li>
-                        <li className="drawerLink"><Link to='/mainLoggedIn/polls' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Polls " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "User Info " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<PollIcon sx={{ margin: '-0.2em 0.2em' }} />Polls</div></Link></li>
+                        <li className="drawerLink"><Link to='/mainLoggedIn/polls' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Polls " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Polls " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<PollIcon sx={{ margin: '-0.2em 0.2em' }} />Polls</div></Link></li>
                         <li className="drawerLink"><Link to='/mainLoggedIn/postForum' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Post Forum " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Post Forum " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<PostAddIcon sx={{ margin: '-0.2em 0.2em' }} />Post</div></Link></li>
                         <li className="drawerLink"><Link to='/mainLoggedIn/yourPosts' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Your Posts " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Your Posts " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<AccountBoxIcon sx={{ margin: '-0.2em 0.2em' }} />Your Posts</div></Link></li>
                         <li className="drawerLink"><Link to='/mainLoggedIn/topPosts' style={{ textDecoration: 'none', color: `${document.title.split('-')[0] === "Top Posts " ? "black" : "#82009c"}` }}><div className="link">{document.title.split('-')[0] === "Top Posts " ? <span>➔</span> : <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}<LocalFireDepartmentIcon sx={{ margin: '-0.2em 0.2em' }} />Top Posts</div></Link></li>
@@ -138,7 +141,7 @@ const Polls = () => {
                     <div className='postsWrapper'>
 
                         {polls.map((poll, i) => {
-                            return <Poll pollsUpdate={pollsUpdate} setPollsUpdate={setPollsUpdate} poll={poll} i={i}></Poll>
+                            return <Poll pollsUpdate={pollsUpdate} setPollsUpdate={setPollsUpdate} poll={poll} i={i} pollVoted={poll.usersVoted.includes(localStorage.getItem('username'))}></Poll>
                         })}
                     </div>
                 </div>

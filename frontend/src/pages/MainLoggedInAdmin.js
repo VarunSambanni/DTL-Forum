@@ -42,7 +42,7 @@ function MainLoggedInAdmin() {
                 console.log("Error connecting to server");
                 toast.error("Error connecting to server", { autoClose: 4000 });
             })
-    }, [updatePage]);
+    }, []);
 
     return (
         <div className="App">
